@@ -15,10 +15,14 @@ public:
 	BlocksMap() : ptrblcks(nullptr), rows(0), columns(0) {}
 	// BlocksMap(int blockSize, int size) : ptrblcks(new Block**[size]) {} // provisional
 	~BlocksMap() { delete[] ptrblcks; }
-	void loadFile(int level);
+	void loadFile(int level, Texture* blocksTexture);
 	void render() const;
 	int numBlocks() const { return rows * columns; }
 	Block* returnBlock(int row, int col);
+	//Creo queeste funcion no va a valer
+
+
+
 };
 
 #endif 

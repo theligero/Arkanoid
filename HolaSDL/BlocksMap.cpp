@@ -1,7 +1,7 @@
 #include "BlocksMap.h"
 #include <fstream>
 
-void BlocksMap::loadFile(int level)
+void BlocksMap::loadFile(int level, Texture* blocksTexture)
 {
 	int Window_Height = 800;
 	int Window_Width = 600;
@@ -26,7 +26,7 @@ void BlocksMap::loadFile(int level)
 		ptrblcks[i] = new Block * [cols];
 		for (int j = 0; j < cols; ++j) {
 			input >> block;
-			ptrblcks[i][j] = new Block(Vector2D(blockPos.getX() * i, blockPos.getY() * j), );
+			ptrblcks[i][j] = new Block(Vector2D(blockPos.getX() * i, blockPos.getY() * j), blockPos.getX(), blockPos.getY(), block, blocksTexture);
 		}
 	}
 

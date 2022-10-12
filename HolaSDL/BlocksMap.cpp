@@ -23,7 +23,7 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture)
 
 	ptrblcks = new Block**[rows];
 	for (int i = 0; i < rows; ++i) {
-		ptrblcks[i] = new Block * [cols];
+		ptrblcks[i] = new Block*[cols];
 		for (int j = 0; j < cols; ++j) {
 			input >> block;
 			ptrblcks[i][j] = new Block(Vector2D(blockPos.getX() * i, blockPos.getY() * j), blockPos.getX(), blockPos.getY(), block, blocksTexture);

@@ -1,5 +1,4 @@
-#include "SDL.h"
-#include "SDL_image.h"
+#include "Game.h"
 #include "checkML.h"
 #include <iostream>
 
@@ -31,6 +30,7 @@ void firstTest() {
 }
 
 int main(int argc, char* argv[]){
-	firstTest();
+	Game juego;
+	juego.~Game();
 	return 0;
 }

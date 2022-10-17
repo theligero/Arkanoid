@@ -12,8 +12,9 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 // ¿DIMENSIONES DE LOS OBJETOS?
 const int FRAME_RATE = 60;
+const int NUM_TEXTURES = 8;
 
-enum Texturas { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, };
+enum Texturas { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN };
 
 class Game
 {
@@ -38,7 +39,7 @@ public:
 	void render();
 	void update();
 	void handleEvents();
-	void collides();
+	bool collides();
 };
 
 #endif /* GAME_H_ */

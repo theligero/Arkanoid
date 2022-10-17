@@ -1,11 +1,10 @@
 #include "Vector2D.h"
-#include <cmath>
 
-std::tuple<double> Vector2D::coor()
-{
-	double auxX = _x, auxY = _y;
-	// return std::make_tuple(auxX, auxY);
-}
+//std::tuple<double> Vector2D::coor()
+//{
+//	double auxX = _x, auxY = _y;
+//	// return std::make_tuple(auxX, auxY);
+//}
 
 Vector2D Vector2D::normalizeVector()
 {
@@ -27,6 +26,11 @@ Vector2D& Vector2D::operator-(const Vector2D& other)
 Vector2D& Vector2D::operator*(const Vector2D& other)
 {
 	return Vector2D(this->_x * other._x, this->_y * other._y);
+}
+
+Vector2D& Vector2D::operator+=(const Vector2D& other)
+{
+	return Vector2D(this->_x += other._x, this->_y += other._y);
 }
 
 double Vector2D::scalarProduct(const Vector2D& v1, const Vector2D& v2)

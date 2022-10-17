@@ -8,17 +8,19 @@ class Paddle
 {
 private:
 	Vector2D pos;
-	Vector2D dirVel;
+	Vector2D dir;
 	double width;
 	double height;
 	Texture* tex;
 
 public:
-	Paddle():pos(0,0),dirVel(0,0),width(0),height(0),tex(nullptr){}
-	Paddle(Vector2D newPos, Vector2D new_dirVel, double w, double h, Texture* t) : pos(newPos), dirVel(new_dirVel), width(w), height(h), tex(t){}
+	Paddle(): pos(0,0), dir(0,0), width(0), height(0), tex(nullptr) {}
+	Paddle(Vector2D pos, Vector2D dir, double w, double h, Texture* t) : 
+		pos(pos), dir(dir), width(w), height(h), tex(t){}
 
 	void render();
-
+	void update();
+	void handleEvents();
 };
 #endif
 

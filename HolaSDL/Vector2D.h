@@ -15,12 +15,13 @@ public:
 	double getX() const { return _x; };
 	double getY() const{ return _y; };
 
-	std::tuple<double> coor();
+	/*std::tuple<double> coor();*/
 	Vector2D normalizeVector();
 
 	Vector2D& operator+(const Vector2D& other);
 	Vector2D& operator-(const Vector2D& other);
 	Vector2D& operator*(const Vector2D& other);
+	Vector2D& operator+=(const Vector2D& other);
 	
 	double scalarProduct(const Vector2D& v1, const Vector2D& v2);
 	Vector2D& scalarMultiplication(const double scalar);

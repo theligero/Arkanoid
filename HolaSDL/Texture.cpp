@@ -11,8 +11,9 @@ void Texture::free() {
 }
 
 void Texture::load(string filename, uint nRows, uint nCols) {
-
-	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
+	std::string aux = "../images/";
+	aux += filename;
+	SDL_Surface* tempSurface = IMG_Load(aux.c_str());
 	if (tempSurface == nullptr) throw "Error loading surface from " + filename;
 	free();
 	texture = SDL_CreateTextureFromSurface(renderer, tempSurface);

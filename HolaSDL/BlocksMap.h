@@ -20,9 +20,6 @@ public:
 	int numBlocks() const { return rows * columns; }
 	Block* returnBlock(int row, int col);
 	//Creo queeste funcion no va a valer
-
-
-
 };
 
 #endif 

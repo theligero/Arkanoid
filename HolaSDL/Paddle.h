@@ -15,8 +15,8 @@ private:
 
 public:
 	Paddle(): pos(0,0), dir(0,0), width(0), height(0), tex(nullptr) {}
-	Paddle(Vector2D pos, Vector2D dir, double w, double h, Texture* t) : 
-		pos(pos), dir(dir), width(w), height(h), tex(t){}
+	Paddle(Vector2D pos, Texture* t) : 
+		pos(pos), dir(0, 0), tex(t) { width = t->getW(); height = t->getH(); }
 
 	void render();
 	void update();

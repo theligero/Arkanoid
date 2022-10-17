@@ -13,8 +13,25 @@ const int WINDOW_HEIGHT = 600;
 // ¿DIMENSIONES DE LOS OBJETOS?
 const int FRAME_RATE = 60;
 const int NUM_TEXTURES = 8;
+const int WALL_WIDTH = 15;
 
-enum Texturas { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN };
+
+typedef struct {
+	string filename;
+	int cols, rows;
+} TextureDescription;
+
+const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
+	{"ball2.png", 1, 1},
+	{"bricks2.png", 2, 3},
+	{"digits2.jpeg", 3, 4},
+	{"gameover1.png", 1, 1},
+	{"paddle2.png", 1, 1},
+	{"side2.png", 1, 1},
+	{"topside.png", 1, 1},
+	{"youwin.png", 1, 1}
+};
 
 class Game
 {
@@ -28,7 +45,7 @@ private:
 
 	Texture* arrayTex = nullptr;
 	BlocksMap* blocksMap = nullptr;
-	Wall* wall = nullptr;
+	Wall* walls[3];
 	Ball* ball = nullptr;
 	Paddle* player = nullptr;
 public:

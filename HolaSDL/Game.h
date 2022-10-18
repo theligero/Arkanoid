@@ -33,6 +33,8 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"youwin.png", 1, 1}
 };
 
+class Ball;
+
 class Game
 {
 private:

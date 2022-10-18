@@ -14,6 +14,7 @@ private:
 public:
 	BlocksMap() : ptrblcks(nullptr), rows(0), columns(0) {}
 	// BlocksMap(int blockSize, int size) : ptrblcks(new Block**[size]) {} // provisional
+	BlocksMap(int level, Texture* tex);
 	~BlocksMap() { delete[] ptrblcks; }
 	void loadFile(int level, Texture* blocksTexture);
 	void render() const;

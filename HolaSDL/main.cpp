@@ -31,6 +31,6 @@ void firstTest() {
 
 int main(int argc, char* argv[]){
 	Game juego;
-	juego.~Game();
+	juego.run();
 	return 0;
 }

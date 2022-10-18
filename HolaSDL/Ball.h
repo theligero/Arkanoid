@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "Game.h"
 
+class Game;
+
 class Ball
 {
 private:
@@ -18,6 +20,8 @@ public:
 	Ball() : pos(0, 0), width(0), height(0), dir(0, 0), tex(nullptr), game(nullptr) {}
 	Ball(Vector2D pos, Vector2D dir, Texture* tex, Game* game) : 
 		pos(pos), dir(dir), tex(tex), game(game) { width = tex->getW(); height = tex->getH(); }
+	Ball(Vector2D pos, int w, int h, Vector2D dir, Texture* tex, Game* game) :
+		pos(pos), dir(dir), tex(tex), game(game), width(w), height(h) {}
 	void render();
 	void update();
 };

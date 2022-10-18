@@ -1,25 +1,5 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (HolaSDL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  Ball.cpp
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Game.h(49,6): error C2143: error de sintaxis: falta ';' delante de '*'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Game.h(49,6): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Game.h(49,22): error C2238: símbolos (token) inesperados delante de ';'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(6,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(6,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+﻿c:\software\programacion\MSVStudio2022\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (HolaSDL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
+  BlocksMap.cpp
   Game.cpp
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,6): error C2143: error de sintaxis: falta ';' delante de '*'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,6): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,12): error C2238: símbolos (token) inesperados delante de ';'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(19,49): error C2061: error de sintaxis: identificador 'Game'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(18,68): error C2614: 'Ball': inicialización de miembro no válida: 'game' no es una base o miembro
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(20,38): error C2065: 'game': identificador no declarado
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(20,33): error C2614: 'Ball': inicialización de miembro no válida: 'game' no es una base o miembro
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Game.cpp(29,75): error C2661: 'Ball::Ball': ninguna función sobrecargada acepta 4 argumentos
-  main.cpp
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,6): error C2143: error de sintaxis: falta ';' delante de '*'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,6): error C4430: falta el especificador de tipo; se presupone int. Nota: C++ no admite default-int
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(16,12): error C2238: símbolos (token) inesperados delante de ';'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(19,49): error C2061: error de sintaxis: identificador 'Game'
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(18,68): error C2614: 'Ball': inicialización de miembro no válida: 'game' no es una base o miembro
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(20,38): error C2065: 'game': identificador no declarado
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.h(20,33): error C2614: 'Ball': inicialización de miembro no válida: 'game' no es una base o miembro
   Generando código...
+  HolaSDL.vcxproj -> U:\hlocal\Arkanoid\bin\ArkanoidDebug.exe

@@ -8,6 +8,9 @@
 #include "Ball.h"
 #include "Paddle.h"
 
+
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
 // ¿DIMENSIONES DE LOS OBJETOS?
 const int FRAME_RATE = 60;
 const int NUM_TEXTURES = 8;

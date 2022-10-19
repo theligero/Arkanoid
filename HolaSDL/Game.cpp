@@ -13,13 +13,13 @@ Game::Game()
 		const TextureDescription& desc = TEXT_DESCR[i];
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
-	blocksMap = new BlocksMap(12, arrayTex[BRICKS]);
+	blocksMap = new BlocksMap(1, arrayTex[BRICKS]);
 	// wall = new Wall(Vector2D(0, 0), arrayTex[WALL]); mejor array de muros?
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE]);
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
 	ball = new Ball(Vector2D(100, 100),20,20, Vector2D(0, 1), arrayTex[BALL], this);
-	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT -50), 150,15 , arrayTex[PADDLE]);
+	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT -50), 150, 15, arrayTex[PADDLE]);
 }
 
 Game::~Game()

@@ -9,16 +9,17 @@ BlocksMap::BlocksMap(int level, Texture* tex)
 
 void BlocksMap::loadFile(int level, Texture* blocksTexture)
 {
-	int Window_Height = 800;
-	int Window_Width = 600;
+	// int WINDOW_HEIGHT = SDL_GetSize
+	int Window_Height = 600;
+	int Window_Width = 800;
 	Vector2D blockPos;
 	Vector2D blockTam;
 
-	fstream input; std::string aux;
-	if (level < 10) aux = "../maps/level0" + std::to_string(level);
-	else aux = "../maps/level" + std::to_string(level);
+	fstream input; 
+	std::string aux = "../maps/level";
 
-	aux += ".dat";
+	if (level < 10) aux += "0";
+	aux += std::to_string(level) + ".dat";
 
 	input.open(aux);
 	if (!input.is_open()) throw "Error loading texture from " + aux;
@@ -27,20 +28,18 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture)
 
 	input >> rows >> columns;
 
-	blockPos = Vector2D(Window_Width / columns, (Window_Height - 100) / rows);
-	blockTam = Vector2D((Window_Width - 30) / columns, (Window_Height - 200) / rows);
+	blockTam = Vector2D((Window_Width - 30), (Window_Height - 200));
+	blockPos = Vector2D(blockTam.getX() / columns, blockTam.getY() / rows);
 
 	ptrblcks = new Block**[rows];
 	for (int i = 0; i < rows; ++i) {
 		ptrblcks[i] = new Block*[columns];
 		for (int j = 0; j < columns; ++j) {
 			input >> block;
-			ptrblcks[i][j] = new Block(Vector2D(blockPos.getX() * i, blockPos.getY() * j), 
-				blockTam.getX(), blockTam.getY(), block, blocksTexture);
+			ptrblcks[i][j] = new Block(Vector2D(15 + (blockPos.getX() * j), 15 + (blockPos.getY() * i)), 
+				blockPos.getX(), blockPos.getY(), block, blocksTexture);
 		}
 	}
-	
-
 
 	input.close();
 }

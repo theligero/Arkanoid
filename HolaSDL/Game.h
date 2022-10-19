@@ -24,7 +24,7 @@ typedef struct {
 
 const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"ball2.png", 1, 1},
-	{"bricks2.png", 2, 3},
+	{"bricks2.png", 3, 2},
 	{"digits2.jpeg", 3, 4},
 	{"gameover1.png", 1, 1},
 	{"paddle2.png", 1, 1},

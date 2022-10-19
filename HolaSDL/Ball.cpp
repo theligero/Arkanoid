@@ -11,7 +11,9 @@ void Ball::render()
 
 void Ball::update()
 {
-	if (game->collides()) 
-		dir = Vector2D(- dir.getX(), - dir.getY());
+	if (std::get<0>(game->collides(pos))) {
+		Vector2D aux = std::get<1>(game->collides(pos));
+		dir = dir - Vector2D(dir * aux).scalarMultiplication(2) * aux;
+	}
 	pos += dir;
 }

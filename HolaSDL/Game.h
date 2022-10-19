@@ -11,8 +11,8 @@
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
-// ¿DIMENSIONES DE LOS OBJETOS?
-const int FRAME_RATE = 60;
+// ¿A MÁS FRAME_RATE MENOS FRAMES?
+const int FRAME_RATE = 10;
 const int NUM_TEXTURES = 8;
 const int WALL_WIDTH = 15;
 
@@ -69,7 +69,7 @@ public:
 	// controlador de eventos
 	void handleEvents();
 	// colisión de objetos
-	bool collides();
+	std::tuple<bool, Vector2D> collides(Vector2D ball);
 };
 
 #endif /* GAME_H_ */

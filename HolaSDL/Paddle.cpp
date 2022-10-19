@@ -28,14 +28,29 @@ void Paddle::handleEvents()
 
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-		case SDLK_RIGHT:
-			dir = Vector2D(1, 0);
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.sym) {
+			case SDLK_RIGHT:
+				dir = Vector2D(10, 0);
+				break;
+			case SDLK_LEFT:
+				dir = Vector2D(-10, 0);
+				break;
+			default:
+				break;
+			}
 			break;
-		case SDLK_LEFT:
-			dir = Vector2D(-1, 0);
+		case SDL_KEYUP:
+			switch (event.key.keysym.sym) {
+			case SDLK_RIGHT:
+				if (dir.getX() > 0) dir = Vector2D(0, 0);
+			case SDLK_LEFT:
+				if (dir.getX() < 0) dir = Vector2D(0, 0);
+			default:
+				break;
+			}
 			break;
 		default:
-			dir = Vector2D(0, 0);
 			break;
 		}
 	}

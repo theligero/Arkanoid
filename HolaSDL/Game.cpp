@@ -17,8 +17,8 @@ Game::Game()
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE]);
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
-	ball = new Ball(Vector2D(100, 100),20,20, Vector2D(0, 1), arrayTex[BALL], this);
-	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT -50), 150, 15, arrayTex[PADDLE]);
+	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
+	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 100), 20, 20, Vector2D(0, 1), arrayTex[BALL], this);
 }
 
 Game::~Game()
@@ -87,7 +87,11 @@ void Game::handleEvents()
 	player->handleEvents();
 }
 
-bool Game::collides()
+std::tuple<bool, Vector2D> Game::collides(Vector2D aux)
 {
-	return false;
+	// comprobación de colisión con todos los obj
+	Vector2D pos(0, 0);
+	
+	std::tuple<bool, Vector2D> tupla{ false, pos };
+	return tupla;
 }

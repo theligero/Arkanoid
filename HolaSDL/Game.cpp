@@ -13,8 +13,7 @@ Game::Game()
 		const TextureDescription& desc = TEXT_DESCR[i];
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
-	blocksMap = new BlocksMap(1, arrayTex[BRICKS]);
-	// wall = new Wall(Vector2D(0, 0), arrayTex[WALL]); mejor array de muros?
+	blocksMap = new BlocksMap(1, arrayTex[BRICKS], window);
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE]);
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);

@@ -8,16 +8,21 @@ using PointerBlocks = Block***;
 class BlocksMap
 {
 private:
-	PointerBlocks ptrblcks;
-	int rows;
-	int columns;
+	PointerBlocks ptrblcks; // punteros a bloques
+	int rows; // filas
+	int columns; // columnas
 public:
+	// constructor por defecto
 	BlocksMap() : ptrblcks(nullptr), rows(0), columns(0) {}
-	// BlocksMap(int blockSize, int size) : ptrblcks(new Block**[size]) {} // provisional
-	BlocksMap(int level, Texture* tex);
+	// constructor con un entero nivel, un puntero a su textura y a la ventana
+	BlocksMap(int level, Texture* tex, SDL_Window* window) { loadFile(level, tex, window); }
+	// destructor
 	~BlocksMap() { delete[] ptrblcks; }
-	void loadFile(int level, Texture* blocksTexture);
+	// carga de archivo
+	void loadFile(int level, Texture* blocksTexture, SDL_Window* win);
+	// renderizado
 	void render() const;
+	// entero con el número actual de bloques
 	int numBlocks() const { return rows * columns; }
 	Block* returnBlock(int row, int col);
 	//Creo queeste funcion no va a valer

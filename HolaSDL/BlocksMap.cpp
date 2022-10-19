@@ -2,16 +2,11 @@
 #include <fstream>
 #include <iostream>
 
-BlocksMap::BlocksMap(int level, Texture* tex)
+void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 {
-	loadFile(level, tex);
-}
+	int height, width;
+	SDL_GetWindowSize(window, &width, &height);
 
-void BlocksMap::loadFile(int level, Texture* blocksTexture)
-{
-	// int WINDOW_HEIGHT = SDL_GetSize
-	int Window_Height = 600;
-	int Window_Width = 800;
 	Vector2D blockPos;
 	Vector2D blockTam;
 
@@ -27,8 +22,9 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture)
 	int block;
 
 	input >> rows >> columns;
+	
 
-	blockTam = Vector2D((Window_Width - 30), (Window_Height - 200));
+	blockTam = Vector2D((width - 30), (height - 200));
 	blockPos = Vector2D(blockTam.getX() / columns, blockTam.getY() / rows);
 
 	ptrblcks = new Block**[rows];

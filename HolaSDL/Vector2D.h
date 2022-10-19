@@ -6,24 +6,34 @@
 class Vector2D
 {
 private:
-	double _x;
-	double _y;
+	double x; // coordenada x
+	double y; // coordenada y
 public:
-	Vector2D() : _x(0), _y(0) {}
-	Vector2D(double x, double y) : _x(x), _y(y) {}
+	// constructor por defecto
+	Vector2D() : x(0), y(0) {}
+	// constructor con parámetros x e y
+	Vector2D(double _x, double _y) : x(_x), y(_y) {}
 
-	double getX() const { return _x; };
-	double getY() const{ return _y; };
+	// double que devuelve la x
+	double getX() const { return x; };
+	// double que devuelve la y
+	double getY() const{ return y; };
 
-	/*std::tuple<double> coor();*/
+	// normalización de mi vector
 	Vector2D normalizeVector();
 
+	// operador suma
 	Vector2D& operator+(const Vector2D& other);
+	// operador resta
 	Vector2D& operator-(const Vector2D& other);
+	// operador multiplicar
 	Vector2D& operator*(const Vector2D& other);
+	// operador suma adicional
 	Vector2D& operator+=(const Vector2D& other);
 	
+	// producto escalar de dos vectores
 	double scalarProduct(const Vector2D& v1, const Vector2D& v2);
+	// vector multiplicación escalar
 	Vector2D& scalarMultiplication(const double scalar);
 };
 

@@ -12,8 +12,9 @@ private:
 	int height; // alto
 	Texture* tex; // puntero a textura
 public:
-	Wall() : pos(0, 0), width(0), height(0), tex(nullptr) {} // constructor vacío
-	Wall(Vector2D pos, Texture* tex) : pos(pos), tex(tex) { width = tex->getW(); height = tex->getH(); }
+	// constructor por defecto
+	Wall() : pos(0, 0), width(0), height(0), tex(nullptr) {}
+	// constructor con su posición, ancho, alto y puntero a textua como parámetros
 	Wall(Vector2D pos, int width, int height, Texture* tex) : pos(pos), width(width), height(height), tex(tex) {}
 	// renderizado
 	void render() const;

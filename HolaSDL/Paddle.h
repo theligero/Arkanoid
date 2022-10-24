@@ -26,6 +26,8 @@ public:
 	void update();
 	// controlador de eventos
 	void handleEvents();
+	// colisión
+	bool collides(SDL_Rect ball) const;
 };
 #endif
 

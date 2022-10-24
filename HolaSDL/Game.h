@@ -69,7 +69,7 @@ public:
 	// controlador de eventos
 	void handleEvents();
 	// colisión de objetos
-	std::tuple<bool, Vector2D> collides(Vector2D ball);
+	bool collides(SDL_Rect pos, Vector2D& normal);
 };
 
 #endif /* GAME_H_ */

@@ -14,11 +14,11 @@ Game::Game()
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
 	blocksMap = new BlocksMap(1, arrayTex[BRICKS], window);
-	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
-	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE]);
-	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE]);
+	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
+	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
+	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
 	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
-	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 100), 20, 20, Vector2D(0, 1), arrayTex[BALL], this);
+	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 100), 20, 20, Vector2D(-1, -1), arrayTex[BALL], this);
 }
 
 Game::~Game()
@@ -87,11 +87,20 @@ void Game::handleEvents()
 	player->handleEvents();
 }
 
-std::tuple<bool, Vector2D> Game::collides(Vector2D aux)
+bool Game::collides(SDL_Rect ball, Vector2D& normal)
 {
+	// paredes
+	for (int k = 0; k < 3; ++k) {
+		if (walls[k]->collides(ball, normal))
+			return true;
+	}
+	// jugador
+	if (player->collides(ball)) return true;
+	// bloques
+	// for (int i = 0; i < blocksMap->)
+
+
+	return false;
 	// comprobación de colisión con todos los obj
-	Vector2D pos(0, 0);
-	
-	std::tuple<bool, Vector2D> tupla{ false, pos };
-	return tupla;
+	// Vector2D pos(0, 0);
 }

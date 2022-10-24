@@ -40,6 +40,8 @@ public:
 	{ col = TYPE_BLOCK[numBlock].col; row = TYPE_BLOCK[numBlock].row; }
 	// renderizado
 	void render() const;
+	// colisión
+	bool collides(SDL_Rect ball) const;
 };
 
 #endif /* BLOCK_H_ */

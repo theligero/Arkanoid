@@ -1,9 +1,1 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(513,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (HolaSDL.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  Ball.cpp
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(6,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(6,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-  BlocksMap.cpp
-  Game.cpp
-  main.cpp
-  Generando código...
-  HolaSDL.vcxproj -> C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\bin\ArkanoidDebug.exe
+﻿

@@ -65,13 +65,18 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 	dest.x = pos.getX(); dest.y = pos.getY();
 
 	double aux = (ball.x - dest.x);
+	double y = (aux / 75.0);
+	double x = y - 1;
 
 	if (aux >= 0 && aux < width) {
-		if (aux > width / 2.0) { aux = - (aux / 75.0); aux += 2; }
-		else aux = aux / 75.0;
+		if (aux > width / 2.0) { y = -y; y += 2; }
 	}
-	else aux = 0;
-	normal = Vector2D(((ball.x - dest.x) / 75.0) - 1, aux);
+	else {
+		y = 0;
+		if (aux < 0) x = - 1;
+		else if (aux > width) x = 1;
+	}
+	normal = Vector2D(x, y);
 
 	return SDL_HasIntersection(&dest, &ball);
 }

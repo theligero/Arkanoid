@@ -97,9 +97,7 @@ bool Game::collides(SDL_Rect ball, Vector2D& normal)
 	// jugador
 	if (player->collides(ball, normal)) return true;
 	// bloques
-	//for (int i : blocksMap) {
-
-	//}
+	if (blocksMap->returnBlock(Vector2D(ball.x, ball.y))->collides(ball, normal)) return true;
 
 
 	return false;

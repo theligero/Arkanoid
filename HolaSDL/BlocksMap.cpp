@@ -32,8 +32,9 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 		ptrblcks[i] = new Block*[columns];
 		for (int j = 0; j < columns; ++j) {
 			input >> block;
-			ptrblcks[i][j] = new Block(Vector2D(15 + (blockPos.getX() * j), 15 + (blockPos.getY() * i)), 
+			if (blocksTexture != 0) ptrblcks[i][j] = new Block(Vector2D(15 + (blockPos.getX() * j), 15 + (blockPos.getY() * i)),
 				blockPos.getX(), blockPos.getY(), block, blocksTexture);
+			else ptrblcks[i][j] == nullptr;
 		}
 	}
 
@@ -49,7 +50,7 @@ void BlocksMap::render() const
 	}
 }
 
-Block* BlocksMap::returnBlock(int row, int col)
+Block* BlocksMap::returnBlock(Vector2D pos) const
 {
-	return ptrblcks[row][col];
+	return ptrblcks[0][0];
 }

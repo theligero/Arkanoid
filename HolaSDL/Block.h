@@ -41,7 +41,7 @@ public:
 	// renderizado
 	void render() const;
 	// colisión
-	bool collides(SDL_Rect ball) const;
+	bool collides(SDL_Rect ball, Vector2D& normal) const;
 };
 
 #endif /* BLOCK_H_ */

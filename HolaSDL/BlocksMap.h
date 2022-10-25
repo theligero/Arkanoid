@@ -24,8 +24,7 @@ public:
 	void render() const;
 	// entero con el número actual de bloques
 	int numBlocks() const { return rows * columns; }
-	Block* returnBlock(int row, int col);
-	//Creo queeste funcion no va a valer
+	Block* returnBlock(Vector2D pos) const;
 };
 
 #endif 

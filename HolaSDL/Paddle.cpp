@@ -57,12 +57,21 @@ void Paddle::handleEvents()
 	}
 }
 
-bool Paddle::collides(SDL_Rect ball) const
+bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 {
 	SDL_Rect dest;
 
 	dest.w = width; dest.h = height;
 	dest.x = pos.getX(); dest.y = pos.getY();
+
+	double aux = (ball.x - dest.x);
+
+	if (aux >= 0 && aux < width) {
+		if (aux > width / 2.0) { aux = - (aux / 75.0); aux += 2; }
+		else aux = aux / 75.0;
+	}
+	else aux = 0;
+	normal = Vector2D(((ball.x - dest.x) / 75.0) - 1, aux);
 
 	return SDL_HasIntersection(&dest, &ball);
 }

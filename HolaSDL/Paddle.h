@@ -27,7 +27,7 @@ public:
 	// controlador de eventos
 	void handleEvents();
 	// colisión
-	bool collides(SDL_Rect ball) const;
+	bool collides(SDL_Rect ball, Vector2D& normal) const;
 };
 #endif
 

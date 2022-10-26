@@ -8,7 +8,7 @@
 
 Vector2D Vector2D::normalizeVector()
 {
-	int mod = (this->x * this->x) + (this->y * this->y);
+	double mod = (this->x * this->x) + (this->y * this->y);
 	mod = sqrt(mod);
 	return Vector2D(this->x / mod, this->y / mod);
 }

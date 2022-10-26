@@ -17,7 +17,9 @@ void Ball::update()
 
 	Vector2D normal(1, 1);
 
-	if (game->collides(dest, normal))
+	if (game->collides(dest, normal)) {
 		dir = dir - normal * Vector2D(dir * normal).scalarMultiplication(2);
+		dir.normalizeVector();
+	}
 	pos += dir;
 }

@@ -65,7 +65,7 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 	dest.w = width; dest.h = height;
 	dest.x = pos.getX(); dest.y = pos.getY();
 
-	double aux = (double)ball.x - dest.x;
+	double aux = ((double)ball.x - dest.x) + ball.w / 2;
 	double x;
 	double y;
 
@@ -84,6 +84,7 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 		std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
 
 		normal = Vector2D(x, y);
+		// normal.normalizeVector();
 
 		return true;
 	}

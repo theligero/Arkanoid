@@ -33,6 +33,11 @@ Vector2D& Vector2D::operator+=(const Vector2D& other)
 	return Vector2D(this->x += other.x, this->y += other.y);
 }
 
+Vector2D& Vector2D::operator*(const int& other)
+{
+	return Vector2D(this->x * other, this->y * other);
+}
+
 double Vector2D::scalarProduct(const Vector2D& v1, const Vector2D& v2)
 {
 	/*int mod1, mod2, sol;
@@ -42,13 +47,12 @@ double Vector2D::scalarProduct(const Vector2D& v1, const Vector2D& v2)
 
 	sol = mod1 * mod2 * cos(angle);*/
 
-	int suma1, suma2, sol;
+	double suma1, suma2;
 
 	suma1 = v1.x * v2.x;
 	suma2 = v1.y * v2.y;
-	sol = suma1 + suma2;
 
-	return sol;
+	return suma1 + suma2;
 }
 
 Vector2D& Vector2D::scalarMultiplication(const double scalar)

@@ -30,6 +30,10 @@ public:
 	Vector2D& operator*(const Vector2D& other);
 	// operador suma adicional
 	Vector2D& operator+=(const Vector2D& other);
+	// multiplicación escalar
+	Vector2D& operator*(const int& other);
+	// operador vector opuesto
+	Vector2D& operator-() { return Vector2D(- this->x, - this->y); }
 	
 	// producto escalar de dos vectores
 	double scalarProduct(const Vector2D& v1, const Vector2D& v2);

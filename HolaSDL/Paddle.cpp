@@ -13,12 +13,7 @@ void Paddle::render()
 
 void Paddle::update()
 {
-	/*if (dir.getX() != -1 && pos.getX() != 0);
-	else if (dir.getX() != 1 && pos.getX() != 600)*/
-
-	// habría que hacer un condicional que le impida al jug moverse a izq si está en el borde izq y
-	// der si está en el borde der
-	// if (dir.getX() == -1 && pos.getX() > 0 || dir.getX() == 1 && pos.getX() < 600)
+	// limitación del movimiento en el eje X (bordes del mapa)
 	if (pos.getX() >= 635 && dir.getX() > 0 || 
 		pos.getX() <= 15 && dir.getX() < 0) dir = Vector2D(0, 0);
 	pos += dir;
@@ -84,7 +79,7 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 		std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
 
 		normal = Vector2D(x, y);
-		// normal.normalizeVector();
+		normal.normalizeVector();
 
 		return true;
 	}

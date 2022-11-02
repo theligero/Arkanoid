@@ -1,6 +1,8 @@
 #ifndef VECTOR2D_H_
 #define VECTOR2D_H_
 
+#include <cmath>
+
 class Vector2D
 {
 private:

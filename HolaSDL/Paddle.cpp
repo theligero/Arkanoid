@@ -3,44 +3,42 @@
 
 void Paddle::render()
 {
-	SDL_Rect dest;
-
-	dest.w = width; dest.h = height;
-	dest.x = pos.getX(); dest.y = pos.getY();
+	SDL_Rect dest = getRect();
 
 	tex->render(dest, SDL_FLIP_NONE);
 }
 
 void Paddle::update()
 {
-	// limitación del movimiento en el eje X (bordes del mapa)
-	if (pos.getX() >= 635 && dir.getX() > 0 || 
-		pos.getX() <= 15 && dir.getX() < 0) dir = Vector2D(0, 0);
-	pos += dir;
+	if (pos.getX() >= 635 && dir.getX() > 0 || // si estoy a punto de pasarme de los bordes 
+		pos.getX() <= 15 && dir.getX() < 0) // y mi dirección es hacia ellos
+		dir = Vector2D(0, 0); // no me muevo
+	pos += dir; // actualizo mi posición
 }
 
 void Paddle::handleEvents()
 {
+	// creo un evento auxiliar
 	SDL_Event event;
 
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-		case SDL_KEYDOWN:
+		case SDL_KEYDOWN: // si pulso una tecla
 			switch (event.key.keysym.sym) {
-			case SDLK_RIGHT:
-					dir = Vector2D(10, 0);
+			case SDLK_RIGHT: // y es la flecha derecha
+					dir = Vector2D(10, 0); // muevo el paddle a der
 				break;
-			case SDLK_LEFT:
-					dir = Vector2D(-10, 0);
+			case SDLK_LEFT: // y es la flecha izquierda
+					dir = Vector2D(-10, 0); // muevo el paddle a izq
 				break;
 			default:
 				break;
 			}
 			break;
-		case SDL_KEYUP:
+		case SDL_KEYUP: // si levanto la tecla
 			switch (event.key.keysym.sym) {
-			case SDLK_RIGHT:
-				if (dir.getX() > 0) dir = Vector2D(0, 0);
+			case SDLK_RIGHT: // y pulso la flecha derecha
+				if (dir.getX() > 0) dir = Vector2D(0, 0); // s
 			case SDLK_LEFT:
 				if (dir.getX() < 0) dir = Vector2D(0, 0);
 			default:
@@ -55,34 +53,48 @@ void Paddle::handleEvents()
 
 bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 {
-	SDL_Rect dest;
+	SDL_Rect dest = getRect();
 
-	dest.w = width; dest.h = height;
-	dest.x = pos.getX(); dest.y = pos.getY();
+	// hay una imagen en la carpeta images, pero lo intentaré explicar
+	// de la mejor manera que pueda
 
-	double aux = ((double)ball.x - dest.x) + ball.w / 2;
-	double x;
-	double y;
+	double aux = ((double)ball.x - dest.x) + ball.w / 2; // posición relativa de la pelota respecto al paddle
+	double x; // variable dirección en x
+	double y; // variable dirección en y
 
-	if (SDL_HasIntersection(&dest, &ball)) {
-		if (aux >= 0 && aux < width) {
-			x = (2 * aux / width) - 1;
-			if (aux < width / 2.0) y = -(2 * aux) / width;
-			else y = ((2 * aux) / width) - 2;
+	// se supone que P es el tamaño del paddle
+
+	if (SDL_HasIntersection(&dest, &ball)) { // si hay intersección
+		if (aux >= 0 && aux < width) { // y la pelota está dentro del paddle
+			x = (2 * aux / width) - 1; // transformo la x en la función (verde) f(x) = (2x / P) - 1  
+			// si está en la mitad izquierda
+			if (aux < width / 2.0) y = -(2 * aux) / width; // transformo y en la función (amarilla) g(x) = - 2x / P
+			// y si está en la mitad derecha
+			else y = ((2 * aux) / width) - 2; // transformo y en la función (rosa) h(x) = (2x / P) - 2
 		}
-		else {
-			y = 0;
-			if (aux < 0) x = -1;
-			else x = 1;
+		else { // en caso de estar en el borde del paddle (o fuera?)
+			y = 0; // la normal en y será 0
+			if (aux < 0) x = -1; // si es el lado izquierdo la normal en x es -1
+			else x = 1; // si es lado derecho la normal en x es 1
 		}
 
 		std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
 
-		normal = Vector2D(x, y);
-		normal.normalizeVector();
+		normal = Vector2D(x, y); // le asigno la nueva normal al vector normal
+		normal.normalizeVector(); // lo normalizo
 
-		return true;
+		return true; // y devuelvo verdadero
 	}
 
-	return false;
+	return false; // en caso contrario devuelvo falso
+}
+
+SDL_Rect Paddle::getRect() const
+{
+	SDL_Rect rect;
+
+	rect.w = width; rect.h = height;
+	rect.x = pos.getX(); rect.y = pos.getY();
+
+	return rect;
 }

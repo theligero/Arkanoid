@@ -26,6 +26,8 @@ public:
 	void render();
 	// actualización
 	void update();
+	// transformador de variables numéricas por un SDL_Rect
+	SDL_Rect getRect() const;
 };
 
 #endif /* BALL_H_ */

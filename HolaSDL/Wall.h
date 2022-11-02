@@ -22,6 +22,8 @@ public:
 	void render() const;
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal) const;
+	// transformador de variables numéricas por un SDL_Rect
+	SDL_Rect getRect() const;
 };
 
 #endif

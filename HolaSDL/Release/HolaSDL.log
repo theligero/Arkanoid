@@ -1,0 +1,43 @@
+﻿  Ball.cpp
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(7,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(7,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(16,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Ball.cpp(16,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+  Block.cpp
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(7,11): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(7,27): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(8,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(8,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(17,11): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(17,27): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(18,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Block.cpp(18,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+  BlocksMap.cpp
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\BlocksMap.cpp(37,24): warning C4553: "==": el resultado de la expresión no se usa. ¿Quiso decir "="?
+  Game.cpp
+  main.cpp
+  Paddle.cpp
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(8,11): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(8,27): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(9,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(9,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(60,11): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(60,27): warning C4244: '=': conversión de 'const double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(61,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Paddle.cpp(61,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+  Texture.cpp
+  Vector2D.cpp
+  Wall.cpp
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Wall.cpp(8,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Wall.cpp(8,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Wall.cpp(18,19): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Wall.cpp(18,40): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+  Generando código
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Vector2D.cpp(32): warning C4172: devolución de dirección de la variable local o temporal
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Vector2D.cpp(54): warning C4172: devolución de dirección de la variable local o temporal
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Vector2D.cpp(8): warning C4172: devolución de dirección de la variable local o temporal
+C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\HolaSDL\Vector2D.cpp(20): warning C4172: devolución de dirección de la variable local o temporal
+  All 246 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generación de código finalizada
+  HolaSDL.vcxproj -> C:\Users\ilige\OneDrive\Documentos\2º Videojuegos\TPV1\Arkanoid\bin\ArkanoidRelease.exe

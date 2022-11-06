@@ -7,14 +7,14 @@ Game::Game()
 	window = SDL_CreateWindow("Arkanoid 1.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	Texture* arrayTex[NUM_TEXTURES];
+	//Texture* arrayTex[NUM_TEXTURES];
 	//Creo el array de texturas sacando la información de un array con las descripciones de cda textura.
 	for (int i = 0; i < NUM_TEXTURES; ++i) { 
 		const TextureDescription& desc = TEXT_DESCR[i];
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
 	//Creo los diversos elementos que se representan por pantalla.
-	blocksMap = new BlocksMap(1, arrayTex[BRICKS], window);
+	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
@@ -25,10 +25,10 @@ Game::Game()
 
 Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.
 {
-	//for (int j = 0; j < NUM_TEXTURES; ++j) {
-	//	arrayTex[j].~Texture;
-	//}
-	delete(arrayTex);
+	for (int j = 0; j < NUM_TEXTURES; ++j) {
+		arrayTex[j]->~Texture();
+	}
+	//delete(arrayTex);
 	// arrayTex->~Texture();
 	blocksMap->~BlocksMap();
 	delete(player);
@@ -93,8 +93,15 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 		}
 	}
 	if (blocksMap->getNumBlocks() == 0) {
-		win = true;
-		std::cout << "GANASTE" << std::endl;
+		currentLevel++;
+		if (currentLevel > MAX_LEVELS) {
+			win = true;
+			std::cout << "GANASTE" << std::endl;
+		}
+		else {
+			ball->restartPosition(WINDOW_HEIGHT);
+			blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+		}		
 	}
 
 }

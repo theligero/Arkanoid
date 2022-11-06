@@ -35,5 +35,6 @@ SDL_Rect Ball::getRect() const //Recojo el SDL_Rect de la bola.
 
 void Ball::restartPosition(int WINDOW_HEIGHT)
 {
-	pos = Vector2D(pos.getX(), WINDOW_HEIGHT / 2);
+	pos = Vector2D(pos.getX(), WINDOW_HEIGHT - 170);
+	//pos.getX(), WINDOW_HEIGHT - 170
 }

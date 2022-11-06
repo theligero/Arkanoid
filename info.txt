@@ -15,3 +15,7 @@ similar al que debería salir.
 La pelota rebota con cada bloque como debería, con la excepción de que la forma en la que funciona la intersección 
 con los bloques, genera algunos rebotes extraños puesto que choca antes por un lado que por otr.
 En estos casos, la normal que recibe la bola es correcta matemáticamente ( por posición ) pero no visualmente. 
+
+// APARTADOS OPCIONALES //
+
+Al romper todos los bloques, se cambia a la siguiente pantalla.

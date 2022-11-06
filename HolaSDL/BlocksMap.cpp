@@ -61,8 +61,8 @@ Block* BlocksMap::returnBlock(Vector2D ballPos) const
 	//la altura del bloque para ver en que columna y fila del array de bloques debo comprobar la colisión.
 	columna = (ballPos.getX() -15) / blockPos.getX();
 	fila = (ballPos.getY() -15) / blockPos.getY();
-	if (fila > 9) fila = 9;
-	if (columna > 9) columna = 9;
+	if (fila > (rows -1)) fila = rows - 1;
+	if (columna > (columns -1)) columna = columns - 1;
 	Block* bloque = ptrblcks[fila][columna];
 	return bloque;
 }
@@ -70,6 +70,7 @@ Block* BlocksMap::returnBlock(Vector2D ballPos) const
 bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal) 
 {
 	Block* bloqueColision = nullptr;
+
 	if (ball.y < 415) {
 		//Esquina superior izquierda
 		bloqueColision = returnBlock({(double)ball.x, (double)ball.y});

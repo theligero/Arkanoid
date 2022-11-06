@@ -16,6 +16,7 @@ const int WINDOW_HEIGHT = 600;
 const int FRAME_RATE = 10;
 const int NUM_TEXTURES = 8;
 const int WALL_WIDTH = 15;
+const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
 enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN };
@@ -50,13 +51,15 @@ private:
 	bool gameOver = false; // booleano de fin de partida
 	bool win = false; // booleano de victoria
 
-	Texture* arrayTex = nullptr; // array de punteros a texturas
+	//Texture* arrayTex = nullptr; // array de punteros a texturas
+	Texture* arrayTex[NUM_TEXTURES];
 	BlocksMap* blocksMap = nullptr; // puntero del mapa de bloques
 	Wall* walls[3]; // puntero a paredes
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
 
 	int lives = 3;
+	int currentLevel = 1;
 public:
 	// constructor
 	Game();

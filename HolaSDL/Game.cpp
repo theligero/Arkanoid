@@ -19,6 +19,7 @@ Game::Game()
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
 	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
 	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);
+	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
 
 Game::~Game()
@@ -40,6 +41,7 @@ void Game::run()
 {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
+
 
 	while (!gameOver && !exit && !win) {
 		handleEvents();
@@ -97,7 +99,7 @@ bool Game::collides(SDL_Rect ball, Vector2D& normal)
 	// jugador
 	if (player->collides(ball, normal)) return true;
 	// bloques
-	// if (blocksMap->returnBlock(Vector2D(ball.x, ball.y))->collides(ball, normal)) return true;
+	 if (blocksMap->collides(ball, normal)) return true;
 
 
 	return false;

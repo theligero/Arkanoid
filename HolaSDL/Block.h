@@ -18,7 +18,7 @@ typedef struct {
 const TypeOfBlock TYPE_BLOCK[7]{
 	{-1, -1},
 	{0, 0}, {1, 0}, {2, 0},
-	{1, 0}, {1, 1}, {1, 2}
+	{0, 1}, {1, 1}, {2, 1}
 };
 
 class Block
@@ -31,17 +31,18 @@ private:
 	int col; // columna
 	int row; // fila
 	Texture* tex; // puntero a su textura
+	bool colisionado;
 public:
 	// constructor por defecto
-	Block() : pos(0, 0), width(0), height(0), color(0), col(0), row(0), tex(nullptr) {}
+	Block() : pos(0, 0), width(0), height(0), color(0), col(0), row(0), tex(nullptr), colisionado(false) {}
 	// constructor con su posición, ancho, alto, número del bloque y puntero a textura
-	Block(Vector2D newPos, double w, double h, int numBlock, Texture* t) :
-		pos(newPos), color(numBlock), tex(t), width(w), height(h)
-	{ col = TYPE_BLOCK[numBlock].col; row = TYPE_BLOCK[numBlock].row; }
+	Block(Vector2D newPos, double w, double h, int numBlock, int column, int rows, Texture* t) :
+		pos(newPos), color(numBlock), tex(t), width(w), height(h), col(column), row(rows), colisionado(false) { }
 	// renderizado
 	void render() const;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal) const;
+	bool collides(SDL_Rect ball, Vector2D& normal);
+	bool getColisionado() { return colisionado; };
 };
 
 #endif /* BLOCK_H_ */

@@ -42,7 +42,7 @@ public:
 	// renderizado
 	void render() const;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal);
+	bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks);
 	bool getColisionado() { return colisionado; };
 	SDL_Rect getRect() const;
 };

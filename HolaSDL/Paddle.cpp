@@ -38,9 +38,9 @@ void Paddle::handleEvents()
 		case SDL_KEYUP: // si levanto la tecla
 			switch (event.key.keysym.sym) {
 			case SDLK_RIGHT: // y pulso la flecha derecha
-				if (dir.getX() > 0) dir = Vector2D(0, 0); // s
-			case SDLK_LEFT:
-				if (dir.getX() < 0) dir = Vector2D(0, 0);
+				if (dir.getX() > 0) dir = Vector2D(0, 0); // Freno el paddle
+			case SDLK_LEFT: // y pulso la flecha izquierda
+				if (dir.getX() < 0) dir = Vector2D(0, 0); //Freno el paddle.
 			default:
 				break;
 			}
@@ -53,7 +53,7 @@ void Paddle::handleEvents()
 
 bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 {
-	SDL_Rect dest = getRect();
+	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del paddle.
 
 	// hay una imagen en la carpeta images, pero lo intentaré explicar
 	// de la mejor manera que pueda
@@ -89,7 +89,7 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 	return false; // en caso contrario devuelvo falso
 }
 
-SDL_Rect Paddle::getRect() const
+SDL_Rect Paddle::getRect() const //Recojo el SDL_Rect del paddle.
 {
 	SDL_Rect rect;
 

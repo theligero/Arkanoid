@@ -49,7 +49,9 @@ double Vector2D::scalarProduct(const Vector2D& v1, const Vector2D& v2)
 	// multiplico la y de uno con la y del otro y almaceno el resultado
 	suma2 = v1.y * v2.y;
 
-	return suma1 + suma2; // devuelvo la suma de ambos resultados
+	double sumaTotal = suma1 + suma2;
+
+	return sumaTotal; // devuelvo la suma de ambos resultados
 }
 
 Vector2D& Vector2D::scalarMultiplication(const double& scalar)

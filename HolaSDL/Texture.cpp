@@ -10,7 +10,7 @@ void Texture::free() {
 	w = h = 0;
 }
 
-void Texture::load(string filename, uint nRows, uint nCols) {
+void Texture::load(string filename, uint nRows, uint nCols) { //Carga cada textura con su nombre de textura, su numero de filas y columnas. 
 	std::string aux = "../images/";
 	aux += filename;
 	SDL_Surface* tempSurface = IMG_Load(aux.c_str());
@@ -27,15 +27,15 @@ void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
-void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
+void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const { //renderiza una textura completa.
 	SDL_Rect srcRect;
 	srcRect.x = 0; srcRect.y = 0;
 	srcRect.w = w; srcRect.h = h;
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, 0, 0, flip);
 }
 
-void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
-	SDL_Rect srcRect;
+void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const { //Renderiza una parte(frame) de una textura. Pensada para spritesheets.
+	SDL_Rect srcRect; //Establece el rectángulo de renderizado.
 	srcRect.x = fw * col;
 	srcRect.y = fh * row;
 	srcRect.w = fw;

@@ -45,27 +45,18 @@ void Game::run()
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
 
-	while (!gameOver && !exit && !win) {
-		handleEvents();
-		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime >= FRAME_RATE) {
-			update();
-			startTime = SDL_GetTicks();
+	if (window == nullptr || renderer == nullptr) throw "Error cargando SDL";
+	else {
+		while (!gameOver && !exit && !win) {
+			handleEvents();
+			frameTime = SDL_GetTicks() - startTime;
+			if (frameTime >= FRAME_RATE) {
+				update();
+				startTime = SDL_GetTicks();
+			}
+			render();
 		}
-		render();
 	}
-
-	//if (window == nullptr || renderer == nullptr) std::cout << "ERROR CARGANDO SDL" << std::endl;
-	//else {
-
-	//}
-
-	//if (window == nullptr || renderer == nullptr)
-	//	std::cout << "Error cargando SDL" << std::endl;
-	//else {
-	//	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	//	SDL_Delay(5000);
-	//}
 }
 
 void Game::render()
@@ -91,9 +82,12 @@ void Game::handleEvents()
 	player->handleEvents();
 	if (ball->getRect().y > WINDOW_HEIGHT) {
 		--lives;
-		if (lives == 0) gameOver = true;
+		if (lives < 0) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
+		else {
+			ball->restartPosition(WINDOW_HEIGHT);
+			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
+		}
 	}
-
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal)

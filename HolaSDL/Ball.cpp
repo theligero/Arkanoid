@@ -32,3 +32,8 @@ SDL_Rect Ball::getRect() const
 
 	return rect;
 }
+
+void Ball::restartPosition(int WINDOW_HEIGHT)
+{
+	pos = Vector2D(pos.getX(), WINDOW_HEIGHT / 2);
+}

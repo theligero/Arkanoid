@@ -10,14 +10,16 @@ Vector2D& Vector2D::normalizeVector()
 
 Vector2D& Vector2D::operator+(const Vector2D& other)
 {
-	x += other.x; y += other.y; // lo asigno
-	return Vector2D(x, y); // y lo devuelvo
+	double aux_x, aux_y;
+	aux_x = x + other.x; aux_y = y + other.y; // lo asigno
+	return Vector2D(aux_x, aux_y); // y lo devuelvo
 }
 
 Vector2D& Vector2D::operator-(const Vector2D& other)
 {
-	x -= other.x; y -= other.y; // lo asigno
-	return Vector2D(x, y); // y lo devuelvo
+	double aux_x, aux_y;
+	aux_x = x - other.x; aux_y = y - other.y;
+	return Vector2D(aux_x, aux_y); // y lo devuelvo
 }
 
 Vector2D& Vector2D::operator*(const Vector2D& other)

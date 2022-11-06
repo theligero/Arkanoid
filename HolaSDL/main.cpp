@@ -30,7 +30,11 @@ void firstTest() {
 }
 
 int main(int argc, char* argv[]){
-	Game juego;
-	juego.run();
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
+	try {
+		Game juego;
+		juego.run();
+	}
+	catch (string error) { std::cout << error << std::endl; }
 	return 0;
 }

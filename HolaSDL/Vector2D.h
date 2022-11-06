@@ -2,6 +2,7 @@
 #define VECTOR2D_H_
 
 #include <cmath>
+#include "checkML.h"
 
 class Vector2D
 {

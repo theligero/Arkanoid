@@ -14,7 +14,7 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 	aux += std::to_string(level) + ".dat";
 
 	input.open(aux);
-	if (!input.is_open()) throw "Error loading texture from " + aux;
+	if (!input) throw "Error al cargar el mapa " + level;
 
 	int block;
 

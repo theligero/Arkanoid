@@ -3,7 +3,6 @@
 
 Game::Game()
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid 1.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
@@ -24,16 +23,20 @@ Game::Game()
 
 Game::~Game()
 {
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	arrayTex->~Texture();
+	//for (int j = 0; j < NUM_TEXTURES; ++j) {
+	//	arrayTex[j].~Texture;
+	//}
+	delete(arrayTex);
+	// arrayTex->~Texture();
 	blocksMap->~BlocksMap();
 	delete(player);
 	delete(ball);
-	delete(blocksMap);
+	// delete(blocksMap);
 	for (int i = 0; i < 3; ++i) {
 		delete(walls[i]);
 	}
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
@@ -41,7 +44,6 @@ void Game::run()
 {
 	uint32_t startTime, frameTime;
 	startTime = SDL_GetTicks();
-
 
 	while (!gameOver && !exit && !win) {
 		handleEvents();
@@ -87,6 +89,11 @@ void Game::update()
 void Game::handleEvents()
 {
 	player->handleEvents();
+	if (ball->getRect().y > WINDOW_HEIGHT) {
+		--lives;
+		if (lives == 0) gameOver = true;
+	}
+
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal)
@@ -99,8 +106,7 @@ bool Game::collides(SDL_Rect ball, Vector2D& normal)
 	// jugador
 	if (player->collides(ball, normal)) return true;
 	// bloques
-	 if (blocksMap->collides(ball, normal)) return true;
-
+	if (blocksMap->collides(ball, normal)) return true;
 
 	return false;
 	// comprobación de colisión con todos los obj

@@ -7,6 +7,7 @@
 #include "Wall.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "checkML.h"
 
 
 const int WINDOW_WIDTH = 800;
@@ -54,6 +55,8 @@ private:
 	Wall* walls[3]; // puntero a paredes
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
+
+	int lives = 3;
 public:
 	// constructor
 	Game();

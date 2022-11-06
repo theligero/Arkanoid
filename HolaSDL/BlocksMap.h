@@ -2,6 +2,7 @@
 #define BLOCKSMAP_H_
 
 #include "Block.h"
+#include "checkML.h"
 
 using PointerBlocks = Block***;
 

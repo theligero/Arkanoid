@@ -43,6 +43,7 @@ public:
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal);
 	bool getColisionado() { return colisionado; };
+	SDL_Rect getRect() const;
 };
 
 #endif /* BLOCK_H_ */

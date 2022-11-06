@@ -2,10 +2,8 @@
 
 void Block::render() const
 {
-	SDL_Rect dest;
+	SDL_Rect dest = getRect();
 
-	dest.w = width; dest.h = height;
-	dest.x = pos.getX(); dest.y = pos.getY();
 	if (!colisionado) {
 		tex->renderFrame(dest, TYPE_BLOCK[color].row, TYPE_BLOCK[color].col);
 	}
@@ -20,10 +18,7 @@ void Block::render() const
 
 bool Block::collides(SDL_Rect ball, Vector2D& normal)
 {
-	SDL_Rect dest;
-
-	dest.w = width; dest.h = height;
-	dest.x = pos.getX(); dest.y = pos.getY();
+	SDL_Rect dest = getRect();
 
 	if (!colisionado && SDL_HasIntersection(&dest, &ball) ) {
 		if (ball.y <= dest.y)
@@ -40,4 +35,14 @@ bool Block::collides(SDL_Rect ball, Vector2D& normal)
 	}
 
 	return SDL_HasIntersection(&dest, &ball);
+}
+
+SDL_Rect Block::getRect() const
+{
+	SDL_Rect rect;
+
+	rect.w = width; rect.h = height;
+	rect.x = pos.getX(); rect.y = pos.getY();
+
+	return rect;
 }

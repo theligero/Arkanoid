@@ -53,6 +53,8 @@ Block* BlocksMap::returnBlock(Vector2D ballPos) const
 	int columna, fila;
 	columna = (ballPos.getX() -15) / blockPos.getX();
 	fila = (ballPos.getY() -15) / blockPos.getY();
+	if (fila > 9) fila = 9;
+	if (columna > 9) columna = 9;
 	Block* bloque = ptrblcks[fila][columna];
 	return bloque;
 }
@@ -60,14 +62,33 @@ Block* BlocksMap::returnBlock(Vector2D ballPos) const
 bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal) const
 {
 	Block* bloqueColision = nullptr;
-	if (/*ball.x > 15 && ball.x < 785 && ball.y > 15 && */ball.y < 415) {
+	if (ball.y < 415) {
+		//Esquina superior izquierda
 		bloqueColision = returnBlock({(double)ball.x, (double)ball.y});
+		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
+			bool colisiona = bloqueColision->collides(ball, normal);
+			return colisiona;
+		}
+		//Esquina inferior izquierda
+		bloqueColision = returnBlock({ (double)ball.x, (double)(ball.y + blockPos.getY()) });
+		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
+			bool colisiona = bloqueColision->collides(ball, normal);
+			return colisiona;
+		}
+		//Esquina superior derecha
+		bloqueColision = returnBlock({ (double)(ball.x + blockPos.getX()), (double)ball.y });
+		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
+			bool colisiona = bloqueColision->collides(ball, normal);
+			return colisiona;
+		}
+		//Esquina inferior derecha
+		bloqueColision = returnBlock({ (double)(ball.x + blockPos.getX()), (double)(ball.y + blockPos.getY()) });
+		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
+			bool colisiona = bloqueColision->collides(ball, normal);
+			return colisiona;
+		}
 	}
-	if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
-		bool colisiona = bloqueColision->collides(ball, normal);
-		//bloqueColision = nullptr;
-		return colisiona;
-	}
+	
 	return false;
 }
 

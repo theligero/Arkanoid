@@ -95,6 +95,7 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 		}
 		else {
 			ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
+			blocksMap->~BlocksMap();
 			blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
 		}
 	}

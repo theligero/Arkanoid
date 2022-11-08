@@ -79,16 +79,11 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 {
 	ball->update();
 	player->update();
-}
-
-void Game::handleEvents() //Se manejan la E/S del jugador.
-{
-	player->handleEvents();
 	if (ball->getRect().y > WINDOW_HEIGHT) {
 		--lives;
 		if (lives < 0) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
 		else {
-			ball->restartPosition(WINDOW_HEIGHT);
+			ball->restartPosition(WINDOW_WIDTH,WINDOW_HEIGHT);
 			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
 		}
 	}
@@ -99,11 +94,15 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 			std::cout << "GANASTE" << std::endl;
 		}
 		else {
-			ball->restartPosition(WINDOW_HEIGHT);
+			ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
 			blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
-		}		
+		}
 	}
+}
 
+void Game::handleEvents() //Se manejan la E/S del jugador.
+{
+	player->handleEvents();
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.

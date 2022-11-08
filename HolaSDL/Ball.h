@@ -30,7 +30,7 @@ public:
 	// transformador de variables numéricas por un SDL_Rect
 	SDL_Rect getRect() const;
 	// modificador de posición si la pelota sale del mapa
-	void restartPosition(int WINDOW_HEIGHT);
+	void restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT);
 };
 
 #endif /* BALL_H_ */

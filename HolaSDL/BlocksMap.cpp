@@ -79,19 +79,19 @@ bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal)
 			return colisiona;
 		}
 		//Esquina inferior izquierda
-		bloqueColision = returnBlock({ (double)ball.x, (double)(ball.y + blockPos.getY()) });
+		bloqueColision = returnBlock({ (double)ball.x, (double)(ball.y + ball.h) });
 		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
 			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
 			return colisiona;
 		}
 		//Esquina superior derecha
-		bloqueColision = returnBlock({ (double)(ball.x + blockPos.getX()), (double)ball.y });
+		bloqueColision = returnBlock({ (double)(ball.x + ball.w), (double)ball.y });
 		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
 			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
 			return colisiona;
 		}
 		//Esquina inferior derecha
-		bloqueColision = returnBlock({ (double)(ball.x + blockPos.getX()), (double)(ball.y + blockPos.getY()) });
+		bloqueColision = returnBlock({ (double)(ball.x + ball.w), (double)(ball.y + ball.h) });
 		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
 			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
 			return colisiona;

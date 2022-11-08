@@ -5,6 +5,7 @@
 
 class FileNotFoundError : public ArkanoidError
 {
+	FileNotFoundError(std::string file) : ArkanoidError("Archivo " + file + " no encontrado.") {}
 };
 
 #endif

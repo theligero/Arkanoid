@@ -5,6 +5,8 @@
 
 class FileFormatError : public ArkanoidError
 {
+public:
+	FileFormatError(std::string e) : ArkanoidError(e) {}
 };
 
 #endif

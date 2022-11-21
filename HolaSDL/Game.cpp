@@ -14,6 +14,7 @@ Game::Game()
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
 	//Creo los diversos elementos que se representan por pantalla.
+
 	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
@@ -30,6 +31,9 @@ Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.
 	}
 	//delete(arrayTex);
 	// arrayTex->~Texture();
+	for (auto gameObject : objectsList) {
+		delete(gameObject);
+	}
 	blocksMap->~BlocksMap();
 	delete(player);
 	delete(ball);

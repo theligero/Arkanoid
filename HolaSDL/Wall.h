@@ -1,30 +1,20 @@
 #ifndef WALL_H_
 #define WALL_H_
+#include "ArkanoidObject.h"
 
-#include "Vector2D.h"
-#include "Texture.h"
-#include "checkML.h"
-
-class Wall
+class Wall : public ArkanoidObject
 {
 private:
-	Vector2D pos; // posición de la esquina superior izquierda
-	int width; // ancho
-	int height; // alto
-	Texture* tex; // puntero a textura
-	Vector2D normal;
+	Vector2D _normal;
 public:
 	// constructor por defecto
-	Wall() : pos(0, 0), width(0), height(0), tex(nullptr), normal(0, 0) {}
+	Wall() : _normal(0, 0) {}
 	// constructor con su posición, ancho, alto y puntero a textua como parámetros
-	Wall(Vector2D pos, int width, int height, Texture* tex, Vector2D normal) : 
-		pos(pos), width(width), height(height), tex(tex), normal(normal) {}
+	Wall(Vector2D pos, int width, int height, Texture* tex, Vector2D normal) : ArkanoidObject(pos, width, height, tex), _normal(normal) {}
 	// renderizado
-	void render() const;
+	void render() const override;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal) const;
-	// transformador de variables numéricas por un SDL_Rect
-	SDL_Rect getRect() const;
+	bool collides(SDL_Rect ball, Vector2D& normal) override;
 };
 
 #endif

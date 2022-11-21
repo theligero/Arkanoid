@@ -1,7 +1,7 @@
 #include "Ball.h"
 #include <cmath>
 
-void Ball::render()
+void Ball::render() const
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect de la bola.
 
@@ -22,15 +22,6 @@ void Ball::update()
 		dir.normalizeVector(); // normalizo el vector
 	}
 	pos += dir; // avanzo la pelota
-}
-
-SDL_Rect Ball::getRect() const //Recojo el SDL_Rect de la bola.
-{
-	SDL_Rect rect;
-	rect.x = pos.getX(); rect.y = pos.getY();
-	rect.w = width, rect.h = height;
-
-	return rect;
 }
 
 void Ball::restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT)

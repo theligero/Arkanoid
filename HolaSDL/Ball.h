@@ -1,34 +1,25 @@
 #ifndef BALL_H_
 #define BALL_H_
 
-#include "Vector2D.h"
-#include "Texture.h"
 #include "Game.h"
-#include "checkML.h"
+#include "MovingObject.h"
 
 class Game;
 
-class Ball
+class Ball : public MovingObject
 {
 private:
-	Vector2D pos; // posición
-	int width; // ancho
-	int height; // alto
-	Vector2D dir; // vector dirección
-	Texture* tex; // puntero a su textura
 	Game* game; // puntero al juego
 public:
 	// constructor por defecto
-	Ball() : pos(0, 0), width(0), height(0), dir(0, 0), tex(nullptr), game(nullptr) {}
+	Ball() : game(nullptr) {}
 	// constructor con su posición, ancho, alto, vector dirección, puntero a textura y al juego
 	Ball(Vector2D pos, int w, int h, Vector2D dir, Texture* tex, Game* game) :
-		pos(pos), dir(dir), tex(tex), game(game), width(w), height(h) {}
+		MovingObject(pos, w, h, tex, dir), game(game){}
 	// renderizado
-	void render();
+	void render() const override;
 	// actualización
-	void update();
-	// transformador de variables numéricas por un SDL_Rect
-	SDL_Rect getRect() const;
+	void update() override;
 	// modificador de posición si la pelota sale del mapa
 	void restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT);
 };

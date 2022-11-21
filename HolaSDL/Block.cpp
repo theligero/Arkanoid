@@ -45,13 +45,3 @@ bool Block::collides(SDL_Rect ball, Vector2D& normal, int &numBlocks) //Chequeo 
 
 	return SDL_HasIntersection(&dest, &ball);
 }
-
-SDL_Rect Block::getRect() const //Recojo el SDL_Rect del bloque.
-{
-	SDL_Rect rect;
-
-	rect.w = width; rect.h = height;
-	rect.x = pos.getX(); rect.y = pos.getY();
-
-	return rect;
-}

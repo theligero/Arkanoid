@@ -1,37 +1,24 @@
 #ifndef PADDLE_H_
 #define PADDLE_H_
 
-#include "Vector2D.h"
-#include "Texture.h"
-#include "checkML.h"
+#include "MovingObject.h"
 
-class Paddle
+class Paddle : public MovingObject
 {
-private:
-	Vector2D pos; // posición
-	Vector2D dir; // vector dirección
-	double width; // ancho
-	double height; // alto
-	Texture* tex; // puntero a su textura
-
 public:
 	// constructor por defecto
-	Paddle(): pos(0,0), dir(0,0), width(0), height(0), tex(nullptr) {}
+	Paddle();
 	// constructor con la posición, ancho, alto y puntero a textura
 	Paddle(Vector2D pos, int w, int h, Texture* t) :
-		pos(pos), dir(0, 0), tex(t), width (w), height(h) {}
-
+		MovingObject(pos, w, h, t, { 0,0 }) {}
 	// renderizado
-	void render();
+	void render() const override;
 	// actualización
-	void update();
+	void update() override;
 	// controlador de eventos
-	void handleEvents();
+	void handleEvents() override;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal) const;
-
-	// transformador de variables numéricas por un SDL_Rect
-	SDL_Rect getRect() const;
+	bool collides(SDL_Rect ball, Vector2D& normal) override;
 };
 #endif
 

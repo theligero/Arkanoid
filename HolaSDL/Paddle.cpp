@@ -1,7 +1,7 @@
 #include "Paddle.h"
 #include <iostream>
 
-void Paddle::render()
+void Paddle::render() const
 {
 	SDL_Rect dest = getRect();
 
@@ -51,7 +51,7 @@ void Paddle::handleEvents()
 	}
 }
 
-bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
+bool Paddle::collides(SDL_Rect ball, Vector2D& normal)
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del paddle.
 
@@ -87,14 +87,4 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal) const
 	}
 
 	return false; // en caso contrario devuelvo falso
-}
-
-SDL_Rect Paddle::getRect() const //Recojo el SDL_Rect del paddle.
-{
-	SDL_Rect rect;
-
-	rect.w = width; rect.h = height;
-	rect.x = pos.getX(); rect.y = pos.getY();
-
-	return rect;
 }

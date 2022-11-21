@@ -7,7 +7,9 @@
 #include "Wall.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "ArkanoidObject.h"
 #include "checkML.h"
+#include <list>
 
 
 const int WINDOW_WIDTH = 800;
@@ -57,6 +59,8 @@ private:
 	Wall* walls[3]; // puntero a paredes
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
+
+	list<ArkanoidObject*> objectsList;
 
 	int lives = 3;
 	int currentLevel = 1;

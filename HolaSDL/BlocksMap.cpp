@@ -1,33 +1,37 @@
 #include "BlocksMap.h"
+#include "FileNotFoundError.h"
+#include "FileFormatError.h"
 #include <fstream>
 #include <iostream>
 
-void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window) //Se carga el mapa de bloques de un archivo de datos.
+// Se carga el mapa de bloques de un archivo de datos.
+void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 {
 	int h, w;
-	SDL_GetWindowSize(window, &w, &h); //Se asigna la altura y anchura de la ventana a dos variables.
+	SDL_GetWindowSize(window, &w, &h); // Se asigna la altura y anchura de la ventana a dos variables.
 
-	//Establezco la parte de la ruta que es siempre igual.
+	// Establezco la parte de la ruta que es siempre igual.
 	fstream input; 
 	std::string aux = "../maps/level"; 
 
 	if (level < 10) aux += "0";
 	aux += std::to_string(level) + ".dat";
-	//Abro el archivo
+	// Abro el archivo
 	input.open(aux);
-	if (!input) throw "Error al cargar el mapa " + level;
+	if (!input) throw FileNotFoundError(std::to_string(level) + ".dat");
 
 	int block;
-	//Leo las columnas y filas que tendra el mapa de bloques.
+	// Leo las columnas y filas que tendra el mapa de bloques.
 	input >> rows >> columns;
+	if (rows < 0 || columns < 0) throw FileFormatError(FileFormatError::TamanoIncorrecto(level));
 	numBlocks = blocksInMap();
-	//Ajusto el tamaño del mapa de bloques a la pantalla.
+	// Ajusto el tamaño del mapa de bloques a la pantalla.
 	width = (w - 30);
 	height = (h - 200);
-	//En funcion del tamaño del mapa de bloques y la cantidad de filas/columnas, establezco el tamaño de cada bloque.
+	// En función del tamaño del mapa de bloques y la cantidad de filas/columnas, establezco el tamaño de cada bloque.
 	blockTam = Vector2D(width / columns, height / rows);
 
-	//Creo y relleno el array bidimensional de punteros a bloques.
+	// Creo y relleno el array bidimensional de punteros a bloques.
 	ptrblcks = new Block**[rows];
 	for (int i = 0; i < rows; ++i) {
 		ptrblcks[i] = new Block*[columns];
@@ -41,16 +45,17 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window) 
 			}
 		}
 	}
-	//Cierro el stream de datos del archivo.
+	// Cierro el stream de datos del archivo.
 	input.close();
 }
 
-void BlocksMap::render() const //Renderizo el array de bloques.
+// Renderizo el array de bloques
+void BlocksMap::render() const
 {
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-			if(ptrblcks[i][j] != nullptr)
-			ptrblcks[i][j]->render();
+			if (ptrblcks[i][j] != nullptr)
+				ptrblcks[i][j]->render();
 		}
 	}
 }

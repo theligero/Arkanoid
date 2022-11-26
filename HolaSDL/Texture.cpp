@@ -1,5 +1,8 @@
 #include "Texture.h"
 #include <iostream>
+#include "FileFormatError.h"
+#include "FileNotFoundError.h"
+#include "SDLError.h"
 
 using namespace std;
 
@@ -14,10 +17,10 @@ void Texture::load(string filename, uint nRows, uint nCols) { //Carga cada textu
 	std::string aux = "../images/";
 	aux += filename;
 	SDL_Surface* tempSurface = IMG_Load(aux.c_str());
-	if (tempSurface == nullptr) throw "Error al cargar la superficie de " + filename;
+	if (tempSurface == nullptr) throw FileNotFoundError(filename);
 	free();
 	texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-	if (texture == nullptr) throw "Error al cargar la textura " + filename;
+	if (texture == nullptr) throw SDLError(IMG_GetError());
 	numRows = nRows;
 	numCols = nCols;
 	w = tempSurface->w;

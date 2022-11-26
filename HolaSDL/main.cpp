@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "checkML.h"
+#include "ArkanoidError.h"
 #include <iostream>
 
 using namespace std;
@@ -35,6 +36,6 @@ int main(int argc, char* argv[]){
 		Game juego;
 		juego.run();
 	}
-	catch (string error) { std::cout << error << std::endl; }
+	catch (ArkanoidError error) { std::cout << error.what() << std::endl; }
 	return 0;
 }

@@ -8,7 +8,7 @@ class ArkanoidError : public std::logic_error
 {
 public:
 	ArkanoidError(std::string e) : std::logic_error(e.c_str()) {}
-	std::string what() { return this->what(); }
+	std::string what() { return std::logic_error::what(); }
 };
 
 #endif

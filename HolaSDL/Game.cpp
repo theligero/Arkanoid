@@ -4,6 +4,7 @@
 
 Game::Game()
 {
+	bool empieza;
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid 2.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
@@ -14,14 +15,33 @@ Game::Game()
 		const TextureDescription& desc = TEXT_DESCR[i];
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
+	jugar = new Button({ 50,50 }, 50, 50, arrayTex[JUGAR]);
+	buttonsVector.push_back(jugar);
+	cargar = new Button({ 50,400 }, 50, 50, arrayTex[CARGAR]);
+	buttonsVector.push_back(cargar);
+
 	//Creo los diversos elementos que se representan por pantalla.
 
-	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
+	/*blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
 	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
 	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
 	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
 	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
+	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);*/
+
+	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
+	objectsList.push_back(blocksMap);
+	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
+	objectsList.push_back(walls[0]);
+	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
+	objectsList.push_back(walls[1]);
+	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
+	objectsList.push_back(walls[2]);
+	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
+	objectsList.push_back(player);
 	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);
+	objectsList.push_back(ball);
+	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
 
@@ -35,13 +55,12 @@ Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.
 	for (auto gameObject : objectsList) {
 		delete(gameObject);
 	}
-	blocksMap->~BlocksMap();
+	/*blocksMap->~BlocksMap();
 	delete(player);
 	delete(ball);
-	// delete(blocksMap);
 	for (int i = 0; i < 3; ++i) {
 		delete(walls[i]);
-	}
+	}*/
 	//Destruyo el render de la pantalla y la pantalla en si.
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -55,6 +74,12 @@ void Game::run() //Inicio el bucle de juego.
 
 	if (window == nullptr || renderer == nullptr) throw SDLError(SDL_GetError());
 	else {
+		while (menu) {
+			handleEvents();
+			render();
+		}
+		std::cout << "Sali del menu";
+		
 		//Mientras no se pierda, se salga del juego o se gane, el juego continua.
 		while (!gameOver && !exit && !win) {
 			handleEvents(); //Se maneja la E/S del juego.
@@ -71,20 +96,33 @@ void Game::run() //Inicio el bucle de juego.
 void Game::render() //Se renderizan cada una de las partes del juego.
 {
 	SDL_RenderClear(renderer);
-	for (int i = 0; i < 3; ++i) {
-		walls[i]->render();
+	if (menu) {
+		for (auto i : buttonsVector) {
+			i->render();
+		}
 	}
-	ball->render();
-	player->render();
-	blocksMap->render();
+	else {
+		for (auto gameObject : objectsList) {
+			gameObject->render();
+		}
+		/*for (int i = 0; i < 3; ++i) {
+			walls[i]->render();
+		}
+		ball->render();
+		player->render();
+		blocksMap->render();*/
+	}
 	SDL_RenderPresent(renderer);
 }
 
 void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 {
-	ball->update();
-	player->update();
-	if (ball->getRect().y > WINDOW_HEIGHT) {
+	for (auto gameObject : objectsList) {
+		gameObject->update();
+	}
+	/*ball->update();
+	player->update();*/
+	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
 		--lives;
 		if (lives < 0) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
 		else {
@@ -99,31 +137,68 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 			std::cout << "GANASTE" << std::endl;
 		}
 		else {
-			ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
-			blocksMap->~BlocksMap();
-			blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+			resetBlockMap();
 		}
 	}
 }
 
 void Game::handleEvents() //Se manejan la E/S del jugador.
 {
-	player->handleEvents();
+	if (menu) {
+		int x, y;
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_MOUSEBUTTONDOWN:
+				switch (event.button.button) {
+				case SDL_BUTTON_LEFT:
+					SDL_GetMouseState(&x, &y);
+					mousePosition = { (double)x,(double)y };
+					if (jugar->inBounds(mousePosition))
+						menu = false;
+						//std::cout << "Pulse jugar";
+					else if (cargar->inBounds(mousePosition))
+						//std::cout << "Pulse cargar";
+						menu = false;
+					break;
+				}
+				break;
+			}
+		}
+	}
+	else {
+		for (auto gameObject : objectsList) {
+			gameObject->handleEvents();
+		}
+	}
+	
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {
-	// paredes
-	for (int k = 0; k < 3; ++k) {
-		if (walls[k]->collides(ball, normal))
+	for (auto gameObject : objectsList) {
+		if (gameObject->collides(ball, normal))
 			return true;
 	}
-	// jugador
-	if (player->collides(ball, normal)) return true;
-	// bloques
-	if (blocksMap->collides(ball, normal)) return true;
+	//// paredes
+	//for (int k = 0; k < 3; ++k) {
+	//	if (walls[k]->collides(ball, normal))
+	//		return true;
+	//}
+	//// jugador
+	//if (player->collides(ball, normal)) return true;
+	//// bloques
+	//if (blocksMap->collides(ball, normal)) return true;
 
 	return false;
 	// comprobación de colisión con todos los obj
 	// Vector2D pos(0, 0);
 }
+
+void Game::resetBlockMap()
+{
+	ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
+	blocksMap->~BlocksMap();
+	blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+}
+

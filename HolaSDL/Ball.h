@@ -22,6 +22,10 @@ public:
 	void update() override;
 	// modificador de posición si la pelota sale del mapa
 	void restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT);
+
+	bool isUnderDeadline(int windowHeight);
+
+	//void loadFromFile() override;
 };
 
 #endif /* BALL_H_ */

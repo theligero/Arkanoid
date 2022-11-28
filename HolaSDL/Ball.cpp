@@ -29,3 +29,9 @@ void Ball::restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT)
 	pos = Vector2D(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 170);
 	//pos.getX(), WINDOW_HEIGHT - 170
 }
+
+bool Ball::isUnderDeadline(int windowHeight)
+{
+	if (getRect().y > windowHeight) return true;
+	return false;
+}

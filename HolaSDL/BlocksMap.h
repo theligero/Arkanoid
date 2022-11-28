@@ -30,7 +30,8 @@ public:
 	int blocksInMap() const { return rows * columns; }
 	Block* returnBlock(Vector2D pos) const;
 	bool collides(SDL_Rect ball, Vector2D& normal) override;
-	void decreaseNumBlocks() { numBlocks--; std::cout << numBlocks; };
+	void decreaseNumBlocks() { 
+		numBlocks--; std::cout << numBlocks; };
 	int getNumBlocks() { return numBlocks; };
 };
 

@@ -145,9 +145,10 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 
 void Game::handleEvents() //Se manejan la E/S del jugador.
 {
+	SDL_Event event;
+
 	if (menu) {
 		int x, y;
-		SDL_Event event;
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_MOUSEBUTTONDOWN:

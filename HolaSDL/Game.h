@@ -23,7 +23,7 @@ const int WALL_WIDTH = 15;
 const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
-enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD };
 
 // estructura simple con una cadena de caracteres del archivo, y entero de final y columnas
 typedef struct {

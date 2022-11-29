@@ -37,12 +37,11 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 		ptrblcks[i] = new Block*[columns];
 		for (int j = 0; j < columns; ++j) {
 			input >> block;
-			if (block != 0) ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
-				blockTam.getX(), blockTam.getY(), block, columns, rows, blocksTexture);
-			else {
-				ptrblcks[i][j] = nullptr;
-				--numBlocks;
-			}
+			if (block == 0) { ptrblcks[i][j] = nullptr; --numBlocks; }
+			else if (block > 0 && block < 6)
+				ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
+					blockTam.getX(), blockTam.getY(), block, columns, rows, blocksTexture);
+			else throw FileFormatError(FileFormatError::ValorDeColorIncorrecto(block));
 		}
 	}
 	// Cierro el stream de datos del archivo.

@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 #include "Texture.h"
+#include "ArkanoidError.h"
 #include "checkML.h"
 
 class ArkanoidObject : public GameObject

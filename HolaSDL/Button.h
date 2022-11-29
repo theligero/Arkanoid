@@ -1,4 +1,6 @@
-#pragma once
+#ifndef BUTTON_H_
+#define BUTTON_H_
+
 #include "ArkanoidObject.h"
 
 class Button : public ArkanoidObject
@@ -12,3 +14,4 @@ public:
 	bool inBounds(Vector2D coordRaton);
 };
 
+#endif

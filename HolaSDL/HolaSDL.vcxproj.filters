@@ -72,6 +72,9 @@
     <ClCompile Include="SDLError.cpp">
       <Filter>Archivos de código fuente\Errores</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="SDLError.h">
       <Filter>Archivos de encabezado\Errores</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

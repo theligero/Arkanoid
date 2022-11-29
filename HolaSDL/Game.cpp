@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "SDLError.h"
 #include <iostream>
+#include <stdlib.h>
 
 Game::Game()
 {
@@ -31,15 +32,15 @@ Game::Game()
 
 	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
 	objectsList.push_back(blocksMap);
-	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
+	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
 	objectsList.push_back(walls[0]);
-	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
+	walls[1] = new Wall({ 0, 0 }, WINDOW_WIDTH, 15, arrayTex[TOPSIDE], { 0, 1 });
 	objectsList.push_back(walls[1]);
-	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
+	walls[2] = new Wall({ WINDOW_WIDTH - 15, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { -1, 0 });
 	objectsList.push_back(walls[2]);
-	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
+	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, arrayTex[PADDLE]);
 	objectsList.push_back(player);
-	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);
+	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, arrayTex[BALL], this);
 	objectsList.push_back(ball);
 	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
@@ -78,7 +79,7 @@ void Game::run() //Inicio el bucle de juego.
 			handleEvents();
 			render();
 		}
-		std::cout << "Sali del menu";
+		std::cout << "Has salido del menu" << std::endl;
 		
 		//Mientras no se pierda, se salga del juego o se gane, el juego continua.
 		while (!gameOver && !exit && !win) {

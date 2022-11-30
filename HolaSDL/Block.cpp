@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "Game.h"
 #include <iostream>
 
 void Block::render() const //Renderizo el bloque.
@@ -41,6 +42,9 @@ bool Block::collides(SDL_Rect ball, Vector2D& normal, int &numBlocks) //Chequeo 
 			std::cout << numBlocks << "\n";
 		}
 		colisionado = true; // Cambio la variable que indica si un bloque ya ha sido chocado por la bola.
+		if ((rand() % 5) == 0) {
+			game->createReward(pos, width, height, tex);
+		}
 	}
 
 	return SDL_HasIntersection(&dest, &ball);

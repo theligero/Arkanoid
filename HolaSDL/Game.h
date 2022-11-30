@@ -53,6 +53,7 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 
 class Ball;
 class Paddle;
+class BlocksMap;
 
 class Game
 {

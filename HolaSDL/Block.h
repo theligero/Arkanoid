@@ -3,6 +3,7 @@
 
 #include "ArkanoidObject.h"
 
+
 class Game;
 
 // tipo enumerado con los posibles colores

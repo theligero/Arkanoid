@@ -2,8 +2,8 @@
 #define BLOCKSMAP_H_
 
 #include "Block.h"
-#include <iostream>
 #include "ArkanoidObject.h"
+#include <iostream>
 
 class Game;
 

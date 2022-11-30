@@ -9,26 +9,24 @@
 // Número de recompensas implementadas
 const int NUM_REWARDS = 4;
 
-// Tipo enumerado con todos los tipos de recompensas
-enum class TypeOfReward{ NEXT_LEVEL, ONE_UP, BIGGER_PLATFORM, SMALLER_PLATFORM };
+enum rewardColors { NINGUNO, L, E, S, R };
 
 // Estructura de almacenamiento de las recompensas con la fila que
 // le corresponde en el sprite
+
+
 typedef struct {
-	TypeOfReward r;
-	int row;
-} RewardRow;
+	int col,
+		row;
+} TipoReward;
 
 // Array de lo anterior con los datos correspondientes
-const RewardRow REW_ROW[NUM_REWARDS]{
-	{TypeOfReward::NEXT_LEVEL, 0 },
-	{TypeOfReward::ONE_UP, 4},
-	{TypeOfReward::BIGGER_PLATFORM, 1},
-	{TypeOfReward::SMALLER_PLATFORM, 3}
-};
 
-// Mapa no ordenado de recompensas y enteros (fila en el sprite)
-std::unordered_map<TypeOfReward, int> keyReward;
+
+const TipoReward TYPE_REWARD[5]{
+	{-1, -1},
+	{0, 0}, {0, 1}, {0, 3}, {0, 4}
+};
 
 class Reward : public MovingObject
 {
@@ -38,18 +36,18 @@ private:
 	// Iterador de la recompensa en la lista
 	std::list<ArkanoidObject*>::iterator it;
 	// Tipo de recompensa
-	TypeOfReward rew = TypeOfReward::ONE_UP;
+	rewardColors rew = rewardColors::R;
 public:
 	// Constructora sin parámetros
 	Reward() {}
 	// Constructora con posición, puntero a textura, puntero a lista
 	Reward(Vector2D pos, int w, int h, Texture* tex, Game* juego) :
 		MovingObject(pos, w, h, tex, { 0, 1 }), game(juego),
-		rew(TypeOfReward(rand() % NUM_REWARDS)) { InitializeKeyReward(); /*LoadFile();*/ }
+		rew(rewardColors(rand() % 4 + 1)) { /*InitializeKeyReward(); LoadFile();*/ }
 	// Destructora
 	virtual ~Reward();
-	// Inicialización de tipos enumerados en el mapa no ordenado
-	void InitializeKeyReward();
+	//// Inicialización de tipos enumerados en el mapa no ordenado
+	//void InitializeKeyReward();
 	// Carga de archivo
 	void render() const override;
 	// Colisión con el jugador

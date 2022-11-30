@@ -8,21 +8,21 @@ Reward::~Reward()
 	delete(this);
 }
 
-void Reward::InitializeKeyReward()
-{
-	// Inserto en el mapa no ordenado las posiciones que le corresponden
-	// a cada tipo de recompensa
-	for (int i = 0; i < NUM_REWARDS; ++i) {
-		keyReward.insert({ REW_ROW[i].r, REW_ROW[i].row });
-	}
-}
+//void Reward::InitializeKeyReward()
+//{
+//	// Inserto en el mapa no ordenado las posiciones que le corresponden
+//	// a cada tipo de recompensa
+//	for (int i = 0; i < NUM_REWARDS; ++i) {
+//		keyReward.insert({ REW_ROW[i].r, REW_ROW[i].row });
+//	}
+//}
 
 void Reward::render() const
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del bloque.
 
 	//height = tex->getH(); width = tex->getW();
-	tex->renderFrame(dest, keyReward[rew], 1);
+	tex->renderFrame(dest, TYPE_REWARD[rew].col, TYPE_REWARD[rew].row, 1);
 }
 
 bool Reward::collides(SDL_Rect paddle)
@@ -40,17 +40,17 @@ void Reward::StablishReward()
 	// Creo un condicional de tipo switch para evaluar
 	// qué recompensa tengo
 	switch (rew) {
-		case (TypeOfReward::NEXT_LEVEL): // si soy NEXT_LEVEL
+		case (rewardColors::L): // si soy NEXT_LEVEL
 			game->nextLevel(); // cambio de nivel
 			break;
-		case (TypeOfReward::ONE_UP): // si soy ONE_UP
+		case (rewardColors::R): // si soy ONE_UP
 			game->addOneUp(); // me sumo una vida
 			break;
-		case (TypeOfReward::BIGGER_PLATFORM): // si soy BIGGER_PLATFORM
+		case (rewardColors::E): // si soy BIGGER_PLATFORM
 			// cambio mis dimensiones en un 50 % más
 			game->getPaddlePointer()->changePlatWidth(1.5);
 			break;
-		case (TypeOfReward::SMALLER_PLATFORM): // si soy SMALLER_PLATFORM
+		case (rewardColors::S): // si soy SMALLER_PLATFORM
 			// cambio mis dimensiones en un 50 % menos
 			game->getPaddlePointer()->changePlatWidth(0.5);
 			break;

@@ -257,3 +257,18 @@ void Game::initGame()
 	objectsList.push_back(ball);
 }
 
+void Game::addOneUp()
+{
+	lives += 1;
+}
+
+void Game::nextLevel()
+{
+	currentLevel += 1;
+}
+
+Paddle* Game::getPaddlePointer()
+{
+	return player;
+}
+

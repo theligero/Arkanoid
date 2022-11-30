@@ -92,3 +92,8 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal)
 
 	return false; // en caso contrario devuelvo falso
 }
+
+void Paddle::changePlatWidth(double scalar)
+{
+	width *= scalar;
+}

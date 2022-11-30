@@ -24,6 +24,8 @@ public:
 	void handleEvents() override;
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal) override;
+	// cambio de ancho de la pala
+	void changePlatWidth(double scalar);
 };
 #endif
 

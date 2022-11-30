@@ -110,6 +110,12 @@ public:
 	void initGame();
 
 	void setSaveGame() { saveGame = true; }
+	// Añadir una vida extra
+	void addOneUp();
+	// Cambio al siguiente nivel
+	void nextLevel();
+
+	Paddle* getPaddlePointer();
 };
 
 #endif /* GAME_H_ */

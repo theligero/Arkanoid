@@ -22,7 +22,7 @@ void Reward::render() const
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del bloque.
 
 	//height = tex->getH(); width = tex->getW();
-	tex->renderFrame(dest, TYPE_REWARD[rew].col, TYPE_REWARD[rew].row, 1);
+	tex->renderFrame(dest,  TYPE_REWARD[rew].row,TYPE_REWARD[rew].col, 1);
 }
 
 bool Reward::collides(SDL_Rect paddle)

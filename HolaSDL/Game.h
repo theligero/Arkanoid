@@ -130,6 +130,8 @@ public:
 
 	void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
 
+	Texture* getRewardTexture() { return arrayTex[REWARD]; }
+
 	int getLives() const { return lives; }
 };
 

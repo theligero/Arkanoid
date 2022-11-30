@@ -43,7 +43,7 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"youwin.png", 1, 1},
 	{"cargarButton.png", 1, 1},
 	{"jugarButton.png", 1, 1},
-	{"rewards.png", 1, 1}
+	{"rewards.png", 8, 10}
 };
 
 class Ball;

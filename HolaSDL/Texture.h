@@ -33,6 +33,7 @@ public:
     int getW() const { return w; };
     int getH() const { return h; };
     uint getNumCols() const { return numCols; };
+    uint getNumRows() const { return numRows; };
     SDL_Texture* getTexture() const { return texture; };
 
     void load(string filename, uint numRows = 1, uint numCols = 1);

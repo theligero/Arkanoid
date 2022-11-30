@@ -17,16 +17,18 @@ private:
 	int numBlocks = 0; //Cantidad de bloques que quedan sin chocar por la bola.
 public:
 	// constructor por defecto
-	BlocksMap() : ptrblcks(nullptr), rows(0), columns(0) {}
+	BlocksMap() : 
+		ptrblcks(nullptr), rows(0), columns(0) {}
 	// constructor con un entero nivel, un puntero a su textura y a la ventana
-	BlocksMap(int level, Texture* tex, SDL_Window* window) : ArkanoidObject({ 0,0 }, 0, 0, tex) { loadFile(level, tex, window); }
+	BlocksMap(int level, Texture* tex, SDL_Window* window) : 
+		ArkanoidObject({ 0,0 }, 0, 0, tex) { loadFile(level, tex, window); }
 	// destructor
 	~BlocksMap() { delete[] ptrblcks; }
 	// carga de archivo
 	void loadFile(int level, Texture* blocksTexture, SDL_Window* win);
 	// renderizado
 	void render() const override;
-	//// entero con el número actual de bloques
+	// entero con el número actual de bloques
 	int blocksInMap() const { return rows * columns; }
 	Block* returnBlock(Vector2D pos) const;
 	bool collides(SDL_Rect ball, Vector2D& normal) override;

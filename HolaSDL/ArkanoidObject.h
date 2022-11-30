@@ -16,6 +16,7 @@ public:
 	virtual SDL_Rect getRect() const;
 	virtual bool collides(SDL_Rect ball, Vector2D& normal) { return false; };
 	virtual bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks) { return false; };
+	virtual bool collides(SDL_Rect paddle) { return false; };
 	ArkanoidObject() : pos(0, 0), width(0), height(0), tex(nullptr) {}
 	ArkanoidObject(Vector2D pos, int w, int h, Texture* t) :
 		pos(pos), width(w), height(h), tex(t) {}

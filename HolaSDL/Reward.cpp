@@ -3,7 +3,7 @@
 Reward::~Reward()
 {
 	// Me busco en la lista gracias al iterador guardado
-	objectList->erase(it);
+	game->getObjectList()->erase(it);
 	// Me borro del todo
 	delete(this);
 }
@@ -17,16 +17,18 @@ void Reward::InitializeKeyReward()
 	}
 }
 
-void Reward::LoadFile()
+void Reward::render() const
 {
-	height = tex->getH(); width = tex->getW();
-	tex->renderFrame(getRect(), keyReward[rew], 1);
+	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del bloque.
+
+	//height = tex->getH(); width = tex->getW();
+	tex->renderFrame(dest, keyReward[rew], 1);
 }
 
-bool Reward::Collides(SDL_Rect* paddle)
+bool Reward::collides(SDL_Rect paddle)
 {
 	// Si hay intersección entre el jugador y la recompensa
-	if (SDL_HasIntersection(paddle, &getRect())) {
+	if (SDL_HasIntersection(&paddle, &getRect())) {
 		StablishReward(); // se activan las recompensas
 		return true; // y devuelvo verdadero
 	}
@@ -55,4 +57,9 @@ void Reward::StablishReward()
 		default:
 			break;
 	}
+}
+
+void Reward::update() 
+{
+	pos += dir;
 }

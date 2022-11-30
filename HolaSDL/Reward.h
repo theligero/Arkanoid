@@ -35,8 +35,6 @@ class Reward : public MovingObject
 private:
 	// Puntero al juego
 	Game* game = nullptr;
-	// Puntero a la lista de punteros a objetos
-	std::list<ArkanoidObject*>* objectList = nullptr;
 	// Iterador de la recompensa en la lista
 	std::list<ArkanoidObject*>::iterator it;
 	// Tipo de recompensa
@@ -45,19 +43,21 @@ public:
 	// Constructora sin parámetros
 	Reward() {}
 	// Constructora con posición, puntero a textura, puntero a lista
-	Reward(Vector2D pos, int w, int h, Texture* tex, std::list<ArkanoidObject*>* l, Game* juego) :
-		MovingObject(pos, w, h, tex, { 0, 1 }), objectList(l), game(juego),
-		rew(TypeOfReward(rand() % NUM_REWARDS)) { InitializeKeyReward(); LoadFile(); }
+	Reward(Vector2D pos, int w, int h, Texture* tex, Game* juego) :
+		MovingObject(pos, w, h, tex, { 0, 1 }), game(juego),
+		rew(TypeOfReward(rand() % NUM_REWARDS)) { InitializeKeyReward(); /*LoadFile();*/ }
 	// Destructora
 	virtual ~Reward();
 	// Inicialización de tipos enumerados en el mapa no ordenado
 	void InitializeKeyReward();
 	// Carga de archivo
-	void LoadFile();
+	void render() const override;
 	// Colisión con el jugador
-	bool Collides(SDL_Rect* paddle);
+	bool collides(SDL_Rect paddle)override;
 	// Ejecución de las distintas recompensas
 	void StablishReward();
+	
+	void update() override;
 };
 
 #endif

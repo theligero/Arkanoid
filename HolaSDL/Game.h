@@ -8,6 +8,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Button.h"
+#include "Reward.h"
 #include "ArkanoidObject.h"
 #include "checkML.h"
 #include <list>
@@ -25,6 +26,8 @@ const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
 enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME };
+
+enum CollisionType {PELOTA, PLAYER};
 
 // estructura simple con una cadena de caracteres del archivo, y entero de final y columnas
 typedef struct {
@@ -77,9 +80,11 @@ private:
 
 	list<ArkanoidObject*> objectsList;
 	vector<ArkanoidObject*> buttonsVector;
+	vector<ArkanoidObject*> rewardsVector;
 
 	int lives = 3;
 	int currentLevel = 1;
+	int numRewards = 0;
 
 	SDL_Rect pauseRect; 
 	
@@ -99,7 +104,7 @@ public:
 	// controlador de eventos
 	void handleEvents();
 	// colisión de objetos
-	bool collides(SDL_Rect pos, Vector2D& normal);
+	bool collides(SDL_Rect pos, Vector2D& normal, CollisionType colision);
 
 	void resetBlockMap();
 
@@ -116,6 +121,10 @@ public:
 	void nextLevel();
 
 	Paddle* getPaddlePointer();
+
+	list<ArkanoidObject*>* getObjectList() { return &objectsList;  };
+
+	void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
 };
 
 #endif /* GAME_H_ */

@@ -25,13 +25,6 @@ Game::Game()
 	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 	//Creo los diversos elementos que se representan por pantalla.
 
-	/*blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
-	walls[0] = new Wall(Vector2D(0, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(1, 0));
-	walls[1] = new Wall(Vector2D(0, 0), WINDOW_WIDTH, 15, arrayTex[TOPSIDE], Vector2D(0, 1));
-	walls[2] = new Wall(Vector2D(WINDOW_WIDTH - 15, 15), 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], Vector2D(-1, 0));
-	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
-	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);*/
-
 	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
@@ -182,12 +175,22 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 	}	
 }
 
-bool Game::collides(SDL_Rect ball, Vector2D& normal) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
+bool Game::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {
-	for (auto gameObject : objectsList) {
-		if (gameObject->collides(ball, normal))
-			return true;
+	switch (colision) {
+	case PELOTA:
+		for (auto gameObject : objectsList) {
+			if (gameObject->collides(ball, normal))
+				return true;
+		}
+		break;
+	case PLAYER:
+		for (auto i : rewardsVector) {
+			i->collides(ball);
+		}
 	}
+	
+	
 	//// paredes
 	//for (int k = 0; k < 3; ++k) {
 	//	if (walls[k]->collides(ball, normal))
@@ -219,17 +222,6 @@ void Game::save()
 
 	input << currentLevel << " " << lives << "\n" << "\n";
 
-	/*blocksMap->saveToFile(input);
-	input << "\n";
-	walls[0]->saveToFile(input);
-	input << "\n";
-	walls[1]->saveToFile(input);
-	input << "\n";
-	walls[2]->saveToFile(input);
-	input << "\n";
-	player->saveToFile(input);
-	input << "\n";
-	ball->saveToFile(input);*/
 	for (auto gameObject : objectsList) {
 		gameObject->saveToFile(input);
 		input << "\n";
@@ -249,7 +241,7 @@ void Game::load() {
 	if (!loadInput) throw FileNotFoundError(nombre + ".dat");
 	loadInput >> currentLevel >> lives;
 	
-	blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS]);
+	blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS], this);
 	objectsList.push_back(blocksMap);
 	walls[0] = new Wall(loadInput, arrayTex[SIDE]);
 	objectsList.push_back(walls[0]);
@@ -267,7 +259,7 @@ void Game::load() {
 
 void Game::initGame()
 {
-	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
+	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window, this);
 	objectsList.push_back(blocksMap);
 	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
 	objectsList.push_back(walls[0]);
@@ -289,6 +281,7 @@ void Game::addOneUp()
 void Game::nextLevel()
 {
 	currentLevel += 1;
+
 }
 
 Paddle* Game::getPaddlePointer()
@@ -296,3 +289,8 @@ Paddle* Game::getPaddlePointer()
 	return player;
 }
 
+void Game::createReward(Vector2D _pos, int _w, int _h, Texture* _tex) 
+{
+	numRewards++;
+	objectsList.push_back(new Reward(_pos, _w, _h, _tex, this));
+}

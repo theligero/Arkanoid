@@ -42,7 +42,7 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 			if (block == 0) { ptrblcks[i][j] = nullptr; --numBlocks; }
 			else if (block > 0 && block < 6)
 				ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
-					blockTam.getX(), blockTam.getY(), block, columns, rows, blocksTexture);
+					blockTam.getX(), blockTam.getY(), block, columns, rows, blocksTexture, game);
 			else throw FileFormatError(FileFormatError::ValorDeColorIncorrecto(block));
 		}
 	}
@@ -140,7 +140,7 @@ void BlocksMap::loadFromFile(fstream& input)
 			if (block == 0) { ptrblcks[i][j] = nullptr; --numBlocks; }
 			else if (block > 0 && block < 6)
 				ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
-					blockTam.getX(), blockTam.getY(), block, columns, rows, tex);
+					blockTam.getX(), blockTam.getY(), block, columns, rows, tex, game);
 			else throw FileFormatError(FileFormatError::ValorDeColorIncorrecto(block));
 		}
 	}

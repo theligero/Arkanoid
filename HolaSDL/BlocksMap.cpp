@@ -110,7 +110,7 @@ bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal)
 
 void BlocksMap::saveToFile(ofstream& input)
 {
-	input << rows << " " << columns << "\n";
+	input << rows << " " << columns << " " << width << " " << height << " " << blockTam.getX() << " " << blockTam.getY() << "\n";
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
 			if (ptrblcks[i][j] != nullptr && !ptrblcks[i][j]->getColisionado()) {
@@ -121,6 +121,28 @@ void BlocksMap::saveToFile(ofstream& input)
 			}
 		}
 		input << "\n";
+	}
+
+}
+
+void BlocksMap::loadFromFile(fstream& input)
+{	
+	double tamX, tamY;
+	input >> rows >> columns >> width >> height >> tamX >> tamY;
+	blockTam = Vector2D(tamX, tamY);
+	// Creo y relleno el array bidimensional de punteros a bloques.
+	int block;
+	ptrblcks = new Block * *[rows];
+	for (int i = 0; i < rows; ++i) {
+		ptrblcks[i] = new Block * [columns];
+		for (int j = 0; j < columns; ++j) {
+			input >> block;
+			if (block == 0) { ptrblcks[i][j] = nullptr; --numBlocks; }
+			else if (block > 0 && block < 6)
+				ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
+					blockTam.getX(), blockTam.getY(), block, columns, rows, tex);
+			else throw FileFormatError(FileFormatError::ValorDeColorIncorrecto(block));
+		}
 	}
 
 }

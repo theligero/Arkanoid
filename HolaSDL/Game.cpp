@@ -72,7 +72,7 @@ void Game::run() //Inicio el bucle de juego.
 		std::cout << "Has salido del menu" << std::endl;
 		if (cargarArchivo) {
 			load();
-			initGame();
+			/*initGame();*/
 		}
 		else {
 			initGame();
@@ -217,9 +217,23 @@ void Game::save()
 	cin >> nombre;
 	ofstream input("../saveGames/save" + nombre + ".dat");
 
-	input << currentLevel << " " << lives << " " << "puntos" << "\n";
+	input << currentLevel << " " << lives << "\n" << "\n";
 
-	blocksMap->saveToFile(input);
+	/*blocksMap->saveToFile(input);
+	input << "\n";
+	walls[0]->saveToFile(input);
+	input << "\n";
+	walls[1]->saveToFile(input);
+	input << "\n";
+	walls[2]->saveToFile(input);
+	input << "\n";
+	player->saveToFile(input);
+	input << "\n";
+	ball->saveToFile(input);*/
+	for (auto gameObject : objectsList) {
+		gameObject->saveToFile(input);
+		input << "\n";
+	}
 
 }
 
@@ -232,13 +246,23 @@ void Game::load() {
 
 	loadInput.open(aux);
 
-	string linea;
-
-
 	if (!loadInput) throw FileNotFoundError(nombre + ".dat");
-		loadInput >> linea;
-		cout << linea << "\n";
+	loadInput >> currentLevel >> lives;
 	
+	blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS]);
+	objectsList.push_back(blocksMap);
+	walls[0] = new Wall(loadInput, arrayTex[SIDE]);
+	objectsList.push_back(walls[0]);
+	walls[1] = new Wall(loadInput, arrayTex[TOPSIDE]);
+	objectsList.push_back(walls[1]);
+	walls[2] = new Wall(loadInput, arrayTex[SIDE]);
+	objectsList.push_back(walls[2]);
+	player = new Paddle(loadInput, arrayTex[PADDLE], this);
+	objectsList.push_back(player);
+	ball = new Ball(loadInput, arrayTex[BALL], this);
+	objectsList.push_back(ball);/**/
+		
+	loadInput.close();
 }
 
 void Game::initGame()

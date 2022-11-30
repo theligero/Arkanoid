@@ -97,3 +97,15 @@ void Paddle::changePlatWidth(double scalar)
 {
 	width *= scalar;
 }
+
+void Paddle::saveToFile(ofstream& input)
+{
+	input << pos.getX() << " " << pos.getY() << " " << width << " " << height << "\n";
+}
+
+void Paddle::loadFromFile(fstream& input)
+{
+	double posX, posY;
+	input >> posX >> posY >> width >> height;
+	pos = Vector2D(posX, posY);
+}

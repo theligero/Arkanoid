@@ -16,6 +16,11 @@ public:
 	// constructor con su posición, ancho, alto, vector dirección, puntero a textura y al juego
 	Ball(Vector2D pos, int w, int h, Vector2D dir, Texture* tex, Game* _game) :
 		MovingObject(pos, w, h, tex, dir), game(_game){}
+
+	Ball(fstream& input, Texture* t, Game* _game) :
+		MovingObject(t), game(_game) {
+		loadFromFile(input);
+	}
 	// renderizado
 	void render() const override;
 	// actualización
@@ -25,7 +30,9 @@ public:
 
 	bool isUnderDeadline(int windowHeight);
 
-	//void loadFromFile() override;
+	void saveToFile(ofstream& input) override;
+
+	void loadFromFile(fstream& input) override;
 };
 
 #endif /* BALL_H_ */

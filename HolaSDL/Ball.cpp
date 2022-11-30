@@ -35,3 +35,16 @@ bool Ball::isUnderDeadline(int windowHeight)
 	if (getRect().y > windowHeight) return true;
 	return false;
 }
+
+void Ball::saveToFile(ofstream& input)
+{
+	input << pos.getX() << " " << pos.getY() << " " << width << " " << height << " " << dir.getX() << " " << dir.getY() << "\n";
+}
+
+void Ball::loadFromFile(fstream& input)
+{
+	double posX, posY, dirX, dirY;
+	input >> posX >> posY >> width >> height >> dirX >> dirY;
+	pos = Vector2D(posX, posY);
+	dir = Vector2D(dirX, dirY);
+}

@@ -23,6 +23,8 @@ public:
 	// constructor con un entero nivel, un puntero a su textura y a la ventana
 	BlocksMap(int level, Texture* tex, SDL_Window* window) : 
 		ArkanoidObject({ 0,0 }, 0, 0, tex) { loadFile(level, tex, window); }
+	BlocksMap(fstream &input, Texture* tex) :
+		ArkanoidObject({ 0,0 }, 0, 0, tex) { loadFromFile(input); }
 	// destructor
 	~BlocksMap() { delete[] ptrblcks; }
 	// carga de archivo
@@ -38,6 +40,8 @@ public:
 	int getNumBlocks() { return numBlocks; };
 
 	void saveToFile(ofstream& input) override;
+
+	void loadFromFile(fstream& input) override;
 };
 
 #endif 

@@ -22,3 +22,11 @@ void Wall::saveToFile(ofstream& input)
 {
 	input << pos.getX() << " " << pos.getY() << " " << width << " " << height << " " << _normal.getX() << " " << _normal.getY() << "\n";
 }
+
+void Wall::loadFromFile(fstream& input)
+{
+	double posX, posY, normalX, normalY;
+	input >> posX >> posY >> width >> height >> normalX >> normalY;
+	pos = Vector2D(posX, posY);
+	_normal = Vector2D(normalX, normalY);
+}

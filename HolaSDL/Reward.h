@@ -3,8 +3,11 @@
 
 #include "MovingObject.h"
 #include <list>
+#include "Game.h"
 #include <unordered_map>
 #include "Paddle.h"
+
+
 
 // Número de recompensas implementadas
 const int NUM_REWARDS = 4;
@@ -28,6 +31,8 @@ const TipoReward TYPE_REWARD[5]{
 	{0, 0}, {0, 1}, {0, 3}, {0, 4}
 };
 
+class Game;
+
 class Reward : public MovingObject
 {
 private:
@@ -37,15 +42,21 @@ private:
 	std::list<ArkanoidObject*>::iterator it;
 	// Tipo de recompensa
 	rewardColors rew = rewardColors::R;
+
+	bool colision = false;
 public:
 	// Constructora sin parámetros
 	Reward() {}
 	// Constructora con posición, puntero a textura, puntero a lista
 	Reward(Vector2D pos, int w, int h, Texture* tex, Game* juego) :
 		MovingObject(pos, w, h, tex, { 0, 1 }), game(juego),
-		rew(rewardColors(rand() % 4 + 1)) { /*InitializeKeyReward(); LoadFile();*/ }
+		rew(rewardColors(rand() % 4 + 1)) {
+		InitializeKeyReward();
+	}
 	// Destructora
-	virtual ~Reward();
+	~Reward();
+	//// Inicialización de tipos enumerados en el mapa no ordenado
+	void InitializeKeyReward();
 	// Carga de archivo
 	void render() const override;
 	// Colisión con el jugador

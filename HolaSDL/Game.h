@@ -133,6 +133,8 @@ public:
 	Texture* getRewardTexture() { return arrayTex[REWARD]; }
 
 	int getLives() const { return lives; }
+
+	void advanceLevel();
 };
 
 #endif /* GAME_H_ */

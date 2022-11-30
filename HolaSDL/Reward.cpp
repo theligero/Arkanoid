@@ -8,28 +8,31 @@ Reward::~Reward()
 	delete(this);
 }
 
-//void Reward::InitializeKeyReward()
-//{
-//	// Inserto en el mapa no ordenado las posiciones que le corresponden
-//	// a cada tipo de recompensa
-//	for (int i = 0; i < NUM_REWARDS; ++i) {
-//		keyReward.insert({ REW_ROW[i].r, REW_ROW[i].row });
-//	}
-//}
+void Reward::InitializeKeyReward()
+{
+	it = game->getObjectList()->end();
+	--it;
+}
 
 void Reward::render() const
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del bloque.
 
 	//height = tex->getH(); width = tex->getW();
+	if (!colision) {
 	tex->renderFrame(dest,  TYPE_REWARD[rew].row,TYPE_REWARD[rew].col, 1);
+	}
+	else {
+		tex->renderFrame(dest, TYPE_REWARD[NINGUNO].row, TYPE_REWARD[NINGUNO].col, 1);
+	}
 }
 
 bool Reward::collides(SDL_Rect paddle)
 {
 	// Si hay intersección entre el jugador y la recompensa
-	if (SDL_HasIntersection(&paddle, &getRect())) {
+	if (SDL_HasIntersection(&paddle, &getRect()) && !colision) {
 		StablishReward(); // se activan las recompensas
+		colision = true;
 		return true; // y devuelvo verdadero
 	}
 	else return false; // devuelvo falso en caso contrario
@@ -57,6 +60,7 @@ void Reward::StablishReward()
 		default:
 			break;
 	}
+	//this->~Reward();
 }
 
 void Reward::update() 

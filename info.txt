@@ -5,17 +5,6 @@ Alfonso Jaime Rodulfo Guío
 
 // ERRORES DE FUNCIONAMIENTO //
 
-La implementación del jugador es tal cual como debería ser, pero la cosa es que el cálculo del vector
-dirección con la fórmula explicada en clase hay casos en los que se devuelve un valor en y negativo. Eso
-hace que la pelota vuelva a calcular otra dirección ya que sigue colisionando con el jugador, y repita el
-mismo proceso una y otra vez. Visualmente esto genera dos alternativas: que la pelota atraviese al jugador
-o que éste la "aguante" (por así decirlo) durante algo menos de un segundo y la devuelva con cierto ángulo
-similar al que debería salir.
-
-La pelota rebota con cada bloque como debería, con la excepción de que la forma en la que funciona la intersección 
-con los bloques, genera algunos rebotes extraños puesto que choca antes por un lado que por otr.
-En estos casos, la normal que recibe la bola es correcta matemáticamente ( por posición ) pero no visualmente. 
-
-// APARTADOS OPCIONALES //
-
-Al romper todos los bloques, se cambia a la siguiente pantalla.
+El reward de cambio de nivel, a veces funciona mal y salta una excepción.
+Nos hemos dado cuenta a toro pasado de que hemos hecho la colision del reward con el paddle de una forma que no es la que se estipula en el enunciado.
+El destructor del reward nos daba problemas y ahora solo se oculta al reward una vez choca.

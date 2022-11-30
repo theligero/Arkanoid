@@ -132,13 +132,7 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 	else if (points >= 5000) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
 	if (blocksMap->getNumBlocks() == 0) {
 		currentLevel++;
-		if (currentLevel > MAX_LEVELS) {
-			win = true;
-			std::cout << "GANASTE" << std::endl;
-		}
-		else {
-			resetBlockMap();
-		}
+		advanceLevel();
 	}
 }
 
@@ -253,7 +247,7 @@ void Game::load() {
 	player = new Paddle(loadInput, arrayTex[PADDLE], this);
 	objectsList.push_back(player);
 	ball = new Ball(loadInput, arrayTex[BALL], this);
-	objectsList.push_back(ball);/**/
+	objectsList.push_back(ball);
 		
 	loadInput.close();
 }
@@ -282,6 +276,7 @@ void Game::addOneUp()
 void Game::nextLevel()
 {
 	currentLevel += 1;
+	advanceLevel();
 }
 
 void Game::addPoints(const int& puntos)
@@ -298,5 +293,18 @@ Paddle* Game::getPaddlePointer()
 void Game::createReward(Vector2D _pos, int _w, int _h, Texture* _tex) 
 {
 	numRewards++;
-	objectsList.push_back(new Reward(_pos, _w, _h, _tex, this));
+	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
+	objectsList.push_back(recompensa);
+	rewardsVector.push_back(recompensa);
+}
+
+void Game::advanceLevel() 
+{
+	if (currentLevel > MAX_LEVELS) {
+		win = true;
+		std::cout << "GANASTE" << std::endl;
+	}
+	else {
+		resetBlockMap();
+	}
 }

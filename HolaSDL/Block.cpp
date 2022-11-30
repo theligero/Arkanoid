@@ -42,9 +42,10 @@ bool Block::collides(SDL_Rect ball, Vector2D& normal, int &numBlocks) //Chequeo 
 			std::cout << numBlocks << "\n";
 		}
 		colisionado = true; // Cambio la variable que indica si un bloque ya ha sido chocado por la bola.
-		if ((rand() % 5) == 0) {
-			game->createReward(pos, width, height, tex);
+		if ((rand() % 1) == 0) {
+			game->createReward(Vector2D{ pos.getX() + width / 2, pos.getY() + height / 2 }, 20, 13, game->getRewardTexture());
 		}
+		
 	}
 
 

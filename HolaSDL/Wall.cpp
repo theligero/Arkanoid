@@ -17,3 +17,8 @@ bool Wall::collides(SDL_Rect ball, Vector2D& normal)
 
 	return SDL_HasIntersection(&dest, &ball);
 }
+
+void Wall::saveToFile(ofstream& input)
+{
+	input << pos.getX() << " " << pos.getY() << " " << width << " " << height << " " << _normal.getX() << " " << _normal.getY() << "\n";
+}

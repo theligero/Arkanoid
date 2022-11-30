@@ -5,13 +5,14 @@
 #include "Vector2D.h"
 #include "Texture.h"
 #include "ArkanoidError.h"
+#include <fstream>
 #include "checkML.h"
 
 class ArkanoidObject : public GameObject
 {
 public: 
 	virtual void loadFromFile() {};
-	virtual void saveToFile() {};
+	virtual void saveToFile(ofstream &input) {};
 	virtual SDL_Rect getRect() const;
 	virtual bool collides(SDL_Rect ball, Vector2D& normal) { return false; };
 	virtual bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks) { return false; };

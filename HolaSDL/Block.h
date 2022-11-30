@@ -38,6 +38,7 @@ public:
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks) override;
 	bool getColisionado() { return colisionado; };
+	int getColor() { return color; };
 };
 
 #endif /* BLOCK_H_ */

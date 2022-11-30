@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 
+
+
 // Se carga el mapa de bloques de un archivo de datos.
 void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 {
@@ -104,4 +106,21 @@ bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal)
 	}
 	
 	return false;
+}
+
+void BlocksMap::saveToFile(ofstream& input)
+{
+	input << rows << " " << columns << "\n";
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+			if (ptrblcks[i][j] != nullptr && !ptrblcks[i][j]->getColisionado()) {
+				input << ptrblcks[i][j]->getColor() << " ";
+			}
+			else {
+				input << 0 << " ";
+			}
+		}
+		input << "\n";
+	}
+
 }

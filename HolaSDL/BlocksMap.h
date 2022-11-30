@@ -5,6 +5,7 @@
 #include <iostream>
 #include "ArkanoidObject.h"
 
+
 using PointerBlocks = Block***;
 
 class BlocksMap : public ArkanoidObject
@@ -35,6 +36,8 @@ public:
 	void decreaseNumBlocks() { 
 		numBlocks--; std::cout << numBlocks; };
 	int getNumBlocks() { return numBlocks; };
+
+	void saveToFile(ofstream& input) override;
 };
 
 #endif 

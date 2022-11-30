@@ -1,15 +1,16 @@
 #include "Game.h"
 #include "SDLError.h"
+#include "FileNotFoundError.h"
 #include <iostream>
 #include <stdlib.h>
 
 Game::Game()
 {
-	bool empieza;
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Arkanoid 2.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	SDL_SetRenderDrawColor(renderer, 94, 186, 125, 255);
 	//Texture* arrayTex[NUM_TEXTURES];
 	//Creo el array de texturas sacando la información de un array con las descripciones de cda textura.
 	for (int i = 0; i < NUM_TEXTURES; ++i) { 
@@ -21,6 +22,7 @@ Game::Game()
 	cargar = new Button({ 50,400 }, 50, 50, arrayTex[CARGAR]);
 	buttonsVector.push_back(cargar);
 
+	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 	//Creo los diversos elementos que se representan por pantalla.
 
 	/*blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
@@ -30,18 +32,6 @@ Game::Game()
 	player = new Paddle(Vector2D(WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50), 150, 15, arrayTex[PADDLE]);
 	ball = new Ball(Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300), 20, 20, Vector2D(1, 1), arrayTex[BALL], this);*/
 
-	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
-	objectsList.push_back(blocksMap);
-	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
-	objectsList.push_back(walls[0]);
-	walls[1] = new Wall({ 0, 0 }, WINDOW_WIDTH, 15, arrayTex[TOPSIDE], { 0, 1 });
-	objectsList.push_back(walls[1]);
-	walls[2] = new Wall({ WINDOW_WIDTH - 15, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { -1, 0 });
-	objectsList.push_back(walls[2]);
-	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, arrayTex[PADDLE]);
-	objectsList.push_back(player);
-	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, arrayTex[BALL], this);
-	objectsList.push_back(ball);
 	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
@@ -80,9 +70,16 @@ void Game::run() //Inicio el bucle de juego.
 			render();
 		}
 		std::cout << "Has salido del menu" << std::endl;
-		
+		if (cargarArchivo) {
+			load();
+			initGame();
+		}
+		else {
+			initGame();
+		}
+
 		//Mientras no se pierda, se salga del juego o se gane, el juego continua.
-		while (!gameOver && !exit && !win) {
+		while (!gameOver && !exit && !win && !saveGame) {
 			handleEvents(); //Se maneja la E/S del juego.
 			frameTime = SDL_GetTicks() - startTime;
 			if (frameTime >= FRAME_RATE) { //El juego va con un Frame Rate asignado.
@@ -91,6 +88,11 @@ void Game::run() //Inicio el bucle de juego.
 			}
 			render();
 		}
+		if (saveGame) {
+			render();
+			save();
+		}
+
 	}
 }
 
@@ -105,6 +107,9 @@ void Game::render() //Se renderizan cada una de las partes del juego.
 	else {
 		for (auto gameObject : objectsList) {
 			gameObject->render();
+		}
+		if (saveGame) {
+			arrayTex[PAUSEGAME]->render(pauseRect);
 		}
 		/*for (int i = 0; i < 3; ++i) {
 			walls[i]->render();
@@ -159,9 +164,11 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 					if (jugar->inBounds(mousePosition))
 						menu = false;
 						//std::cout << "Pulse jugar";
-					else if (cargar->inBounds(mousePosition))
+					else if (cargar->inBounds(mousePosition)) {
 						//std::cout << "Pulse cargar";
 						menu = false;
+						cargarArchivo = true;
+					}
 					break;
 				}
 				break;
@@ -172,8 +179,7 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 		for (auto gameObject : objectsList) {
 			gameObject->handleEvents();
 		}
-	}
-	
+	}	
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
@@ -202,5 +208,52 @@ void Game::resetBlockMap()
 	ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
 	blocksMap->~BlocksMap();
 	blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+}
+
+void Game::save()
+{
+	string nombre;
+	cout << "\n";
+	cin >> nombre;
+	ofstream input("../saveGames/save" + nombre + ".dat");
+
+	input << currentLevel << " " << lives << " " << "puntos" << "\n";
+
+	blocksMap->saveToFile(input);
+
+}
+
+void Game::load() {
+	string nombre;
+	cout << "\n";
+	cin >> nombre;
+	string aux = "../saveGames/save" + nombre + ".dat";
+	fstream loadInput;
+
+	loadInput.open(aux);
+
+	string linea;
+
+
+	if (!loadInput) throw FileNotFoundError(nombre + ".dat");
+		loadInput >> linea;
+		cout << linea << "\n";
+	
+}
+
+void Game::initGame()
+{
+	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window);
+	objectsList.push_back(blocksMap);
+	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
+	objectsList.push_back(walls[0]);
+	walls[1] = new Wall({ 0, 0 }, WINDOW_WIDTH, 15, arrayTex[TOPSIDE], { 0, 1 });
+	objectsList.push_back(walls[1]);
+	walls[2] = new Wall({ WINDOW_WIDTH - 15, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { -1, 0 });
+	objectsList.push_back(walls[2]);
+	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, arrayTex[PADDLE], this);
+	objectsList.push_back(player);
+	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, arrayTex[BALL], this);
+	objectsList.push_back(ball);
 }
 

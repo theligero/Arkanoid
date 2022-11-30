@@ -15,6 +15,8 @@ public:
 	void render() const override;
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal) override;
+
+	void saveToFile(ofstream& input) override;
 };
 
 #endif

@@ -12,18 +12,19 @@
 #include "checkML.h"
 #include <list>
 #include <vector>
+#include <fstream>
 
 
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 // ¿A MÁS FRAME_RATE MENOS FRAMES?
 const int FRAME_RATE = 10;
-const int NUM_TEXTURES = 11;
+const int NUM_TEXTURES = 12;
 const int WALL_WIDTH = 15;
 const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
-enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME };
 
 // estructura simple con una cadena de caracteres del archivo, y entero de final y columnas
 typedef struct {
@@ -43,10 +44,12 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"youwin.png", 1, 1},
 	{"cargarButton.png", 1, 1},
 	{"jugarButton.png", 1, 1},
-	{"rewards.png", 8, 10}
+	{"rewards.png", 8, 10},
+	{"pauseGame.png", 1, 1}
 };
 
 class Ball;
+class Paddle;
 
 class Game
 {
@@ -54,10 +57,12 @@ private:
 	SDL_Window* window = nullptr; // puntero a ventana
 	SDL_Renderer* renderer = nullptr; // puntero a renderizado
 
+	bool menu = true;
 	bool exit = false; // booleano de salida
 	bool gameOver = false; // booleano de fin de partida
 	bool win = false; // booleano de victoria
-	bool menu = true;
+	bool saveGame = false;
+	bool cargarArchivo = false;
 
 	//Texture* arrayTex = nullptr; // array de punteros a texturas
 	Texture* arrayTex[NUM_TEXTURES];
@@ -75,6 +80,10 @@ private:
 
 	int lives = 3;
 	int currentLevel = 1;
+
+	SDL_Rect pauseRect; 
+	
+
 public:
 	// constructor
 	Game();
@@ -93,6 +102,14 @@ public:
 	bool collides(SDL_Rect pos, Vector2D& normal);
 
 	void resetBlockMap();
+
+	void save();
+
+	void load();
+
+	void initGame();
+
+	void setSaveGame() { saveGame = true; }
 };
 
 #endif /* GAME_H_ */

@@ -31,6 +31,10 @@ void Paddle::handleEvents()
 			case SDLK_LEFT: // y es la flecha izquierda
 					dir = Vector2D(-10, 0); // muevo el paddle a izq
 				break;
+			case SDLK_s: // y es la flecha derecha
+				std::cout << "hola";
+				game->setSaveGame();
+				break;
 			default:
 				break;
 			}

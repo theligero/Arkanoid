@@ -129,6 +129,7 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
 		}
 	}
+	else if (points >= 5000) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
 	if (blocksMap->getNumBlocks() == 0) {
 		currentLevel++;
 		if (currentLevel > MAX_LEVELS) {

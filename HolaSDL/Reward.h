@@ -46,8 +46,6 @@ public:
 		rew(rewardColors(rand() % 4 + 1)) { /*InitializeKeyReward(); LoadFile();*/ }
 	// Destructora
 	virtual ~Reward();
-	//// Inicialización de tipos enumerados en el mapa no ordenado
-	//void InitializeKeyReward();
 	// Carga de archivo
 	void render() const override;
 	// Colisión con el jugador

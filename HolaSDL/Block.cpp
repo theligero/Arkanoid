@@ -47,5 +47,11 @@ bool Block::collides(SDL_Rect ball, Vector2D& normal, int &numBlocks) //Chequeo 
 		}
 	}
 
-	return SDL_HasIntersection(&dest, &ball);
+
+	if (SDL_HasIntersection(&dest, &ball)) {
+		int puntos = this->color * game->getLives() * 10;
+		game->addPoints(puntos);
+		return true; 
+	}
+	else return false;
 }

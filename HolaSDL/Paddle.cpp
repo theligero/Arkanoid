@@ -86,7 +86,7 @@ bool Paddle::collides(SDL_Rect ball, Vector2D& normal)
 			else x = 1; // si es lado derecho la normal en x es 1
 		}
 
-		std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
+		// std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
 
 		normal = Vector2D(x, y); // le asigno la nueva normal al vector normal
 		normal.normalizeVector(); // lo normalizo

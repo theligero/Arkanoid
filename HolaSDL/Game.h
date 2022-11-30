@@ -86,6 +86,7 @@ private:
 	int lives = 3;
 	int currentLevel = 1;
 	int numRewards = 0;
+	int points = 0;
 
 	SDL_Rect pauseRect; 
 	
@@ -120,12 +121,16 @@ public:
 	void addOneUp();
 	// Cambio al siguiente nivel
 	void nextLevel();
+	// Añadido de puntos
+	void addPoints(const int& puntos);
 
 	Paddle* getPaddlePointer();
 
 	list<ArkanoidObject*>* getObjectList() { return &objectsList;  };
 
 	void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
+
+	int getLives() const { return lives; }
 };
 
 #endif /* GAME_H_ */

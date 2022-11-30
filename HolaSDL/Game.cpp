@@ -281,7 +281,12 @@ void Game::addOneUp()
 void Game::nextLevel()
 {
 	currentLevel += 1;
+}
 
+void Game::addPoints(const int& puntos)
+{
+	points += puntos;
+	std::cout << "Tienes un total de " << points << " puntos." << std::endl;
 }
 
 Paddle* Game::getPaddlePointer()

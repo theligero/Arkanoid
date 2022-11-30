@@ -3,7 +3,6 @@
 
 #include "ArkanoidObject.h"
 
-
 class Game;
 
 // tipo enumerado con los posibles colores
@@ -30,7 +29,7 @@ private:
 	int col; // columna
 	int row; // fila
 	bool colisionado;
-	Game* game;
+	Game* game = nullptr;
 public:
 	// constructor por defecto
 	Block() : color(0), col(0), row(0), colisionado(false), game(nullptr) {}

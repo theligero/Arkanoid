@@ -6,15 +6,20 @@
 #include <unordered_map>
 #include "Paddle.h"
 
+// Número de recompensas implementadas
 const int NUM_REWARDS = 4;
 
+// Tipo enumerado con todos los tipos de recompensas
 enum class TypeOfReward{ NEXT_LEVEL, ONE_UP, BIGGER_PLATFORM, SMALLER_PLATFORM };
 
+// Estructura de almacenamiento de las recompensas con la fila que
+// le corresponde en el sprite
 typedef struct {
 	TypeOfReward r;
 	int row;
 } RewardRow;
 
+// Array de lo anterior con los datos correspondientes
 const RewardRow REW_ROW[NUM_REWARDS]{
 	{TypeOfReward::NEXT_LEVEL, 0 },
 	{TypeOfReward::ONE_UP, 4},
@@ -22,11 +27,13 @@ const RewardRow REW_ROW[NUM_REWARDS]{
 	{TypeOfReward::SMALLER_PLATFORM, 3}
 };
 
+// Mapa no ordenado de recompensas y enteros (fila en el sprite)
 std::unordered_map<TypeOfReward, int> keyReward;
 
 class Reward : public MovingObject
 {
 private:
+	// Puntero al juego
 	Game* game = nullptr;
 	// Puntero a la lista de punteros a objetos
 	std::list<ArkanoidObject*>* objectList = nullptr;

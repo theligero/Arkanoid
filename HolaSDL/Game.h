@@ -14,6 +14,7 @@
 #include <list>
 #include <vector>
 #include <fstream>
+#include "PlayState.h"
 
 
 const int WINDOW_WIDTH = 800;

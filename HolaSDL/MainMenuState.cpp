@@ -2,17 +2,23 @@
 
 void MainMenuState::update()
 {
-	// por hacer
+	for (auto it : sceneObjects) {
+		it->update();
+	}
 }
 
 void MainMenuState::render()
 {
-	// por hacer
+	for (auto it : sceneObjects) {
+		it->render();
+	}
 }
 
 void MainMenuState::handleEvent()
 {
-	// por hacer
+	for (auto it : sceneObjects) {
+		it->handleEvents();
+	}
 }
 
 bool MainMenuState::onEnter()

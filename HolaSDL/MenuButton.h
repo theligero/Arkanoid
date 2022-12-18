@@ -1,8 +1,9 @@
 #ifndef MENUBUTTON_H_
 #define MENUBUTTON_H_
 
-#include "GameObject.h"
+#include "ArkanoidObject.h"
 #include "Texture.h"
+#include "Game.h"
 
 enum button_state {
 	MOUSE_OUT = 0,
@@ -10,18 +11,21 @@ enum button_state {
 	CLICKED = 2
 };
 
-class MenuButton : public GameObject
+class MenuButton : public ArkanoidObject
 {
 private:
 	button_state current_buttonState;
 	Texture* tex;
 public:
-	MenuButton();
+	MenuButton(Texture* t);
 
-	virtual void draw();
+	// renderizado
+	virtual void render() const;
+	// actualización
 	virtual void update();
-	virtual void clean();
-	// typedef void CallBack(Game* game);
+	// controlador de eventos
+	virtual void handleEvents(SDL_Event& e);
+	typedef void CallBack(Game* game);
 };
 
 #endif /*MENUBUTTON_H_*/

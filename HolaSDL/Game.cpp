@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "SDLError.h"
 #include "FileNotFoundError.h"
+#include "MainMenuState.h"
+#include "PlayState.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -25,6 +27,8 @@ Game::Game()
 	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 	//Creo los diversos elementos que se representan por pantalla.
 
+	stateMachine = new GameStateMachine();
+	stateMachine->changeState(new MainMenuState());
 	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
@@ -111,6 +115,9 @@ void Game::render() //Se renderizan cada una de las partes del juego.
 		player->render();
 		blocksMap->render();*/
 	}
+
+	stateMachine->render();
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -134,6 +141,8 @@ void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 		currentLevel++;
 		advanceLevel();
 	}
+
+	stateMachine->update();
 }
 
 void Game::handleEvents() //Se manejan la E/S del jugador.
@@ -149,13 +158,16 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 				case SDL_BUTTON_LEFT:
 					SDL_GetMouseState(&x, &y);
 					mousePosition = { (double)x,(double)y };
-					if (jugar->inBounds(mousePosition))
+					if (jugar->inBounds(mousePosition)) {
 						menu = false;
+						stateMachine->changeState(new PlayState());
+					}
 						//std::cout << "Pulse jugar";
 					else if (cargar->inBounds(mousePosition)) {
 						//std::cout << "Pulse cargar";
 						menu = false;
 						cargarArchivo = true;
+						stateMachine->changeState(new PlayState());
 					}
 					break;
 				}

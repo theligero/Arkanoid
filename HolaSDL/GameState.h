@@ -7,14 +7,16 @@
 
 class GameState
 {
-private:
+protected:
 	std::list<GameObject*> sceneObjects;
-	Game* game;
+	Game* game = nullptr;
 public:
-	GameState(Game* game) : game(game) {}
-	virtual void update();
-	virtual void render();
-	virtual void handleEvent();
+	virtual void update() = 0;
+	virtual void render() = 0;
+	virtual void handleEvent() = 0;
+
+	virtual bool onEnter() = 0;
+	virtual bool onExit() = 0;
 };
 
 #endif /*GAMESTATE_H_*/

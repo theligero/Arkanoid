@@ -14,7 +14,7 @@
 #include <list>
 #include <vector>
 #include <fstream>
-#include "PlayState.h"
+#include "GameStateMachine.h"
 
 
 const int WINDOW_WIDTH = 800;
@@ -55,6 +55,7 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 class Ball;
 class Paddle;
 class BlocksMap;
+class GameStateMachine;
 
 class Game
 {
@@ -77,6 +78,7 @@ private:
 	Paddle* player = nullptr; // puntero al jugador/pala
 	Button* jugar = nullptr;
 	Button* cargar = nullptr;
+	GameStateMachine* stateMachine = nullptr;
 
 	Vector2D mousePosition = {0,0};
 
@@ -91,7 +93,7 @@ private:
 
 	SDL_Rect pauseRect; 
 	
-
+	
 public:
 	// constructor
 	Game();

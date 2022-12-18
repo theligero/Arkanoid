@@ -19,6 +19,12 @@
     <Filter Include="Archivos de código fuente\Errores">
       <UniqueIdentifier>{d28526cc-8c77-4a81-a548-665c0399a75a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Estados">
+      <UniqueIdentifier>{92f902f0-bda1-4783-8bf4-0d0b9f9a5037}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Estados">
+      <UniqueIdentifier>{a88965f6-7a38-44f6-8c2f-c3a23359d9e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,22 +81,25 @@
     <ClCompile Include="Button.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseState.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="EndState.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
     </ClCompile>
     <ClCompile Include="GameStateMachine.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuButton.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,22 +155,25 @@
     <ClInclude Include="Button.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseState.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="EndState.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
     </ClInclude>
     <ClInclude Include="GameStateMachine.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuButton.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -40,7 +40,7 @@ void BlocksMap::loadFile(int level, Texture* blocksTexture, SDL_Window* window)
 		for (int j = 0; j < columns; ++j) {
 			input >> block;
 			if (block == 0) { ptrblcks[i][j] = nullptr; --numBlocks; }
-			else if (block > 0 && block < 6)
+			else if (block > 0 && block < 7)
 				ptrblcks[i][j] = new Block(Vector2D(15 + (blockTam.getX() * j), 15 + (blockTam.getY() * i)),
 					blockTam.getX(), blockTam.getY(), block, columns, rows, blocksTexture, game);
 			else throw FileFormatError(FileFormatError::ValorDeColorIncorrecto(block));

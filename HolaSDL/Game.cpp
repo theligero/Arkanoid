@@ -9,26 +9,21 @@
 Game::Game()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("Arkanoid 2.0", SDL_WINDOWPOS_CENTERED,
+	window = SDL_CreateWindow("Arkanoid 3.0", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(renderer, 94, 186, 125, 255);
-	//Texture* arrayTex[NUM_TEXTURES];
 	//Creo el array de texturas sacando la información de un array con las descripciones de cda textura.
 	for (int i = 0; i < NUM_TEXTURES; ++i) { 
 		const TextureDescription& desc = TEXT_DESCR[i];
 		arrayTex[i] = new Texture(renderer, desc.filename, desc.rows, desc.cols);
 	}
-	jugar = new Button({ 50,50 }, 50, 50, arrayTex[JUGAR]);
-	buttonsVector.push_back(jugar);
-	cargar = new Button({ 50,400 }, 50, 50, arrayTex[CARGAR]);
-	buttonsVector.push_back(cargar);
 
 	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 	//Creo los diversos elementos que se representan por pantalla.
 
 	stateMachine = new GameStateMachine();
-	stateMachine->changeState(new MainMenuState());
+	stateMachine->changeState(new MainMenuState(this));
 	
 	//Vector2D(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300)
 }
@@ -62,18 +57,18 @@ void Game::run() //Inicio el bucle de juego.
 
 	if (window == nullptr || renderer == nullptr) throw SDLError(SDL_GetError());
 	else {
-		while (menu) {
-			handleEvents();
-			render();
-		}
-		std::cout << "Has salido del menu" << std::endl;
-		if (cargarArchivo) {
-			load();
-			/*initGame();*/
-		}
-		else {
-			initGame();
-		}
+		//while (menu) {
+		//	handleEvents();
+		//	render();
+		//}
+		//std::cout << "Has salido del menu" << std::endl;
+		//if (cargarArchivo) {
+		//	load();
+		//	/*initGame();*/
+		//}
+		//else {
+		//	initGame();
+		//}
 
 		//Mientras no se pierda, se salga del juego o se gane, el juego continua.
 		while (!gameOver && !exit && !win && !saveGame) {
@@ -85,10 +80,10 @@ void Game::run() //Inicio el bucle de juego.
 			}
 			render();
 		}
-		if (saveGame) {
-			render();
-			save();
-		}
+		//if (saveGame) {
+		//	render();
+		//	save();
+		//}
 
 	}
 }
@@ -96,25 +91,25 @@ void Game::run() //Inicio el bucle de juego.
 void Game::render() //Se renderizan cada una de las partes del juego.
 {
 	SDL_RenderClear(renderer);
-	if (menu) {
-		for (auto i : buttonsVector) {
-			i->render();
-		}
-	}
-	else {
-		for (auto gameObject : objectsList) {
-			gameObject->render();
-		}
-		if (saveGame) {
-			arrayTex[PAUSEGAME]->render(pauseRect);
-		}
-		/*for (int i = 0; i < 3; ++i) {
-			walls[i]->render();
-		}
-		ball->render();
-		player->render();
-		blocksMap->render();*/
-	}
+	//if (menu) {
+	//	for (auto i : buttonsVector) {
+	//		i->render();
+	//	}
+	//}
+	//else {
+	//	for (auto gameObject : objectsList) {
+	//		gameObject->render();
+	//	}
+	//	if (saveGame) {
+	//		arrayTex[PAUSEGAME]->render(pauseRect);
+	//	}
+	//	/*for (int i = 0; i < 3; ++i) {
+	//		walls[i]->render();
+	//	}
+	//	ball->render();
+	//	player->render();
+	//	blocksMap->render();*/
+	//}
 
 	stateMachine->render();
 
@@ -123,24 +118,22 @@ void Game::render() //Se renderizan cada una de las partes del juego.
 
 void Game::update() //Se actualizan aquellas partes del juego que se mueven.
 {
-	for (auto gameObject : objectsList) {
-		gameObject->update();
-	}
-	/*ball->update();
-	player->update();*/
-	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
-		--lives;
-		if (lives < 0) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
-		else {
-			ball->restartPosition(WINDOW_WIDTH,WINDOW_HEIGHT);
-			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
-		}
-	}
-	else if (points >= 5000) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
-	if (blocksMap->getNumBlocks() == 0) {
-		currentLevel++;
-		advanceLevel();
-	}
+	//for (auto gameObject : objectsList) {
+	//	gameObject->update();
+	//}
+	//if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
+	//	--lives;
+	//	if (lives < 0) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
+	//	else {
+	//		ball->restartPosition(WINDOW_WIDTH,WINDOW_HEIGHT);
+	//		std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
+	//	}
+	//}
+	//else if (points >= 5000) { gameOver = true; std::cout << "FIN DE LA PARTIDA" << std::endl; }
+	//if (blocksMap->getNumBlocks() == 0) {
+	//	currentLevel++;
+	//	advanceLevel();
+	//}
 
 	stateMachine->update();
 }
@@ -149,37 +142,39 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 {
 	SDL_Event event;
 
-	if (menu) {
-		int x, y;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_MOUSEBUTTONDOWN:
-				switch (event.button.button) {
-				case SDL_BUTTON_LEFT:
-					SDL_GetMouseState(&x, &y);
-					mousePosition = { (double)x,(double)y };
-					if (jugar->inBounds(mousePosition)) {
-						menu = false;
-						stateMachine->changeState(new PlayState());
-					}
-						//std::cout << "Pulse jugar";
-					else if (cargar->inBounds(mousePosition)) {
-						//std::cout << "Pulse cargar";
-						menu = false;
-						cargarArchivo = true;
-						stateMachine->changeState(new PlayState());
-					}
-					break;
-				}
-				break;
-			}
-		}
-	}
-	else {
-		for (auto gameObject : objectsList) {
-			gameObject->handleEvents();
-		}
-	}	
+	stateMachine->currentState()->handleEvent();
+
+	//if (menu) {
+	//	int x, y;
+	//	while (SDL_PollEvent(&event)) {
+	//		switch (event.type) {
+	//		case SDL_MOUSEBUTTONDOWN:
+	//			switch (event.button.button) {
+	//			case SDL_BUTTON_LEFT:
+	//				SDL_GetMouseState(&x, &y);
+	//				mousePosition = { (double)x,(double)y };
+	//				if (jugar->inBounds(mousePosition)) {
+	//					menu = false;
+	//					stateMachine->changeState(new PlayState());
+	//				}
+	//					//std::cout << "Pulse jugar";
+	//				else if (cargar->inBounds(mousePosition)) {
+	//					//std::cout << "Pulse cargar";
+	//					menu = false;
+	//					cargarArchivo = true;
+	//					stateMachine->changeState(new PlayState());
+	//				}
+	//				break;
+	//			}
+	//			break;
+	//		}
+	//	}
+	//}
+	//else {
+	//	for (auto gameObject : objectsList) {
+	//		gameObject->handleEvents();
+	//	}
+	//}	
 }
 
 bool Game::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.

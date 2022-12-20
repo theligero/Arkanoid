@@ -17,14 +17,14 @@ private:
 	button_state current_buttonState;
 	Texture* tex;
 public:
-	MenuButton(Texture* t);
+	MenuButton(Vector2D p, int w, int h, Texture* t);
 
 	// renderizado
 	virtual void render() const;
 	// actualización
 	virtual void update();
 	// controlador de eventos
-	virtual void handleEvents(SDL_Event& e);
+	virtual void handleEvent();
 	typedef void CallBack(Game* game);
 };
 

@@ -7,7 +7,7 @@
 #include "Wall.h"
 #include "Ball.h"
 #include "Paddle.h"
-#include "Button.h"
+#include "MenuButton.h"
 #include "Reward.h"
 #include "ArkanoidObject.h"
 #include "checkML.h"
@@ -21,12 +21,12 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 // ¿A MÁS FRAME_RATE MENOS FRAMES?
 const int FRAME_RATE = 10;
-const int NUM_TEXTURES = 12;
+const int NUM_TEXTURES = 14;
 const int WALL_WIDTH = 15;
 const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
-enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME, PLAY, EXIT };
 
 enum CollisionType {PELOTA, PLAYER};
 
@@ -49,13 +49,16 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"cargarButton.png", 1, 1},
 	{"jugarButton.png", 1, 1},
 	{"rewards.png", 8, 10},
-	{"pauseGame.png", 1, 1}
+	{"pauseGame.png", 1, 1},
+	{"play.png", 3, 1},
+	{"exit.png", 3, 1}
 };
 
 class Ball;
 class Paddle;
 class BlocksMap;
 class GameStateMachine;
+class MenuButton;
 
 class Game
 {
@@ -76,8 +79,8 @@ private:
 	Wall* walls[3]; // puntero a paredes
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
-	Button* jugar = nullptr;
-	Button* cargar = nullptr;
+	MenuButton* jugar = nullptr;
+	MenuButton* cargar = nullptr;
 	GameStateMachine* stateMachine = nullptr;
 
 	Vector2D mousePosition = {0,0};
@@ -136,6 +139,8 @@ public:
 	Texture* getRewardTexture() { return arrayTex[REWARD]; }
 
 	int getLives() const { return lives; }
+
+	Texture* getArrayTex(TextureName tex) const { return arrayTex[tex]; }
 
 	void advanceLevel();
 };

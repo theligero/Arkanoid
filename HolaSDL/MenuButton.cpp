@@ -1,8 +1,9 @@
 #include "MenuButton.h"
 
-MenuButton::MenuButton(Texture* t)
+MenuButton::MenuButton(Vector2D p, int w, int h, Texture* t)
 {
-	tex = t;
+	pos = p; width = w;
+	height = h; tex = t;
 	current_buttonState = MOUSE_OUT;
 }
 
@@ -30,9 +31,13 @@ void MenuButton::update()
 	}
 }
 
-void MenuButton::handleEvents(SDL_Event& e)
+void MenuButton::handleEvent()
 {
-	if (current_buttonState == MOUSE_OVER && e.button.button == SDL_BUTTON_LEFT) {
-		current_buttonState = CLICKED;
+	SDL_Event ev;
+
+	while (SDL_PollEvent(&ev)) {
+		if (current_buttonState == MOUSE_OVER && ev.button.button == SDL_BUTTON_LEFT) {
+			current_buttonState = CLICKED;
+		}
 	}
 }

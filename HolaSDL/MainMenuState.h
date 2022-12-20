@@ -7,6 +7,8 @@
 class MainMenuState : public GameState
 {
 public:
+	MainMenuState(Game* g);
+
 	virtual void update();
 	virtual void render();
 	virtual void handleEvent();

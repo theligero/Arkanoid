@@ -20,7 +20,7 @@ void Paddle::update()
 	pos += dir; // actualizo mi posición
 }
 
-void Paddle::handleEvents()
+void Paddle::handleEvent()
 {
 	// creo un evento auxiliar
 	SDL_Event event;

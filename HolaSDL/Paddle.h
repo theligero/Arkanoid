@@ -24,7 +24,7 @@ public:
 	// actualización
 	void update() override;
 	// controlador de eventos
-	void handleEvents() override;
+	void handleEvent() override;
 	// colisión
 	bool collides(SDL_Rect ball, Vector2D& normal) override;
 	// cambio de ancho de la pala

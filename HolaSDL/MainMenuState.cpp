@@ -4,11 +4,18 @@ MainMenuState::MainMenuState(Game* g)
 {
 	game = g;
 
-	MenuButton* jugar = new MenuButton({ 50,50 }, 50, 50, game->getArrayTex(PLAY));
-	MenuButton* cargar = new MenuButton({ 50,400 }, 50, 50, game->getArrayTex(EXIT));
+	MenuButton* jugar = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(PLAY));
+	MenuButton* cargar = new MenuButton({ 50,400 }, 150, 50, game->getArrayTex(EXIT));
 
 	sceneObjects.push_back(jugar);
 	sceneObjects.push_back(cargar);
+}
+
+MainMenuState::~MainMenuState()
+{
+	for (auto e : sceneObjects) {
+		delete(e);
+	}
 }
 
 void MainMenuState::update()
@@ -28,7 +35,7 @@ void MainMenuState::render()
 void MainMenuState::handleEvent()
 {
 	for (auto it : sceneObjects) {
-		it->handleEvents();
+		it->handleEvent();
 	}
 }
 

@@ -9,7 +9,7 @@ public:
 	// actualización
 	virtual void update() {};
 	// controlador de eventos
-	virtual void handleEvents() {};
+	virtual void handleEvent() {};
 };
 
 #endif

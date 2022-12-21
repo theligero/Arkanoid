@@ -1,7 +1,9 @@
 #include "MenuButton.h"
 
-MenuButton::MenuButton(Vector2D p, int w, int h, Texture* t)
+MenuButton::MenuButton(Vector2D p, int w, int h, Texture* t, CallBack func, Game* g)
 {
+	callbackFunc = func;
+	_game = g;
 	pos = p; width = w;
 	height = h; tex = t;
 	current_buttonState = MOUSE_OUT;
@@ -36,8 +38,18 @@ void MenuButton::handleEvent()
 	SDL_Event ev;
 
 	while (SDL_PollEvent(&ev)) {
-		if (current_buttonState == MOUSE_OVER && ev.button.button == SDL_BUTTON_LEFT) {
-			current_buttonState = CLICKED;
+		switch (ev.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			switch (ev.button.button) {
+			case SDL_BUTTON_LEFT:
+				std::cout << "click" << "\n";
+				if (current_buttonState == MOUSE_OVER) {
+					current_buttonState = CLICKED;
+					callbackFunc(_game);
+				}
+				break;
+			}
+			break;
 		}
 	}
 }

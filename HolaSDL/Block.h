@@ -3,7 +3,7 @@
 
 #include "ArkanoidObject.h"
 
-class Game;
+class PlayState;
 
 // tipo enumerado con los posibles colores
 enum colors { NONE, BLUE, GREEN, RED, YELLOW, BLACK, PURPLE };
@@ -29,12 +29,12 @@ private:
 	int col; // columna
 	int row; // fila
 	bool colisionado;
-	Game* game = nullptr;
+	PlayState* game = nullptr;
 public:
 	// constructor por defecto
 	Block() : color(0), col(0), row(0), colisionado(false), game(nullptr) {}
 	// constructor con su posición, ancho, alto, número del bloque y puntero a textura
-	Block(Vector2D newPos, double w, double h, int numBlock, int column, int rows, Texture* t, Game* _game) :
+	Block(Vector2D newPos, double w, double h, int numBlock, int column, int rows, Texture* t, PlayState* _game) :
 	  ArkanoidObject(newPos, w, h, t), color(numBlock), col(column), row(rows), colisionado(false), game(_game) { }
 	// renderizado
 	void render() const ;

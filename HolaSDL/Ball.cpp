@@ -15,12 +15,12 @@ void Ball::update()
 	Vector2D normal(1, 1); // creo una normal auxiliar
 
 	dir.normalizeVector(); // normalizo el vector dirección
-
-	if (game->collides(dest, normal, PELOTA)) { // si colisiona
-		// aplico la fórmula de la reflexión
-		dir = dir - (normal.scalarMultiplication((Vector2D().scalarProduct(dir, normal) * 2)));
-		dir.normalizeVector(); // normalizo el vector
-	}
+	/////////////////////////////////////////////////////////////////////////////
+	//if (game->collides(dest, normal, PELOTA)) { // si colisiona
+	//	// aplico la fórmula de la reflexión
+	//	dir = dir - (normal.scalarMultiplication((Vector2D().scalarProduct(dir, normal) * 2)));
+	//	dir.normalizeVector(); // normalizo el vector
+	//}
 	pos += dir; // avanzo la pelota
 }
 

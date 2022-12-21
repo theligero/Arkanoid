@@ -3,7 +3,7 @@
 
 #include "MovingObject.h"
 #include <list>
-#include "Game.h"
+#include "PlayState.h"
 #include <unordered_map>
 #include "Paddle.h"
 
@@ -31,15 +31,15 @@ const TipoReward TYPE_REWARD[5]{
 	{0, 0}, {0, 1}, {0, 3}, {0, 4}
 };
 
-class Game;
+class PlayState;
 
 class Reward : public MovingObject
 {
 private:
 	// Puntero al juego
-	Game* game = nullptr;
+	PlayState* _scene = nullptr;
 	// Iterador de la recompensa en la lista
-	std::list<ArkanoidObject*>::iterator it;
+	std::list<GameObject*>::iterator it;
 	// Tipo de recompensa
 	rewardColors rew = rewardColors::R;
 
@@ -48,8 +48,8 @@ public:
 	// Constructora sin parámetros
 	Reward() {}
 	// Constructora con posición, puntero a textura, puntero a lista
-	Reward(Vector2D pos, int w, int h, Texture* tex, Game* juego) :
-		MovingObject(pos, w, h, tex, { 0, 1 }), game(juego),
+	Reward(Vector2D pos, int w, int h, Texture* tex, PlayState* juego) :
+		MovingObject(pos, w, h, tex, { 0, 1 }), _scene(juego),
 		rew(rewardColors(rand() % 4 + 1)) {
 		InitializeKeyReward();
 	}

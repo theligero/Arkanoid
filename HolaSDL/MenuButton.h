@@ -11,13 +11,21 @@ enum button_state {
 	CLICKED = 2
 };
 
+class Game;
+
+typedef void CallBack(Game* game);
+
 class MenuButton : public ArkanoidObject
 {
 private:
 	button_state current_buttonState;
 	Texture* tex;
+	CallBack* callbackFunc;
+	Game* _game;
+	void (*m_callback) (Game* game);
+
 public:
-	MenuButton(Vector2D p, int w, int h, Texture* t);
+	MenuButton(Vector2D p, int w, int h, Texture* t, CallBack func, Game* g);
 
 	// renderizado
 	virtual void render() const;
@@ -25,7 +33,6 @@ public:
 	virtual void update();
 	// controlador de eventos
 	virtual void handleEvent();
-	typedef void CallBack(Game* game);
 };
 
 #endif /*MENUBUTTON_H_*/

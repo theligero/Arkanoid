@@ -5,7 +5,7 @@
 #include "ArkanoidObject.h"
 #include <iostream>
 
-class Game;
+class PlayState;
 
 using PointerBlocks = Block***;
 
@@ -17,15 +17,15 @@ private:
 	int columns; // columnas
 	Vector2D blockTam; //Posición de un bloque respecto del blockMap.
 	int numBlocks = 0; //Cantidad de bloques que quedan sin chocar por la bola.
-	Game* game;
+	PlayState* game;
 public:
 	// constructor por defecto
 	BlocksMap() : 
 		ptrblcks(nullptr), rows(0), columns(0) {}
 	// constructor con un entero nivel, un puntero a su textura y a la ventana
-	BlocksMap(int level, Texture* tex, SDL_Window* window, Game* _game) : 
+	BlocksMap(int level, Texture* tex, SDL_Window* window, PlayState* _game) :
 		ArkanoidObject({ 0,0 }, 0, 0, tex), game(_game) { loadFile(level, tex, window); }
-	BlocksMap(fstream &input, Texture* tex, Game* _game) :
+	BlocksMap(fstream &input, Texture* tex, PlayState* _game) :
 		ArkanoidObject({ 0,0 }, 0, 0, tex), game(_game) { loadFromFile(input); }
 	// destructor
 	~BlocksMap() { delete[] ptrblcks; }
@@ -46,4 +46,4 @@ public:
 	void loadFromFile(fstream& input) override;
 };
 
-#endif 
+#endif

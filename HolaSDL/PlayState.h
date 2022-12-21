@@ -3,9 +3,16 @@
 
 #include "GameState.h"
 
+#include "BlocksMap.h"
+#include "Wall.h"
+#include "Ball.h"
+#include "Paddle.h"
+#include "Reward.h"
+
 class PlayState : public GameState
 {
 public:
+	PlayState(Game* g);
 	virtual void update();
 	virtual void render();
 	virtual void handleEvent();
@@ -13,10 +20,41 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
+	void resetBlockMap();
+
+	int getLives() const { return lives; }
+
+	void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
+
+	void addOneUp();
+	// Cambio al siguiente nivel
+	void nextLevel();
+	// Añadido de puntos
+	void addPoints(const int& puntos);
+
+	Paddle* getPaddlePointer();
+
+	Texture* getRewardTexture() { return game->getArrayTex(REWARD); }
+
+	void advanceLevel();
+
 	// Observa que ahora la clase Game quedaría solo con los siguientes atributos básicos : los punteros a
 	// SDL Window y SDL Renderer, el booleano de final de la aplicación, el array de texturas y la máquina de
 	// estados. De hecho, esta clase podría pasar a llamarse SDLApplication pues ya no tiene nada referente
 	// al juego propiamente dicho.
+private:
+	SDL_Window* window;
+
+	BlocksMap* blocksMap = nullptr; // puntero del mapa de bloques
+	Wall* walls[3]; // puntero a paredes
+	Ball* ball = nullptr; // puntero a la pelota
+	Paddle* player = nullptr; // puntero al jugador/pala
+
+
+	int lives = 3;
+	int currentLevel = 1;
+	int numRewards = 0;
+	int points = 0;
 };
 
 #endif /*PLAYSTATE_H_*/

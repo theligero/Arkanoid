@@ -22,7 +22,7 @@ Game::Game()
 	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 
 	stateMachine = new GameStateMachine();
-	stateMachine->changeState(new MainMenuState(this));
+	stateMachine->changeState(new PlayState(this));
 }
 
 Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.
@@ -133,110 +133,121 @@ bool Game::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //S
 	// Vector2D pos(0, 0);
 }
 
-void Game::resetBlockMap()
+//void Game::resetBlockMap()
+//{
+//	ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
+//	blocksMap->~BlocksMap();
+//	blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+//}
+
+//void Game::save()
+//{
+//	string nombre;
+//	cout << "\n";
+//	cin >> nombre;
+//	ofstream input("../saveGames/save" + nombre + ".dat");
+//
+//	input << currentLevel << " " << lives << "\n" << "\n";
+//
+//	for (auto gameObject : objectsList) {
+//		gameObject->saveToFile(input);
+//		input << "\n";
+//	}
+//
+//}
+
+//void Game::load() {
+//	string nombre;
+//	cout << "\n";
+//	cin >> nombre;
+//	string aux = "../saveGames/save" + nombre + ".dat";
+//	fstream loadInput;
+//
+//	loadInput.open(aux);
+//
+//	if (!loadInput) throw FileNotFoundError(nombre + ".dat");
+//	loadInput >> currentLevel >> lives;
+//	
+//	blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS], this);
+//	objectsList.push_back(blocksMap);
+//	walls[0] = new Wall(loadInput, arrayTex[SIDE]);
+//	objectsList.push_back(walls[0]);
+//	walls[1] = new Wall(loadInput, arrayTex[TOPSIDE]);
+//	objectsList.push_back(walls[1]);
+//	walls[2] = new Wall(loadInput, arrayTex[SIDE]);
+//	objectsList.push_back(walls[2]);
+//	player = new Paddle(loadInput, arrayTex[PADDLE], this);
+//	objectsList.push_back(player);
+//	ball = new Ball(loadInput, arrayTex[BALL], this);
+//	objectsList.push_back(ball);
+//		
+//	loadInput.close();
+//}
+
+//void Game::initGame()
+//{
+//	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window, this);
+//	objectsList.push_back(blocksMap);
+//	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
+//	objectsList.push_back(walls[0]);
+//	walls[1] = new Wall({ 0, 0 }, WINDOW_WIDTH, 15, arrayTex[TOPSIDE], { 0, 1 });
+//	objectsList.push_back(walls[1]);
+//	walls[2] = new Wall({ WINDOW_WIDTH - 15, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { -1, 0 });
+//	objectsList.push_back(walls[2]);
+//	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, arrayTex[PADDLE], this);
+//	objectsList.push_back(player);
+//	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, arrayTex[BALL], this);
+//	objectsList.push_back(ball);
+//}
+
+//void Game::addOneUp()
+//{
+//	lives += 1;
+//}
+//
+//void Game::nextLevel()
+//{
+//	currentLevel += 1;
+//	advanceLevel();
+//}
+//
+//void Game::addPoints(const int& puntos)
+//{
+//	points += puntos;
+//	std::cout << "Tienes un total de " << points << " puntos." << std::endl;
+//}
+//
+//Paddle* Game::getPaddlePointer()
+//{
+//	return player;
+//}
+
+//void Game::createReward(Vector2D _pos, int _w, int _h, Texture* _tex) 
+//{
+//	numRewards++;
+//	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
+//	objectsList.push_back(recompensa);
+//	rewardsVector.push_back(recompensa);
+//}
+//
+//void Game::advanceLevel() 
+//{
+//	if (currentLevel > MAX_LEVELS) {
+//		win = true;
+//		std::cout << "GANASTE" << std::endl;
+//	}
+//	else {
+//		resetBlockMap();
+//	}
+//}
+
+GameStateMachine* Game::getStateMachine()
 {
-	ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
-	blocksMap->~BlocksMap();
-	blocksMap->loadFile(currentLevel, arrayTex[BRICKS], window);
+	return stateMachine;
 }
 
-void Game::save()
+SDL_Window* Game::getGameWindow()
 {
-	string nombre;
-	cout << "\n";
-	cin >> nombre;
-	ofstream input("../saveGames/save" + nombre + ".dat");
-
-	input << currentLevel << " " << lives << "\n" << "\n";
-
-	for (auto gameObject : objectsList) {
-		gameObject->saveToFile(input);
-		input << "\n";
-	}
-
+	 return window; 
 }
 
-void Game::load() {
-	string nombre;
-	cout << "\n";
-	cin >> nombre;
-	string aux = "../saveGames/save" + nombre + ".dat";
-	fstream loadInput;
-
-	loadInput.open(aux);
-
-	if (!loadInput) throw FileNotFoundError(nombre + ".dat");
-	loadInput >> currentLevel >> lives;
-	
-	blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS], this);
-	objectsList.push_back(blocksMap);
-	walls[0] = new Wall(loadInput, arrayTex[SIDE]);
-	objectsList.push_back(walls[0]);
-	walls[1] = new Wall(loadInput, arrayTex[TOPSIDE]);
-	objectsList.push_back(walls[1]);
-	walls[2] = new Wall(loadInput, arrayTex[SIDE]);
-	objectsList.push_back(walls[2]);
-	player = new Paddle(loadInput, arrayTex[PADDLE], this);
-	objectsList.push_back(player);
-	ball = new Ball(loadInput, arrayTex[BALL], this);
-	objectsList.push_back(ball);
-		
-	loadInput.close();
-}
-
-void Game::initGame()
-{
-	blocksMap = new BlocksMap(currentLevel, arrayTex[BRICKS], window, this);
-	objectsList.push_back(blocksMap);
-	walls[0] = new Wall({ 0, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { 1, 0 });
-	objectsList.push_back(walls[0]);
-	walls[1] = new Wall({ 0, 0 }, WINDOW_WIDTH, 15, arrayTex[TOPSIDE], { 0, 1 });
-	objectsList.push_back(walls[1]);
-	walls[2] = new Wall({ WINDOW_WIDTH - 15, 15 }, 15, WINDOW_HEIGHT - 15, arrayTex[SIDE], { -1, 0 });
-	objectsList.push_back(walls[2]);
-	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, arrayTex[PADDLE], this);
-	objectsList.push_back(player);
-	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, arrayTex[BALL], this);
-	objectsList.push_back(ball);
-}
-
-void Game::addOneUp()
-{
-	lives += 1;
-}
-
-void Game::nextLevel()
-{
-	currentLevel += 1;
-	advanceLevel();
-}
-
-void Game::addPoints(const int& puntos)
-{
-	points += puntos;
-	std::cout << "Tienes un total de " << points << " puntos." << std::endl;
-}
-
-Paddle* Game::getPaddlePointer()
-{
-	return player;
-}
-
-void Game::createReward(Vector2D _pos, int _w, int _h, Texture* _tex) 
-{
-	numRewards++;
-	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
-	objectsList.push_back(recompensa);
-	rewardsVector.push_back(recompensa);
-}
-
-void Game::advanceLevel() 
-{
-	if (currentLevel > MAX_LEVELS) {
-		win = true;
-		std::cout << "GANASTE" << std::endl;
-	}
-	else {
-		resetBlockMap();
-	}
-}

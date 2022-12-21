@@ -4,20 +4,20 @@
 #include "Game.h"
 #include "MovingObject.h"
 
-class Game;
+class PlayState;
 
 class Ball : public MovingObject
 {
 private:
-	Game* game; // puntero al juego
+	PlayState* game; // puntero al juego
 public:
 	// constructor por defecto
 	Ball() : game(nullptr) {}
 	// constructor con su posición, ancho, alto, vector dirección, puntero a textura y al juego
-	Ball(Vector2D pos, int w, int h, Vector2D dir, Texture* tex, Game* _game) :
+	Ball(Vector2D pos, int w, int h, Vector2D dir, Texture* tex, PlayState* _game) :
 		MovingObject(pos, w, h, tex, dir), game(_game){}
 
-	Ball(fstream& input, Texture* t, Game* _game) :
+	Ball(fstream& input, Texture* t, PlayState* _game) :
 		MovingObject(t), game(_game) {
 		loadFromFile(input);
 	}

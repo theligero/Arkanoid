@@ -1,5 +1,5 @@
 #include "Block.h"
-#include "Game.h"
+#include "PlayState.h"
 #include <iostream>
 
 void Block::render() const //Renderizo el bloque.

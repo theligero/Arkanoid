@@ -3,14 +3,14 @@
 Reward::~Reward()
 {
 	// Me busco en la lista gracias al iterador guardado
-	game->getObjectList()->erase(it);
+	_scene->getObjectList()->erase(it);
 	// Me borro del todo
 	delete(this);
 }
 
 void Reward::InitializeKeyReward()
 {
-	it = game->getObjectList()->end();
+	it = _scene->getObjectList()->end();
 	--it;
 }
 
@@ -44,18 +44,18 @@ void Reward::StablishReward()
 	// qué recompensa tengo
 	switch (rew) {
 		case (rewardColors::L): // si soy NEXT_LEVEL
-			game->nextLevel(); // cambio de nivel
+			_scene->nextLevel(); // cambio de nivel
 			break;
 		case (rewardColors::R): // si soy ONE_UP
-			game->addOneUp(); // me sumo una vida
+			_scene->addOneUp(); // me sumo una vida
 			break;
 		case (rewardColors::E): // si soy BIGGER_PLATFORM
 			// cambio mis dimensiones en un 50 % más
-			game->getPaddlePointer()->changePlatWidth(1.5);
+			_scene->getPaddlePointer()->changePlatWidth(1.5);
 			break;
 		case (rewardColors::S): // si soy SMALLER_PLATFORM
 			// cambio mis dimensiones en un 50 % menos
-			game->getPaddlePointer()->changePlatWidth(0.5);
+			_scene->getPaddlePointer()->changePlatWidth(0.5);
 			break;
 		default:
 			break;

@@ -5,6 +5,8 @@
 #include "list"
 #include "Game.h"
 
+class Game;
+
 class GameState
 {
 protected:
@@ -17,6 +19,8 @@ public:
 
 	virtual bool onEnter() = 0;
 	virtual bool onExit() = 0;
+
+	list<GameObject*>* getObjectList() { return &sceneObjects; };
 };
 
 #endif /*GAMESTATE_H_*/

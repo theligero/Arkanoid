@@ -3,12 +3,8 @@
 
 #include <SDL.h>
 #include "Texture.h"
-#include "BlocksMap.h"
-#include "Wall.h"
-#include "Ball.h"
-#include "Paddle.h"
 #include "MenuButton.h"
-#include "Reward.h"
+#include <iostream>
 #include "ArkanoidObject.h"
 #include "checkML.h"
 #include <list>
@@ -75,12 +71,12 @@ private:
 
 	//Texture* arrayTex = nullptr; // array de punteros a texturas
 	Texture* arrayTex[NUM_TEXTURES];
-	BlocksMap* blocksMap = nullptr; // puntero del mapa de bloques
-	Wall* walls[3]; // puntero a paredes
-	Ball* ball = nullptr; // puntero a la pelota
-	Paddle* player = nullptr; // puntero al jugador/pala
-	MenuButton* jugar = nullptr;
-	MenuButton* cargar = nullptr;
+	//BlocksMap* blocksMap = nullptr; // puntero del mapa de bloques
+	//Wall* walls[3]; // puntero a paredes
+	//Ball* ball = nullptr; // puntero a la pelota
+	//Paddle* player = nullptr; // puntero al jugador/pala
+	//MenuButton* jugar = nullptr;
+	//MenuButton* cargar = nullptr;
 	GameStateMachine* stateMachine = nullptr;
 
 	Vector2D mousePosition = {0,0};
@@ -89,10 +85,10 @@ private:
 	vector<ArkanoidObject*> buttonsVector;
 	vector<ArkanoidObject*> rewardsVector;
 
-	int lives = 3;
+	/*int lives = 3;
 	int currentLevel = 1;
 	int numRewards = 0;
-	int points = 0;
+	int points = 0;*/
 
 	SDL_Rect pauseRect; 
 	
@@ -124,25 +120,29 @@ public:
 
 	void setSaveGame() { saveGame = true; }
 	// Añadir una vida extra
-	void addOneUp();
+	//void addOneUp();
 	// Cambio al siguiente nivel
-	void nextLevel();
+	//void nextLevel();
 	// Añadido de puntos
-	void addPoints(const int& puntos);
+	//void addPoints(const int& puntos);
 
-	Paddle* getPaddlePointer();
+	//Paddle* getPaddlePointer();
 
 	list<ArkanoidObject*>* getObjectList() { return &objectsList;  };
 
-	void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
+	//void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
 
 	Texture* getRewardTexture() { return arrayTex[REWARD]; }
 
-	int getLives() const { return lives; }
-
 	Texture* getArrayTex(TextureName tex) const { return arrayTex[tex]; }
 
-	void advanceLevel();
+	//void advanceLevel();
+
+	GameStateMachine* getStateMachine();
+
+	SDL_Window* getGameWindow();
+
+	void hello() { std::cout << "hola" << "\n"; };
 };
 
 #endif /* GAME_H_ */

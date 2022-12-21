@@ -12,7 +12,7 @@ class MainMenuState : public GameState
 {
 
 public:
-	static void beginGame(Game* game);
+	
 	MainMenuState(Game* g);
 	virtual ~MainMenuState();
 
@@ -22,6 +22,10 @@ public:
 
 	virtual bool onEnter();
 	virtual bool onExit();
+
+	static void beginGame(Game* game);
+	static void endGame(Game* game);
+	static void loadGame(Game* game);
 private:
 	
 	};

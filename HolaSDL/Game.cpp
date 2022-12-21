@@ -30,9 +30,7 @@ Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.
 	for (int j = 0; j < NUM_TEXTURES; ++j) {
 		arrayTex[j]->~Texture();
 	}
-	for (auto gameObject : objectsList) {
-		delete(gameObject);
-	}
+	delete stateMachine;
 	/*blocksMap->~BlocksMap();
 	delete(player);
 	delete(ball);

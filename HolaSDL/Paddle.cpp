@@ -39,6 +39,7 @@ void Paddle::handleEvent()
 				break;
 			case SDLK_ESCAPE:
 				std::cout << "hola";
+				game->enterPause();
 				break;
 			default:
 				break;

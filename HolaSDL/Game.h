@@ -143,6 +143,8 @@ public:
 
 	SDL_Window* getGameWindow();
 
+	void setExit() { exit = true; }
+
 	void hello() { std::cout << "hola" << "\n"; };
 };
 

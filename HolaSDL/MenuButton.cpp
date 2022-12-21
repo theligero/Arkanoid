@@ -16,6 +16,48 @@ void MenuButton::render() const
 
 void MenuButton::update()
 {
+	checkBounds();
+}
+
+void MenuButton::handleEvent()
+{
+	SDL_Event ev;
+
+	/*while (SDL_PollEvent(&ev)) {
+		switch (ev.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			switch (ev.button.button) {
+			case SDL_BUTTON_LEFT:
+				std::cout << "click " << name <<  "\n";
+				checkBounds();
+				if (current_buttonState == MOUSE_OVER) {
+					current_buttonState = CLICKED;
+					callbackFunc(_game);
+					pressed = true;
+				}
+				break;
+			}
+			break;
+		}
+	}*/
+	if (current_buttonState == MOUSE_OVER) {
+		current_buttonState = CLICKED;
+		callbackFunc(_game);
+		pressed = true;
+	}
+	/*SDL_Event ev;
+
+	while (SDL_PollEvent(&ev)) {
+		if (current_buttonState == MOUSE_OVER && ev.button.button == SDL_BUTTON_LEFT) {
+			current_buttonState = CLICKED;
+			callbackFunc(_game);
+			pressed = true;
+		}
+	}*/
+}
+
+void MenuButton::checkBounds()
+{
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	Vector2D* mousePos = new Vector2D(x, y);
@@ -30,27 +72,5 @@ void MenuButton::update()
 	else
 	{
 		current_buttonState = MOUSE_OUT;
-	}
-}
-
-void MenuButton::handleEvent()
-{
-	SDL_Event ev;
-
-	while (SDL_PollEvent(&ev)) {
-		switch (ev.type) {
-		case SDL_MOUSEBUTTONDOWN:
-			switch (ev.button.button) {
-			case SDL_BUTTON_LEFT:
-				std::cout << "click" << "\n";
-				if (current_buttonState == MOUSE_OVER) {
-					current_buttonState = CLICKED;
-					callbackFunc(_game);
-					pressed = true;
-				}
-				break;
-			}
-			break;
-		}
 	}
 }

@@ -100,7 +100,10 @@ void PlayState::advanceLevel()
 		resetBlockMap();
 	}
 }
-
+void PlayState::enterPause()
+{
+	game->getStateMachine()->pushState(new PauseState(game));
+}
 bool PlayState::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {
 	switch (colision) {

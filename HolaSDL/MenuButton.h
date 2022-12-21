@@ -22,7 +22,6 @@ private:
 	Texture* tex;
 	CallBack* callbackFunc;
 	Game* _game;
-	void (*m_callback) (Game* game);
 	bool pressed = false;
 
 public:
@@ -34,6 +33,10 @@ public:
 	virtual void update();
 	// controlador de eventos
 	virtual void handleEvent();
+
+	virtual bool buttonPressed() { return pressed; }
+
+	void checkBounds();
 
 	bool getPressed() { return pressed; }
 };

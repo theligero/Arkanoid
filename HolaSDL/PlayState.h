@@ -2,7 +2,7 @@
 #define PLAYSTATE_H_
 
 #include "GameState.h"
-
+#include "PauseState.h"
 #include "BlocksMap.h"
 #include "Wall.h"
 #include "Ball.h"
@@ -40,6 +40,8 @@ public:
 	Texture* getRewardTexture() { return game->getArrayTex(REWARD); }
 
 	void advanceLevel();
+
+	void enterPause();
 
 	// Observa que ahora la clase Game quedaría solo con los siguientes atributos básicos : los punteros a
 	// SDL Window y SDL Renderer, el booleano de final de la aplicación, el array de texturas y la máquina de

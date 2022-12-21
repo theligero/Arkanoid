@@ -10,7 +10,6 @@ class Game;
 
 class PauseState : public GameState
 {
-
 public:
 	PauseState(Game* g);
 	virtual ~PauseState();
@@ -22,6 +21,7 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 	static void backToGame(Game* game);
+	static void backToMenu(Game* game);
 private:
 
 };

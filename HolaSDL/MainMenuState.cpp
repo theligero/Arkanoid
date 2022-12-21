@@ -40,11 +40,17 @@ void MainMenuState::render()
 }
 
 void MainMenuState::handleEvent()
-{
+{	
 	for (auto it : sceneObjects) {
-		if(it != nullptr)
-		it->handleEvent();
+		auto objeto = dynamic_cast<MenuButton*>(it);
+		objeto->handleEvent();
+		if (objeto->getPressed()) {
+			std::cout << "hola bitch \n";
+			break;
+		}
+		
 	}
+	
 }
 
 bool MainMenuState::onEnter()

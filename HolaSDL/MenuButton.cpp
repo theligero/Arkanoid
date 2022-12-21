@@ -46,6 +46,7 @@ void MenuButton::handleEvent()
 				if (current_buttonState == MOUSE_OVER) {
 					current_buttonState = CLICKED;
 					callbackFunc(_game);
+					pressed = true;
 				}
 				break;
 			}

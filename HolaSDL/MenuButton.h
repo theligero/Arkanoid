@@ -23,6 +23,7 @@ private:
 	CallBack* callbackFunc;
 	Game* _game;
 	void (*m_callback) (Game* game);
+	bool pressed = false;
 
 public:
 	MenuButton(Vector2D p, int w, int h, Texture* t, CallBack func, Game* g);
@@ -33,6 +34,8 @@ public:
 	virtual void update();
 	// controlador de eventos
 	virtual void handleEvent();
+
+	bool getPressed() { return pressed; }
 };
 
 #endif /*MENUBUTTON_H_*/

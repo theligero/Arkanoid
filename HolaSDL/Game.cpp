@@ -22,7 +22,7 @@ Game::Game()
 	pauseRect.x = 0; pauseRect.y = 0; pauseRect.w = WINDOW_WIDTH; pauseRect.h = WINDOW_HEIGHT;
 
 	stateMachine = new GameStateMachine();
-	stateMachine->changeState(new PlayState(this));
+	stateMachine->changeState(new MainMenuState(this));
 }
 
 Game::~Game() //Destruyo toda la memoria dinámica creada en el juego.

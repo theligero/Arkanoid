@@ -22,12 +22,8 @@ public:
 
 	virtual bool onEnter();
 	virtual bool onExit();
-
-	
-
 private:
-	//CallBack *funcHello;
-	//funcHello(
+	
 	};
 
 #endif /*MAINMENUSTATE_H_*/

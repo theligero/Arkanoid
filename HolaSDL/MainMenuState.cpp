@@ -99,3 +99,33 @@ void MainMenuState::endGame(Game* game)
 	game->setExit();
 	//std::cout << "hola";
 }
+
+void MainMenuState::loadGame(Game* game)
+{
+
+	/*string nombre;
+		cout << "\n";
+		cin >> nombre;
+		string aux = "../saveGames/save" + nombre + ".dat";
+		fstream loadInput;
+	
+		loadInput.open(aux);
+	
+		if (!loadInput) throw FileNotFoundError(nombre + ".dat");
+		loadInput >> currentLevel >> lives;
+		
+		blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS], this);
+		objectsList.push_back(blocksMap);
+		walls[0] = new Wall(loadInput, arrayTex[SIDE]);
+		objectsList.push_back(walls[0]);
+		walls[1] = new Wall(loadInput, arrayTex[TOPSIDE]);
+		objectsList.push_back(walls[1]);
+		walls[2] = new Wall(loadInput, arrayTex[SIDE]);
+		objectsList.push_back(walls[2]);
+		player = new Paddle(loadInput, arrayTex[PADDLE], this);
+		objectsList.push_back(player);
+		ball = new Ball(loadInput, arrayTex[BALL], this);
+		objectsList.push_back(ball);
+			
+		loadInput.close();*/
+}

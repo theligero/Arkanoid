@@ -15,7 +15,7 @@ PlayState::PlayState(Game* g)
 	sceneObjects.push_back(walls[2]);
 	player = new Paddle({ WINDOW_WIDTH / 2 - 75, WINDOW_HEIGHT - 50 }, 150, 15, game->getArrayTex(PADDLE), this);
 	sceneObjects.push_back(player);
-	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 300 }, 20, 20, { 1, 1 }, game->getArrayTex(BALL), this);
+	ball = new Ball({ WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT - 150 }, 20, 20, { 1, 1 }, game->getArrayTex(BALL), this);
 	sceneObjects.push_back(ball);
 
 }
@@ -24,6 +24,20 @@ void PlayState::update()
 {
 	for (auto it : sceneObjects) {
 		it->update();
+	}
+
+	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
+		--lives;
+		if (lives < 0) { game->setGameOver(); std::cout << "FIN DE LA PARTIDA" << std::endl; }
+		else {
+			ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
+			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
+		}
+	}
+	else if (points >= 5000) { game->setGameOver(); std::cout << "FIN DE LA PARTIDA" << std::endl; }
+	if (blocksMap->getNumBlocks() == 0) {
+		currentLevel++;
+		advanceLevel();
 	}
 }
 

@@ -134,6 +134,7 @@ bool BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vect
 
 	if (b != nullptr && !b->getColisionado()) {
 		b->setColisionado(true);
+		--numBlocks;
 		return true;
 	}
 	else return false;

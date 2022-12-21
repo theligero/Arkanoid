@@ -145,6 +145,8 @@ public:
 
 	void setExit() { exit = true; }
 
+	void setGameOver() { gameOver = true; }
+
 	void hello() { std::cout << "hola" << "\n"; };
 };
 

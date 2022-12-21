@@ -5,6 +5,7 @@
 #include "PlayState.h"
 #include "MenuButton.h"
 #include "Game.h"
+#include "FileNotFoundError.h"
 
 class Game;
 

@@ -35,7 +35,7 @@ void Paddle::handleEvent()
 				break;
 			case SDLK_s: // y es la flecha derecha
 				std::cout << "hola";
-				//game->setSaveGame();   ////////////////////////////////////////////////////////
+				game->setSave();   ////////////////////////////////////////////////////////
 				break;
 			case SDLK_ESCAPE:
 				std::cout << "hola";

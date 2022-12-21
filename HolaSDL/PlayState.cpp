@@ -21,6 +21,29 @@ PlayState::PlayState(Game* g)
 
 }
 
+PlayState::PlayState(Game* g, fstream& input)
+{
+	game = g;
+	window = game->getGameWindow();
+
+	input >> currentLevel >> lives;
+
+	blocksMap = new BlocksMap(input, game->getArrayTex(BRICKS), this);
+	sceneObjects.push_back(blocksMap);
+	walls[0] = new Wall(input, game->getArrayTex(SIDE));
+	sceneObjects.push_back(walls[0]);
+	walls[1] = new Wall(input, game->getArrayTex(TOPSIDE));
+	sceneObjects.push_back(walls[1]);
+	walls[2] = new Wall(input, game->getArrayTex(SIDE));
+	sceneObjects.push_back(walls[2]);
+	player = new Paddle(input, game->getArrayTex(PADDLE), this);
+	sceneObjects.push_back(player);
+	ball = new Ball(input, game->getArrayTex(BALL), this);
+	sceneObjects.push_back(ball);
+
+	input.close();
+}
+
 void PlayState::update()
 {
 	for (auto it : sceneObjects) {
@@ -124,6 +147,21 @@ void PlayState::advanceLevel()
 void PlayState::enterPause()
 {
 	game->getStateMachine()->pushState(new PauseState(game));
+}
+void PlayState::save()
+{
+	string nombre;
+	cout << "\n";
+	cin >> nombre;
+	ofstream input("../saveGames/save" + nombre + ".dat");
+
+	input << currentLevel << " " << lives << "\n" << "\n";
+
+	for (auto gameObject : sceneObjects) {
+		auto salvar = dynamic_cast<ArkanoidObject*> (gameObject);
+		salvar->saveToFile(input);
+		input << "\n";
+	}
 }
 bool PlayState::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {

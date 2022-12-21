@@ -6,10 +6,12 @@ MainMenuState::MainMenuState(Game* g)
 
 	//MenuButton* jugar = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(PLAY));
 	MenuButton* jugar = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(PLAY), beginGame, game);
-	MenuButton* cargar = new MenuButton({ 50,400 }, 150, 50, game->getArrayTex(EXIT), endGame, game);
+	MenuButton* cargar = new MenuButton({ 50,200 }, 150, 50, game->getArrayTex(LOAD), loadGame, game);
+	MenuButton* salir = new MenuButton({ 50,400 }, 150, 50, game->getArrayTex(EXIT), endGame, game);
 
 	sceneObjects.push_back(jugar);
 	sceneObjects.push_back(cargar);
+	sceneObjects.push_back(salir);
 }
 
 MainMenuState::~MainMenuState()
@@ -103,7 +105,7 @@ void MainMenuState::endGame(Game* game)
 void MainMenuState::loadGame(Game* game)
 {
 
-	/*string nombre;
+	string nombre;
 		cout << "\n";
 		cin >> nombre;
 		string aux = "../saveGames/save" + nombre + ".dat";
@@ -112,20 +114,7 @@ void MainMenuState::loadGame(Game* game)
 		loadInput.open(aux);
 	
 		if (!loadInput) throw FileNotFoundError(nombre + ".dat");
-		loadInput >> currentLevel >> lives;
-		
-		blocksMap = new BlocksMap(loadInput, arrayTex[BRICKS], this);
-		objectsList.push_back(blocksMap);
-		walls[0] = new Wall(loadInput, arrayTex[SIDE]);
-		objectsList.push_back(walls[0]);
-		walls[1] = new Wall(loadInput, arrayTex[TOPSIDE]);
-		objectsList.push_back(walls[1]);
-		walls[2] = new Wall(loadInput, arrayTex[SIDE]);
-		objectsList.push_back(walls[2]);
-		player = new Paddle(loadInput, arrayTex[PADDLE], this);
-		objectsList.push_back(player);
-		ball = new Ball(loadInput, arrayTex[BALL], this);
-		objectsList.push_back(ball);
-			
-		loadInput.close();*/
+
+		game->getStateMachine()->changeState(new PlayState(game, loadInput));
+
 }

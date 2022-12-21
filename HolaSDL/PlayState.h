@@ -13,6 +13,7 @@ class PlayState : public GameState
 {
 public:
 	PlayState(Game* g);
+	PlayState(Game* g, fstream& input);
 	virtual void update();
 	virtual void render();
 	virtual void handleEvent();
@@ -42,6 +43,10 @@ public:
 	void advanceLevel();
 
 	void enterPause();
+
+	void save();
+
+	void setSave() { game->setSaveGame(); }
 
 	// Observa que ahora la clase Game quedaría solo con los siguientes atributos básicos : los punteros a
 	// SDL Window y SDL Renderer, el booleano de final de la aplicación, el array de texturas y la máquina de

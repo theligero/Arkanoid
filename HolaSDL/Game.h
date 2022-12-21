@@ -22,7 +22,7 @@ const int WALL_WIDTH = 15;
 const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
-enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME, PLAY, EXIT, RESUME, MAIN };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, LOAD, JUGAR, REWARD, PAUSEGAME, PLAY, EXIT, RESUME, MAIN };
 
 enum CollisionType {PELOTA, PLAYER};
 
@@ -42,7 +42,7 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"side2.png", 1, 1},
 	{"topside.png", 1, 1},
 	{"youwin.png", 1, 1},
-	{"cargarButton.png", 1, 1},
+	{"load.png", 3, 1},
 	{"jugarButton.png", 1, 1},
 	{"rewards.png", 8, 10},
 	{"pauseGame.png", 1, 1},
@@ -146,6 +146,8 @@ public:
 	void setExit() { exit = true; }
 
 	void setGameOver() { gameOver = true; }
+
+	void setWin() { win = true; }
 
 	void hello() { std::cout << "hola" << "\n"; };
 };

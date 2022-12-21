@@ -1,4 +1,5 @@
 #include "PlayState.h"
+#include "EndState.h"
 
 PlayState::PlayState(Game* g)
 {
@@ -28,14 +29,20 @@ void PlayState::update()
 
 	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
 		--lives;
-		if (lives < 0) { game->setGameOver(); std::cout << "FIN DE LA PARTIDA" << std::endl; }
+		if (lives < 0) { 
+			game->getStateMachine()->changeState(new EndState(game)); 
+			std::cout << "FIN DE LA PARTIDA" << std::endl; 
+		}
 		else {
 			ball->restartPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
 			std::cout << "Te quedan " << lives << " vida(s)" << std::endl;
 		}
 	}
-	else if (points >= 5000) { game->setGameOver(); std::cout << "FIN DE LA PARTIDA" << std::endl; }
-	if (blocksMap->getNumBlocks() == 0) {
+	else if (points >= 5000) { 
+		game->getStateMachine()->changeState(new EndState(game));
+		std::cout << "FIN DE LA PARTIDA" << std::endl; 
+	}
+	else if (blocksMap->getNumBlocks() == 0) {
 		currentLevel++;
 		advanceLevel();
 	}
@@ -107,7 +114,7 @@ Paddle* PlayState::getPaddlePointer()
 void PlayState::advanceLevel()
 {
 	if (currentLevel > MAX_LEVELS) {
-		//win = true;
+		game->getStateMachine()->changeState(new EndState(game));
 		std::cout << "GANASTE" << std::endl;
 	}
 	else {

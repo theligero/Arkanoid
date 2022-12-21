@@ -34,11 +34,11 @@ void Paddle::handleEvent()
 					dir = Vector2D(-10, 0); // muevo el paddle a izq
 				break;
 			case SDLK_s: // y es la flecha derecha
-				std::cout << "hola";
+				std::cout << "elija un numero de archivo de guardado:";
 				game->setSave();   ////////////////////////////////////////////////////////
 				break;
 			case SDLK_ESCAPE:
-				std::cout << "hola";
+				std::cout << "pausando...";
 				game->enterPause();
 				break;
 			default:

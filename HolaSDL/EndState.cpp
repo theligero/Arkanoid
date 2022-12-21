@@ -25,7 +25,19 @@ void EndState::render()
 
 void EndState::handleEvent()
 {
-	backToMenu->handleEvent();
+	SDL_Event ev;
+
+	while (SDL_PollEvent(&ev)) {
+		switch (ev.type) {
+		case SDL_MOUSEBUTTONDOWN:
+			switch (ev.button.button) {
+			case SDL_BUTTON_LEFT:
+				backToMenu->handleEvent();
+				break;
+			}
+			break;
+		}
+	}
 }
 
 bool EndState::onEnter()

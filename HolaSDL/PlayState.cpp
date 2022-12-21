@@ -163,6 +163,11 @@ void PlayState::save()
 		input << "\n";
 	}
 }
+void PlayState::setSave()
+{
+	save();
+	game->setSaveGame();
+}
 bool PlayState::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {
 	switch (colision) {

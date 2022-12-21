@@ -71,25 +71,12 @@ private:
 	bool saveGame = false;
 	bool cargarArchivo = false;
 
-	//Texture* arrayTex = nullptr; // array de punteros a texturas
 	Texture* arrayTex[NUM_TEXTURES];
-	//BlocksMap* blocksMap = nullptr; // puntero del mapa de bloques
-	//Wall* walls[3]; // puntero a paredes
-	//Ball* ball = nullptr; // puntero a la pelota
-	//Paddle* player = nullptr; // puntero al jugador/pala
-	//MenuButton* jugar = nullptr;
-	//MenuButton* cargar = nullptr;
 	GameStateMachine* stateMachine = nullptr;
 
 	Vector2D mousePosition = {0,0};
 
 	list<ArkanoidObject*> objectsList;
-	vector<ArkanoidObject*> buttonsVector;
-
-	/*int lives = 3;
-	int currentLevel = 1;
-	int numRewards = 0;
-	int points = 0;*/
 
 	SDL_Rect pauseRect; 
 	
@@ -120,24 +107,12 @@ public:
 	void initGame();
 
 	void setSaveGame() { saveGame = true; }
-	// Añadir una vida extra
-	//void addOneUp();
-	// Cambio al siguiente nivel
-	//void nextLevel();
-	// Añadido de puntos
-	//void addPoints(const int& puntos);
-
-	//Paddle* getPaddlePointer();
 
 	list<ArkanoidObject*>* getObjectList() { return &objectsList;  };
-
-	//void createReward(Vector2D _pos, int _w, int _h, Texture* _tex);
 
 	Texture* getRewardTexture() { return arrayTex[REWARD]; }
 
 	Texture* getArrayTex(TextureName tex) const { return arrayTex[tex]; }
-
-	//void advanceLevel();
 
 	GameStateMachine* getStateMachine();
 

@@ -17,12 +17,12 @@ const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 // ¿A MÁS FRAME_RATE MENOS FRAMES?
 const int FRAME_RATE = 10;
-const int NUM_TEXTURES = 14;
+const int NUM_TEXTURES = 16;
 const int WALL_WIDTH = 15;
 const int MAX_LEVELS = 3;
 
 // tipo enumerado de todas las texturas
-enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME, PLAY, EXIT };
+enum TextureName { BALL, BRICKS, DIGITS, GAMEOVER, PADDLE, SIDE, TOPSIDE, YOUWIN, CARGAR, JUGAR, REWARD, PAUSEGAME, PLAY, EXIT, RESUME, MAIN };
 
 enum CollisionType {PELOTA, PLAYER};
 
@@ -47,7 +47,9 @@ const TextureDescription TEXT_DESCR[NUM_TEXTURES] = {
 	{"rewards.png", 8, 10},
 	{"pauseGame.png", 1, 1},
 	{"play.png", 3, 1},
-	{"exit.png", 3, 1}
+	{"exit.png", 3, 1},
+	{"resume.png", 3, 1},
+	{"main.png", 3, 1}
 };
 
 class Ball;
@@ -83,7 +85,6 @@ private:
 
 	list<ArkanoidObject*> objectsList;
 	vector<ArkanoidObject*> buttonsVector;
-	vector<ArkanoidObject*> rewardsVector;
 
 	/*int lives = 3;
 	int currentLevel = 1;

@@ -12,7 +12,7 @@ void Paddle::update()
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect de la bola.
 
-	//game->collides(dest, Vector2D{ 0,0 }, PLAYER); /////////////////////////////////////
+	game->collides(dest, Vector2D{ 0,0 }, PLAYER); /////////////////////////////////////
 
 	if (pos.getX() >= 635 && dir.getX() > 0 || // si estoy a punto de pasarme de los bordes 
 		pos.getX() <= 15 && dir.getX() < 0) // y mi dirección es hacia ellos
@@ -38,6 +38,9 @@ void Paddle::handleEvent()
 			case SDLK_s: // y es la flecha derecha
 				std::cout << "hola";
 				//game->setSaveGame();   ////////////////////////////////////////////////////////
+				break;
+			case SDLK_ESCAPE:
+				std::cout << "hola";
 				break;
 			default:
 				break;

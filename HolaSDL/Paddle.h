@@ -3,6 +3,7 @@
 
 #include "MovingObject.h"
 #include "Game.h"
+#include "PlayState.h"
 
 class PlayState;
 

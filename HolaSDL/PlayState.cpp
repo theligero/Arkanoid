@@ -65,7 +65,7 @@ void PlayState::createReward(Vector2D _pos, int _w, int _h, Texture* _tex)
 	numRewards++;
 	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
 	sceneObjects.push_back(recompensa);
-	//rewardsVector.push_back(recompensa);
+	rewardsVector.push_back(recompensa);
 }
 
 void PlayState::addOneUp()
@@ -99,4 +99,36 @@ void PlayState::advanceLevel()
 	else {
 		resetBlockMap();
 	}
+}
+
+bool PlayState::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
+{
+	switch (colision) {
+	case PELOTA:
+		for (auto gameObject : sceneObjects) {
+			auto arkObject = dynamic_cast<ArkanoidObject*>(gameObject);
+			if (arkObject->collides(ball, normal))
+				return true;
+		}
+		break;
+	case PLAYER:
+		for (auto i : rewardsVector) {
+			i->collides(ball);
+		}
+	}
+
+
+	//// paredes
+	//for (int k = 0; k < 3; ++k) {
+	//	if (walls[k]->collides(ball, normal))
+	//		return true;
+	//}
+	//// jugador
+	//if (player->collides(ball, normal)) return true;
+	//// bloques
+	//if (blocksMap->collides(ball, normal)) return true;
+
+	return false;
+	// comprobación de colisión con todos los obj
+	// Vector2D pos(0, 0);
 }

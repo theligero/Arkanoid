@@ -17,6 +17,9 @@ public:
 	virtual void render();
 	virtual void handleEvent();
 
+	// colisión de objetos
+	bool collides(SDL_Rect pos, Vector2D& normal, CollisionType colision);
+
 	virtual bool onEnter();
 	virtual bool onExit();
 
@@ -50,6 +53,7 @@ private:
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
 
+	vector<ArkanoidObject*> rewardsVector;
 
 	int lives = 3;
 	int currentLevel = 1;

@@ -48,7 +48,6 @@ void MainMenuState::handleEvent()
 			std::cout << "hola bitch \n";
 			break;
 		}
-		
 	}
 	
 }

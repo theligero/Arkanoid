@@ -102,36 +102,36 @@ void Game::handleEvents() //Se manejan la E/S del jugador.
 	stateMachine->currentState()->handleEvent();
 }
 
-bool Game::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
-{
-	switch (colision) {
-	case PELOTA:
-		for (auto gameObject : objectsList) {
-			if (gameObject->collides(ball, normal))
-				return true;
-		}
-		break;
-	case PLAYER:
-		for (auto i : rewardsVector) {
-			i->collides(ball);
-		}
-	}
-	
-	
-	//// paredes
-	//for (int k = 0; k < 3; ++k) {
-	//	if (walls[k]->collides(ball, normal))
-	//		return true;
-	//}
-	//// jugador
-	//if (player->collides(ball, normal)) return true;
-	//// bloques
-	//if (blocksMap->collides(ball, normal)) return true;
-
-	return false;
-	// comprobación de colisión con todos los obj
-	// Vector2D pos(0, 0);
-}
+//bool Game::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
+//{
+//	switch (colision) {
+//	case PELOTA:
+//		for (auto gameObject : objectsList) {
+//			if (gameObject->collides(ball, normal))
+//				return true;
+//		}
+//		break;
+//	case PLAYER:
+//		for (auto i : rewardsVector) {
+//			i->collides(ball);
+//		}
+//	}
+//	
+//	
+//	//// paredes
+//	//for (int k = 0; k < 3; ++k) {
+//	//	if (walls[k]->collides(ball, normal))
+//	//		return true;
+//	//}
+//	//// jugador
+//	//if (player->collides(ball, normal)) return true;
+//	//// bloques
+//	//if (blocksMap->collides(ball, normal)) return true;
+//
+//	return false;
+//	// comprobación de colisión con todos los obj
+//	// Vector2D pos(0, 0);
+//}
 
 //void Game::resetBlockMap()
 //{

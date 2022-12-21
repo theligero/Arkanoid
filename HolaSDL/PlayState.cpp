@@ -101,22 +101,21 @@ void PlayState::advanceLevel()
 	}
 }
 
-bool PlayState::collides(SDL_Rect ball, Vector2D& normal, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
+bool PlayState::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector, CollisionType colision) //Se evalúan las colisiones entre la pelota y las distintas partes del juego.
 {
 	switch (colision) {
 	case PELOTA:
 		for (auto gameObject : sceneObjects) {
 			auto arkObject = dynamic_cast<ArkanoidObject*>(gameObject);
-			if (arkObject->collides(ball, normal))
+			if (arkObject->collides(ballRect, ballVel, collVector))
 				return true;
 		}
 		break;
 	case PLAYER:
 		for (auto i : rewardsVector) {
-			i->collides(ball);
+			i->collides(ballRect);
 		}
 	}
-
 
 	//// paredes
 	//for (int k = 0; k < 3; ++k) {

@@ -7,15 +7,15 @@ void Wall::render() const //Renderizo la pared.
 	tex->render(dest, SDL_FLIP_NONE);
 }
 
-bool Wall::collides(SDL_Rect ball, Vector2D& normal)
+bool Wall::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector)
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect de la pared.
 
 	//Si hay interección entre pared y bola, la normal afecta a la bola y rebota.
 
-	normal = _normal;
+	collVector = _normal;
 
-	return SDL_HasIntersection(&dest, &ball);
+	return SDL_HasIntersection(&dest, &ballRect);
 }
 
 void Wall::saveToFile(ofstream& input)

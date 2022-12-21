@@ -18,7 +18,7 @@ public:
 	virtual void handleEvent();
 
 	// colisión de objetos
-	bool collides(SDL_Rect pos, Vector2D& normal, CollisionType colision);
+	bool collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector, CollisionType colision);
 
 	virtual bool onEnter();
 	virtual bool onExit();

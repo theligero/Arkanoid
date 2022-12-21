@@ -36,7 +36,7 @@ public:
 	// entero con el número actual de bloques
 	int blocksInMap() const { return rows * columns; }
 	Block* returnBlock(Vector2D pos) const;
-	bool collides(SDL_Rect ball, Vector2D& normal) override;
+	bool collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector) override;
 	void decreaseNumBlocks() { 
 		numBlocks--; std::cout << numBlocks; };
 	int getNumBlocks() { return numBlocks; };

@@ -10,9 +10,7 @@ void Paddle::render() const
 
 void Paddle::update()
 {
-	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect de la bola.
-
-	game->collides(dest, Vector2D{ 0,0 }, PLAYER); /////////////////////////////////////
+	game->collides(getRect(), dir, Vector2D{ 0,0 }, PLAYER); /////////////////////////////////////
 
 	if (pos.getX() >= 635 && dir.getX() > 0 || // si estoy a punto de pasarme de los bordes 
 		pos.getX() <= 15 && dir.getX() < 0) // y mi dirección es hacia ellos
@@ -62,42 +60,17 @@ void Paddle::handleEvent()
 	}
 }
 
-bool Paddle::collides(SDL_Rect ball, Vector2D& normal)
+bool Paddle::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector)
 {
-	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del paddle.
-
-	// hay una imagen en la carpeta images, pero lo intentaré explicar
-	// de la mejor manera que pueda
-
-	double aux = ((double)ball.x - dest.x) + ball.w / 2; // posición relativa de la pelota respecto al paddle
-	double x; // variable dirección en x
-	double y; // variable dirección en y
-
-	// se supone que P es el tamaño del paddle
-
-	if (SDL_HasIntersection(&dest, &ball)) { // si hay intersección
-		if (aux >= 0 && aux < width) { // y la pelota está dentro del paddle
-			x = (2 * aux / width) - 1; // transformo la x en la función (verde) f(x) = (2x / P) - 1  
-			// si está en la mitad izquierda
-			if (aux < width / 2.0) y = -(2 * aux) / width; // transformo y en la función (amarilla) g(x) = - 2x / P
-			// y si está en la mitad derecha
-			else y = ((2 * aux) / width) - 2; // transformo y en la función (rosa) h(x) = (2x / P) - 2
-		}
-		else { // en caso de estar en el borde del paddle (o fuera?)
-			y = 0; // la normal en y será 0
-			if (aux < 0) x = -1; // si es el lado izquierdo la normal en x es -1
-			else x = 1; // si es lado derecho la normal en x es 1
-		}
-
-		// std::cout << "Devuelvo la normal x: " << x << ", y: " << y << std::endl;
-
-		normal = Vector2D(x, y); // le asigno la nueva normal al vector normal
-		normal.normalizeVector(); // lo normalizo
-
-		return true; // y devuelvo verdadero
+	if ((ballRect.y + ballRect.h >= pos.getY()) && (ballRect.x <= pos.getX() + width)
+		&& ((ballRect.x + ballRect.w) >= pos.getX()) && ballVel.getY() >= 0) {
+		// ratioToCenter is in [-1,1}, 0 if in the center and 1 (or -1) if in the border
+		double ratioToCenter = ((ballRect.x + ballRect.w / 2.0) - (pos.getX() + width / 2.0)) / (width / 2.0 + ballRect.w / 2.0);
+		collVector = { ratioToCenter,-2.5 };
+		// collVector.normalize();
+		return true;
 	}
-
-	return false; // en caso contrario devuelvo falso
+	else return false;
 }
 
 void Paddle::changePlatWidth(double scalar)

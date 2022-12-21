@@ -27,7 +27,7 @@ public:
 	// controlador de eventos
 	void handleEvent() override;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal) override;
+	bool collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector) override;
 	// cambio de ancho de la pala
 	void changePlatWidth(double scalar);
 

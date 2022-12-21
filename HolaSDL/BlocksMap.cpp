@@ -74,38 +74,69 @@ Block* BlocksMap::returnBlock(Vector2D ballPos) const
 	return bloque;
 }
 
-bool BlocksMap::collides(SDL_Rect ball, Vector2D& normal)
+bool BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector)
 {
-	Block* bloqueColision = nullptr;
+	Vector2D p0 = { (double)ballRect.x, (double)ballRect.y }; // top-left
+	Vector2D p1 = { (double)(ballRect.x + ballRect.w), (double)ballRect.y }; // top-right
+	Vector2D p2 = { (double)ballRect.x, (double)(ballRect.y + ballRect.h) }; // bottom-left
+	Vector2D p3 = { (double)(ballRect.x + ballRect.w), (double)(ballRect.y + ballRect.h) }; // bottom-right
 
-	if (ball.y < 415) {
-		//Esquina superior izquierda
-		bloqueColision = returnBlock({(double)ball.x, (double)ball.y});
-		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
-			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
-			return colisiona;
+	Block* b = nullptr;
+
+	if (ballVel.getX() < 0 && ballVel.getY() < 0) {
+		if ((b = returnBlock(p0))) {
+			if ((b->getRect().y + b->getRect().h - p0.getY()) <= (b->getRect().x + b->getRect().w - p0.getX()))
+				collVector = { 0,1 }; // Borde inferior mas cerca de p0
+			else
+				collVector = { 1,0 }; // Borde dcho mas cerca de p0
 		}
-		//Esquina inferior izquierda
-		bloqueColision = returnBlock({ (double)ball.x, (double)(ball.y + ball.h) });
-		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
-			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
-			return colisiona;
+		else if ((b = returnBlock(p1))) {
+			collVector = { 0,1 };
 		}
-		//Esquina superior derecha
-		bloqueColision = returnBlock({ (double)(ball.x + ball.w), (double)ball.y });
-		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
-			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
-			return colisiona;
-		}
-		//Esquina inferior derecha
-		bloqueColision = returnBlock({ (double)(ball.x + ball.w), (double)(ball.y + ball.h) });
-		if (bloqueColision != nullptr && !bloqueColision->getColisionado()) {
-			bool colisiona = bloqueColision->collides(ball, normal, numBlocks);
-			return colisiona;
-		}
+		else if ((b = returnBlock(p2))) collVector = { 1,0 };
 	}
-	
-	return false;
+	else if (ballVel.getX() >= 0 && ballVel.getY() < 0) {
+		if ((b = returnBlock(p1))) {
+			if (((b->getRect().y + b->getRect().h - p1.getY()) <= (p1.getX() - b->getRect().x)) || ballVel.getX() == 0)
+				collVector = { 0,1 }; // Borde inferior mas cerca de p1
+			else
+				collVector = { -1,0 }; // Borde izqdo mas cerca de p1
+		}
+		else if ((b = returnBlock(p0))) {
+			collVector = { 0,1 };
+		}
+		else if ((b = returnBlock(p3))) collVector = { -1,0 };
+	}
+	else if (ballVel.getX() > 0 && ballVel.getY() > 0) {
+		if ((b = returnBlock(p3))) {
+			if (((p3.getY() - b->getRect().y) <= (p3.getX() - b->getRect().x))) // || ballVel.getX() == 0)
+				collVector = { 0,-1 }; // Borde superior mas cerca de p3
+			else
+				collVector = { -1,0 }; // Borde dcho mas cerca de p3
+		}
+		else if ((b = returnBlock(p2))) {
+			collVector = { 0,-1 };
+		}
+		else if ((b = returnBlock(p1))) collVector = { -1,0 };
+	}
+	else if (ballVel.getX() < 0 && ballVel.getY() > 0) {
+		if ((b = returnBlock(p2))) {
+			if (((p2.getY() - b->getRect().y) <= (b->getRect().x + b->getRect().w - p2.getX()))) // || ballVel.getX() == 0)
+				collVector = { 0,-1 }; // Borde superior mas cerca de p2
+			else
+				collVector = { 1,0 }; // Borde dcho mas cerca de p0
+		}
+		else if ((b = returnBlock(p3))) {
+			collVector = { 0,-1 };
+		}
+		else if ((b = returnBlock(p0))) collVector = { 1,0 };
+	}
+
+	if (b != nullptr && !b->getColisionado()) {
+		b->setColisionado(true);
+		return true;
+	}
+	else return false;
 }
 
 void BlocksMap::saveToFile(ofstream& input)

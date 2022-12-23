@@ -17,6 +17,7 @@ public:
 	virtual bool collides(SDL_Rect ball, Vector2D& normal) { return false; };
 	virtual bool collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector) { return false; }
 	virtual bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks) { return false; };
+	virtual bool collides(int& numBlocks) { return false; };
 	virtual bool collides(SDL_Rect paddle) { return false; };
 	ArkanoidObject() : pos(0, 0), width(0), height(0), tex(nullptr) {}
 	ArkanoidObject(Vector2D pos, int w, int h, Texture* t) :

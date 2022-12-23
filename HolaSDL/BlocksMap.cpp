@@ -82,59 +82,61 @@ bool BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vect
 	Vector2D p3 = { (double)(ballRect.x + ballRect.w), (double)(ballRect.y + ballRect.h) }; // bottom-right
 
 	Block* b = nullptr;
-
-	if (ballVel.getX() < 0 && ballVel.getY() < 0) {
-		if ((b = returnBlock(p0))) {
-			if ((b->getRect().y + b->getRect().h - p0.getY()) <= (b->getRect().x + b->getRect().w - p0.getX()))
-				collVector = { 0,1 }; // Borde inferior mas cerca de p0
-			else
-				collVector = { 1,0 }; // Borde dcho mas cerca de p0
+	if (ballRect.y < height) {
+		if (ballVel.getX() < 0 && ballVel.getY() < 0) {
+			if ((b = returnBlock(p0))) {
+				if ((b->getRect().y + b->getRect().h - p0.getY()) <= (b->getRect().x + b->getRect().w - p0.getX()))
+					collVector = { 0,1 }; // Borde inferior mas cerca de p0
+				else
+					collVector = { 1,0 }; // Borde dcho mas cerca de p0
+			}
+			else if ((b = returnBlock(p1))) {
+				collVector = { 0,1 };
+			}
+			else if ((b = returnBlock(p2))) collVector = { 1,0 };
 		}
-		else if ((b = returnBlock(p1))) {
-			collVector = { 0,1 };
+		else if (ballVel.getX() >= 0 && ballVel.getY() < 0) {
+			if ((b = returnBlock(p1))) {
+				if (((b->getRect().y + b->getRect().h - p1.getY()) <= (p1.getX() - b->getRect().x)) || ballVel.getX() == 0)
+					collVector = { 0,1 }; // Borde inferior mas cerca de p1
+				else
+					collVector = { -1,0 }; // Borde izqdo mas cerca de p1
+			}
+			else if ((b = returnBlock(p0))) {
+				collVector = { 0,1 };
+			}
+			else if ((b = returnBlock(p3))) collVector = { -1,0 };
 		}
-		else if ((b = returnBlock(p2))) collVector = { 1,0 };
+		else if (ballVel.getX() > 0 && ballVel.getY() > 0) {
+			if ((b = returnBlock(p3))) {
+				if (((p3.getY() - b->getRect().y) <= (p3.getX() - b->getRect().x))) // || ballVel.getX() == 0)
+					collVector = { 0,-1 }; // Borde superior mas cerca de p3
+				else
+					collVector = { -1,0 }; // Borde dcho mas cerca de p3
+			}
+			else if ((b = returnBlock(p2))) {
+				collVector = { 0,-1 };
+			}
+			else if ((b = returnBlock(p1))) collVector = { -1,0 };
+		}
+		else if (ballVel.getX() < 0 && ballVel.getY() > 0) {
+			if ((b = returnBlock(p2))) {
+				if (((p2.getY() - b->getRect().y) <= (b->getRect().x + b->getRect().w - p2.getX()))) // || ballVel.getX() == 0)
+					collVector = { 0,-1 }; // Borde superior mas cerca de p2
+				else
+					collVector = { 1,0 }; // Borde dcho mas cerca de p0
+			}
+			else if ((b = returnBlock(p3))) {
+				collVector = { 0,-1 };
+			}
+			else if ((b = returnBlock(p0))) collVector = { 1,0 };
+		}
 	}
-	else if (ballVel.getX() >= 0 && ballVel.getY() < 0) {
-		if ((b = returnBlock(p1))) {
-			if (((b->getRect().y + b->getRect().h - p1.getY()) <= (p1.getX() - b->getRect().x)) || ballVel.getX() == 0)
-				collVector = { 0,1 }; // Borde inferior mas cerca de p1
-			else
-				collVector = { -1,0 }; // Borde izqdo mas cerca de p1
-		}
-		else if ((b = returnBlock(p0))) {
-			collVector = { 0,1 };
-		}
-		else if ((b = returnBlock(p3))) collVector = { -1,0 };
-	}
-	else if (ballVel.getX() > 0 && ballVel.getY() > 0) {
-		if ((b = returnBlock(p3))) {
-			if (((p3.getY() - b->getRect().y) <= (p3.getX() - b->getRect().x))) // || ballVel.getX() == 0)
-				collVector = { 0,-1 }; // Borde superior mas cerca de p3
-			else
-				collVector = { -1,0 }; // Borde dcho mas cerca de p3
-		}
-		else if ((b = returnBlock(p2))) {
-			collVector = { 0,-1 };
-		}
-		else if ((b = returnBlock(p1))) collVector = { -1,0 };
-	}
-	else if (ballVel.getX() < 0 && ballVel.getY() > 0) {
-		if ((b = returnBlock(p2))) {
-			if (((p2.getY() - b->getRect().y) <= (b->getRect().x + b->getRect().w - p2.getX()))) // || ballVel.getX() == 0)
-				collVector = { 0,-1 }; // Borde superior mas cerca de p2
-			else
-				collVector = { 1,0 }; // Borde dcho mas cerca de p0
-		}
-		else if ((b = returnBlock(p3))) {
-			collVector = { 0,-1 };
-		}
-		else if ((b = returnBlock(p0))) collVector = { 1,0 };
-	}
+	
 
 	if (b != nullptr && !b->getColisionado()) {
-		b->setColisionado(true);
-		--numBlocks;
+		b->setColisionado(b->collides(numBlocks));
+		//--numBlocks;
 		return true;
 	}
 	else return false;

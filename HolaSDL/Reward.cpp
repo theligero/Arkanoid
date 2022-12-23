@@ -3,15 +3,19 @@
 Reward::~Reward()
 {
 	// Me busco en la lista gracias al iterador guardado
-	_scene->getObjectList()->erase(it);
+	
+	_scene->getObjectList()->erase(itScene);
+	_scene->getRewardsVector()->erase(itRewards);
 	// Me borro del todo
-	delete(this);
+	
 }
 
 void Reward::InitializeKeyReward()
 {
-	it = _scene->getObjectList()->end();
-	--it;
+	itScene = _scene->getObjectList()->end();
+	--itScene;
+	itRewards = _scene->getRewardsVector()->end();
+	--itRewards;
 }
 
 void Reward::render() const
@@ -60,7 +64,7 @@ void Reward::StablishReward()
 		default:
 			break;
 	}
-	//this->~Reward();
+	//delete(this);
 }
 
 void Reward::update() 

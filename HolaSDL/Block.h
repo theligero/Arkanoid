@@ -39,7 +39,7 @@ public:
 	// renderizado
 	void render() const ;
 	// colisión
-	bool collides(SDL_Rect ball, Vector2D& normal, int& numBlocks) override;
+	bool collides(int& numBlocks) override;
 	void setColisionado(const bool& col) { colisionado = col; }
 	bool getColisionado() { return colisionado; };
 	int getColor() { return color; };

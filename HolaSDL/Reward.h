@@ -39,7 +39,8 @@ private:
 	// Puntero al juego
 	PlayState* _scene = nullptr;
 	// Iterador de la recompensa en la lista
-	std::list<GameObject*>::iterator it;
+	std::list<GameObject*>::iterator itScene;
+	std::list<ArkanoidObject*>::iterator itRewards;
 	// Tipo de recompensa
 	rewardColors rew = rewardColors::R;
 
@@ -51,7 +52,6 @@ public:
 	Reward(Vector2D pos, int w, int h, Texture* tex, PlayState* juego) :
 		MovingObject(pos, w, h, tex, { 0, 1 }), _scene(juego),
 		rew(rewardColors(rand() % 4 + 1)) {
-		InitializeKeyReward();
 	}
 	// Destructora
 	~Reward();

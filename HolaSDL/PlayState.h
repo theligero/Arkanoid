@@ -40,6 +40,8 @@ public:
 
 	Texture* getRewardTexture() { return game->getArrayTex(REWARD); }
 
+	list<ArkanoidObject*>* getRewardsVector() { return &rewardsVector;}
+
 	void advanceLevel();
 
 	void enterPause();
@@ -60,12 +62,14 @@ private:
 	Ball* ball = nullptr; // puntero a la pelota
 	Paddle* player = nullptr; // puntero al jugador/pala
 
-	vector<ArkanoidObject*> rewardsVector;
+	list<ArkanoidObject*> rewardsVector;
 
 	int lives = 3;
 	int currentLevel = 1;
 	int numRewards = 0;
 	int points = 0;
+
+	bool finJuego = false;
 };
 
 #endif /*PLAYSTATE_H_*/

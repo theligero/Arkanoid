@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "EndState.h"
+#include <typeinfo>
 
 PlayState::PlayState(Game* g)
 {
@@ -47,8 +48,14 @@ PlayState::PlayState(Game* g, fstream& input)
 void PlayState::update()
 {
 	for (auto it : sceneObjects) {
-		it->update();
+		
+			/*const std::type_info& r2 = typeid(*it);
+			std::cout << r2.name();*/
+			it->update();
+			if (finJuego) return;
 	}
+	
+ 	
 
 	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
 		--lives;
@@ -110,6 +117,7 @@ void PlayState::createReward(Vector2D _pos, int _w, int _h, Texture* _tex)
 	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
 	sceneObjects.push_back(recompensa);
 	rewardsVector.push_back(recompensa);
+	recompensa->InitializeKeyReward();
 }
 
 void PlayState::addOneUp()
@@ -138,6 +146,7 @@ void PlayState::advanceLevel()
 {
 	if (currentLevel > MAX_LEVELS) {
 		game->getStateMachine()->changeState(new EndState(game));
+		finJuego = true;
 		std::cout << "GANASTE" << std::endl;
 	}
 	else {

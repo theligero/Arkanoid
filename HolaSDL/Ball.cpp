@@ -19,7 +19,7 @@ void Ball::update()
 	if (game->collides(dest, dir, normal, PELOTA)) { // si colisiona
 		// aplico la fórmula de la reflexión
 		dir = dir - (normal.scalarMultiplication((Vector2D().scalarProduct(dir, normal) * 2)));
-		dir.normalizeVector(); // normalizo el vector
+		//dir.normalizeVector(); // normalizo el vector
 	}
 	pos += dir; // avanzo la pelota
 }

@@ -3,11 +3,9 @@
 Reward::~Reward()
 {
 	// Me busco en la lista gracias al iterador guardado
-	
 	_scene->getObjectList()->erase(itScene);
-	_scene->getRewardsVector()->erase(itRewards);
 	// Me borro del todo
-	
+	_scene->getRewardsVector()->erase(itRewards);
 }
 
 void Reward::InitializeKeyReward()
@@ -22,9 +20,8 @@ void Reward::render() const
 {
 	SDL_Rect dest = getRect(); //Establezco en una variable el SDL_Rect del bloque.
 
-	//height = tex->getH(); width = tex->getW();
 	if (!colision) {
-	tex->renderFrame(dest,  TYPE_REWARD[rew].row,TYPE_REWARD[rew].col, 1);
+		tex->renderFrame(dest,  TYPE_REWARD[rew].row,TYPE_REWARD[rew].col, 1);
 	}
 	else {
 		tex->renderFrame(dest, TYPE_REWARD[NINGUNO].row, TYPE_REWARD[NINGUNO].col, 1);
@@ -64,7 +61,6 @@ void Reward::StablishReward()
 		default:
 			break;
 	}
-	//delete(this);
 }
 
 void Reward::update() 

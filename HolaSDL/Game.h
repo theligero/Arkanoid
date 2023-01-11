@@ -95,16 +95,6 @@ public:
 	void update();
 	// controlador de eventos
 	void handleEvents();
-	// colisión de objetos
-	bool collides(SDL_Rect pos, Vector2D& normal, CollisionType colision);
-
-	void resetBlockMap();
-
-	void save();
-
-	void load();
-
-	void initGame();
 
 	void setSaveGame() { saveGame = true; }
 

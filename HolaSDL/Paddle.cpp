@@ -68,7 +68,6 @@ bool Paddle::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2
 		// ratioToCenter is in [-1,1}, 0 if in the center and 1 (or -1) if in the border
 		double ratioToCenter = ((ballRect.x + ballRect.w / 2.0) - (pos.getX() + width / 2.0)) / (width / 2.0 + ballRect.w / 2.0);
 		collVector = { ratioToCenter,-2.5 };
-		// collVector.normalize();
 		return true;
 	}
 	else return false;

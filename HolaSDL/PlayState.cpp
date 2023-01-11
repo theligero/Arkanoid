@@ -48,14 +48,9 @@ PlayState::PlayState(Game* g, fstream& input)
 void PlayState::update()
 {
 	for (auto it : sceneObjects) {
-		
-			/*const std::type_info& r2 = typeid(*it);
-			std::cout << r2.name();*/
-			it->update();
-			if (finJuego) return;
+		it->update();
+		if (finJuego) return;
 	}
-	
- 	
 
 	if (ball->isUnderDeadline(WINDOW_HEIGHT)) {
 		--lives;
@@ -94,7 +89,7 @@ void PlayState::handleEvent()
 
 bool PlayState::onEnter()
 {
-	std::cout << "entrando en PlayState\n";
+	std::cout << "Entrando en PlayState\n";
 	return true;
 }
 
@@ -113,7 +108,7 @@ void PlayState::resetBlockMap()
 
 void PlayState::createReward(Vector2D _pos, int _w, int _h, Texture* _tex)
 {
-	numRewards++;
+	++numRewards;
 	Reward* recompensa = new Reward(_pos, _w, _h, _tex, this);
 	sceneObjects.push_back(recompensa);
 	rewardsVector.push_back(recompensa);
@@ -122,12 +117,12 @@ void PlayState::createReward(Vector2D _pos, int _w, int _h, Texture* _tex)
 
 void PlayState::addOneUp()
 {
-	lives += 1;
+	++lives;
 }
 
 void PlayState::nextLevel()
 {
-	currentLevel += 1;
+	++currentLevel;
 	advanceLevel();
 }
 
@@ -193,17 +188,5 @@ bool PlayState::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vect
 		}
 	}
 
-	//// paredes
-	//for (int k = 0; k < 3; ++k) {
-	//	if (walls[k]->collides(ball, normal))
-	//		return true;
-	//}
-	//// jugador
-	//if (player->collides(ball, normal)) return true;
-	//// bloques
-	//if (blocksMap->collides(ball, normal)) return true;
-
 	return false;
-	// comprobación de colisión con todos los obj
-	// Vector2D pos(0, 0);
 }

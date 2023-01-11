@@ -1,10 +1,10 @@
 #include "PauseState.h"
-
 #include "MainMenuState.h"
 
 PauseState::PauseState(Game* g)
 {
 	game = g;
+
 	MenuButton* resumeGame = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(RESUME), backToGame, game);
 	MenuButton* mainMenu = new MenuButton({ 50,400 }, 150, 50, game->getArrayTex(MAIN), backToMenu, game);
 
@@ -72,7 +72,6 @@ bool PauseState::onExit()
 void PauseState::backToGame(Game* game)
 {
 	game->getStateMachine()->popState();
-	//std::cout << "hola";
 }
 
 void PauseState::backToMenu(Game* game)

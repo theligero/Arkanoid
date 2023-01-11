@@ -13,34 +13,23 @@ void GameStateMachine::pushState(GameState* state)
 
 void GameStateMachine::changeState(GameState* state)
 {
-    if (!gameStack.empty())
+    if (!gameStack.empty() && gameStack.top()->onExit())
     {
-        if (gameStack.top() == state)
-        {
-            return; // do nothing
-        }
-        if (gameStack.top()->onExit())
-        {
-            delete gameStack.top();
-            gameStack.pop();
-        }
+        delete gameStack.top();
+        gameStack.pop();
     }
 
     gameStack.push(state);
 
     gameStack.top()->onEnter();
-
 }
 
 void GameStateMachine::popState()
 {
-    if (!gameStack.empty())
+    if (!gameStack.empty() && gameStack.top()->onExit())
     {
-        if (gameStack.top()->onExit())
-        {
-            delete gameStack.top();
-            gameStack.pop();
-        }
+        delete gameStack.top();
+        gameStack.pop();
     }
 }
 
@@ -50,7 +39,6 @@ void GameStateMachine::update()
     {
         gameStack.top()->update();
     }
-
 }
 
 void GameStateMachine::render()

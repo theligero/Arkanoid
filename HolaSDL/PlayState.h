@@ -49,11 +49,6 @@ public:
 	void save();
 
 	void setSave();
-
-	// Observa que ahora la clase Game quedaría solo con los siguientes atributos básicos : los punteros a
-	// SDL Window y SDL Renderer, el booleano de final de la aplicación, el array de texturas y la máquina de
-	// estados. De hecho, esta clase podría pasar a llamarse SDLApplication pues ya no tiene nada referente
-	// al juego propiamente dicho.
 private:
 	SDL_Window* window;
 

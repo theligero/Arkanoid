@@ -19,7 +19,6 @@ void Ball::update()
 	if (game->collides(dest, dir, normal, PELOTA)) { // si colisiona
 		// aplico la fórmula de la reflexión
 		dir = dir - (normal.scalarMultiplication((Vector2D().scalarProduct(dir, normal) * 2)));
-		//dir.normalizeVector(); // normalizo el vector
 	}
 	pos += dir; // avanzo la pelota
 }
@@ -27,18 +26,17 @@ void Ball::update()
 void Ball::restartPosition(int WINDOW_WIDTH, int WINDOW_HEIGHT)
 {
 	pos = Vector2D(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 170);
-	//pos.getX(), WINDOW_HEIGHT - 170
 }
 
 bool Ball::isUnderDeadline(int windowHeight)
 {
-	if (getRect().y > windowHeight) return true;
-	return false;
+	return getRect().y > windowHeight;
 }
 
 void Ball::saveToFile(ofstream& input)
 {
-	input << pos.getX() << " " << pos.getY() << " " << width << " " << height << " " << dir.getX() << " " << dir.getY() << "\n";
+	input << pos.getX() << " " << pos.getY() << " " << width << 
+		" " << height << " " << dir.getX() << " " << dir.getY() << "\n";
 }
 
 void Ball::loadFromFile(fstream& input)

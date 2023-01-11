@@ -4,7 +4,6 @@ MainMenuState::MainMenuState(Game* g)
 {
 	game = g;
 
-	//MenuButton* jugar = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(PLAY));
 	MenuButton* jugar = new MenuButton({ 50,50 }, 150, 50, game->getArrayTex(PLAY), beginGame, game);
 	MenuButton* cargar = new MenuButton({ 50,200 }, 150, 50, game->getArrayTex(LOAD), loadGame, game);
 	MenuButton* salir = new MenuButton({ 50,400 }, 150, 50, game->getArrayTex(EXIT), endGame, game);
@@ -60,21 +59,6 @@ void MainMenuState::handleEvent()
 			break;
 		}
 	}
-	//for (auto it : sceneObjects) {
-	//	/*it->handleEvent();
-	//	if (it->buttonPressed()) {
-	//		std::cout << "hola bitch \n";
-	//		break;
-	//	}
-	//	auto objeto = dynamic_cast<MenuButton*>(it);
-	//	objeto->handleEvent();
-	//	if (objeto->getPressed()) {
-	//		std::cout << "hola bitch \n";
-	//		break;
-	//	}*/
-	//	it->handleEvent();
-	//}
-	
 }
 
 bool MainMenuState::onEnter()
